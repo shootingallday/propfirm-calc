@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "propfirm-calc"
+version = "0.1.0"
+description = "Tiny, dependency-free math for funded-trader (prop firm) futures accounts: trailing drawdown, consistency rule, payout eligibility."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "shootingallday" }]
+keywords = ["trading", "futures", "prop-firm", "funded-trader", "drawdown", "topstep", "apex"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/shootingallday/propfirm-calc"
+Repository = "https://github.com/shootingallday/propfirm-calc"
+Issues = "https://github.com/shootingallday/propfirm-calc/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/propfirm_calc"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
