@@ -61,3 +61,6 @@ pythonpath = ["src"]
 [tool.mypy]
 files = ["src"]
 strict = true
+
+[tool.ruff.format]
+exclude = ["*.md"]

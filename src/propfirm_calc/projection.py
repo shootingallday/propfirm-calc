@@ -119,9 +119,7 @@ def payout_projection(
         binding = None
 
     projected = (
-        math.inf
-        if math.isinf(trading_days)
-        else current_profit + avg_daily_profit * trading_days
+        math.inf if math.isinf(trading_days) else current_profit + avg_daily_profit * trading_days
     )
 
     return PayoutProjection(

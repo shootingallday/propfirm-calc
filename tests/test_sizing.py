@@ -129,9 +129,7 @@ class TestMaxContractsFromCushion:
     def test_rejects_risk_pct_outside_range(self):
         for bad in (0, -10, 101):
             with pytest.raises(ValueError):
-                max_contracts_from_cushion(
-                    50_500, 50_000, 2_000, 51_000, 20, NQ_TICK, risk_pct=bad
-                )
+                max_contracts_from_cushion(50_500, 50_000, 2_000, 51_000, 20, NQ_TICK, risk_pct=bad)
 
 
 class TestRMultiple:

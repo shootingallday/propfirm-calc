@@ -22,9 +22,7 @@ def best_day_pct(best_day_profit: float, total_profit: float) -> float:
     return best_day_profit / total_profit * 100.0
 
 
-def consistency_ok(
-    best_day_profit: float, total_profit: float, consistency_pct: float
-) -> bool:
+def consistency_ok(best_day_profit: float, total_profit: float, consistency_pct: float) -> bool:
     """True if the best day is within the consistency cap.
 
     Requires positive total profit and ``best_day_pct <= consistency_pct``.

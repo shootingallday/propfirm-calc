@@ -20,8 +20,16 @@ def run_json(capsys, *argv):
 class TestDrawdown:
     def test_trailing_floor_and_cushion(self, capsys):
         payload = run_json(
-            capsys, "drawdown", "--balance", "50000", "--max-dd", "2000",
-            "--peak", "51000", "--equity", "50500",
+            capsys,
+            "drawdown",
+            "--balance",
+            "50000",
+            "--max-dd",
+            "2000",
+            "--peak",
+            "51000",
+            "--equity",
+            "50500",
         )
         assert payload == {
             "floor": 49_000,
@@ -38,8 +46,16 @@ class TestDrawdown:
 
     def test_text_output_is_readable(self, capsys):
         code, out, _ = run(
-            capsys, "drawdown", "--balance", "50000", "--max-dd", "2000",
-            "--peak", "51000", "--equity", "48900",
+            capsys,
+            "drawdown",
+            "--balance",
+            "50000",
+            "--max-dd",
+            "2000",
+            "--peak",
+            "51000",
+            "--equity",
+            "48900",
         )
         assert code == 0
         assert "$49,000.00" in out
@@ -47,15 +63,34 @@ class TestDrawdown:
 
     def test_static_type(self, capsys):
         payload = run_json(
-            capsys, "drawdown", "--balance", "50000", "--max-dd", "2000",
-            "--peak", "53000", "--type", "static",
+            capsys,
+            "drawdown",
+            "--balance",
+            "50000",
+            "--max-dd",
+            "2000",
+            "--peak",
+            "53000",
+            "--type",
+            "static",
         )
         assert payload["floor"] == 48_000
 
     def test_unknown_type_is_rejected(self, capsys):
         with pytest.raises(SystemExit):
-            main(["drawdown", "--balance", "50000", "--max-dd", "2000",
-                  "--peak", "51000", "--type", "nonsense"])
+            main(
+                [
+                    "drawdown",
+                    "--balance",
+                    "50000",
+                    "--max-dd",
+                    "2000",
+                    "--peak",
+                    "51000",
+                    "--type",
+                    "nonsense",
+                ]
+            )
 
 
 class TestConsistency:
@@ -78,8 +113,18 @@ class TestConsistency:
 class TestPayout:
     def test_blockers_are_listed(self, capsys):
         payload = run_json(
-            capsys, "payout", "--profit", "4000", "--winning-days", "4",
-            "--min-winning-days", "5", "--best-day", "3000", "--pct", "50",
+            capsys,
+            "payout",
+            "--profit",
+            "4000",
+            "--winning-days",
+            "4",
+            "--min-winning-days",
+            "5",
+            "--best-day",
+            "3000",
+            "--pct",
+            "50",
         )
         assert payload["eligible"] is False
         assert len(payload["blockers"]) == 2
@@ -102,9 +147,22 @@ class TestSize:
 
     def test_sizing_against_the_drawdown_floor(self, capsys):
         payload = run_json(
-            capsys, "size", "--tick-value", "5", "--stop-ticks", "20",
-            "--equity", "50500", "--balance", "50000", "--max-dd", "2000",
-            "--peak", "51000", "--risk-pct", "20",
+            capsys,
+            "size",
+            "--tick-value",
+            "5",
+            "--stop-ticks",
+            "20",
+            "--equity",
+            "50500",
+            "--balance",
+            "50000",
+            "--max-dd",
+            "2000",
+            "--peak",
+            "51000",
+            "--risk-pct",
+            "20",
         )
         assert payload["contracts"] == 3
         assert payload["basis"] == "drawdown cushion"
@@ -125,8 +183,18 @@ class TestSize:
 class TestProject:
     def test_binding_constraint_is_reported(self, capsys):
         payload = run_json(
-            capsys, "project", "--profit", "2000", "--avg-daily", "500",
-            "--target", "3000", "--best-day", "3000", "--pct", "50",
+            capsys,
+            "project",
+            "--profit",
+            "2000",
+            "--avg-daily",
+            "500",
+            "--target",
+            "3000",
+            "--best-day",
+            "3000",
+            "--pct",
+            "50",
         )
         assert payload["trading_days"] == 8
         assert payload["binding_constraint"] == "consistency"
