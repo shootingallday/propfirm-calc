@@ -98,7 +98,13 @@ def _add_account(sub: argparse.ArgumentParser, *, required: bool) -> None:
         "--max-dd", type=float, required=required, help="maximum loss limit in dollars"
     )
     sub.add_argument("--peak", type=float, required=required, help="high-water mark equity")
-    sub.add_argument("--type", dest="dd_type", choices=DD_TYPES, default="trailing")
+    sub.add_argument(
+        "--type",
+        dest="dd_type",
+        choices=DD_TYPES,
+        default="trailing",
+        help="drawdown regime (default: trailing)",
+    )
     sub.add_argument(
         "--lock-at", type=float, default=None, help="level at which a trailing floor locks"
     )

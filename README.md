@@ -3,7 +3,7 @@
 [![CI](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml/badge.svg)](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
 [![Python versions](https://img.shields.io/pypi/pyversions/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/shootingallday/propfirm-calc/blob/main/LICENSE)
 
 Tiny, dependency-free Python math for **funded-trader (prop firm) futures accounts**.
 
@@ -32,6 +32,8 @@ pip install propfirm-calc
 ```
 
 Python 3.9+. Ships type information (`py.typed`) and a `propfirm-calc` CLI.
+
+Full documentation: **<https://shootingallday.github.io/propfirm-calc/>**
 
 ## Drawdown floor — the one people get wrong
 
@@ -196,8 +198,8 @@ ruff format --check .
 mypy
 ```
 
-Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Release notes
-live in [CHANGELOG.md](CHANGELOG.md).
+Contributions welcome — see [CONTRIBUTING.md](https://github.com/shootingallday/propfirm-calc/blob/main/CONTRIBUTING.md). Release notes
+live in [CHANGELOG.md](https://github.com/shootingallday/propfirm-calc/blob/main/CHANGELOG.md).
 
 ## License
 

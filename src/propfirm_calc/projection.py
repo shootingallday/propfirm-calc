@@ -73,10 +73,12 @@ def payout_projection(
         current_profit: Cumulative net profit on the account.
         avg_daily_profit: Assumed profit per future trading day.
         profit_target: Profit target to clear, if the firm sets one.
-        winning_days / min_winning_days: Winning days banked and the minimum
-            required. Both must be given for the check to apply.
-        best_day_profit / consistency_pct: Largest single-day profit and the
-            consistency cap. Both must be given for the check to apply.
+        winning_days: Qualifying winning days banked. Applies only when
+            ``min_winning_days`` is also given.
+        min_winning_days: Minimum winning days the firm requires.
+        best_day_profit: Largest single-day profit. Applies only when
+            ``consistency_pct`` is also given.
+        consistency_pct: The consistency cap, as a percentage.
 
     Returns:
         A :class:`PayoutProjection` whose ``trading_days`` is the longest of
