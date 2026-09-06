@@ -40,9 +40,11 @@ Homepage = "https://github.com/shootingallday/propfirm-calc"
 Repository = "https://github.com/shootingallday/propfirm-calc"
 Issues = "https://github.com/shootingallday/propfirm-calc/issues"
 Changelog = "https://github.com/shootingallday/propfirm-calc/blob/main/CHANGELOG.md"
+Documentation = "https://shootingallday.github.io/propfirm-calc/"
 
 [project.optional-dependencies]
 dev = ["pytest>=7", "pytest-cov>=4", "ruff==0.16.6", "mypy>=1.8"]
+docs = ["mkdocs-material>=9.7", "mkdocstrings[python]>=1.0"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/propfirm_calc"]

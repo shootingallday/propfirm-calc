@@ -11,3 +11,6 @@ dist/
 venv/
 .coverage
 htmlcov/
+
+# MkDocs
+site/
