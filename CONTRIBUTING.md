@@ -29,12 +29,14 @@ pip install -e ".[dev]"
 
 ## Checks
 
-All three must pass; CI runs the same commands on Linux, macOS and Windows
-across Python 3.9–3.13.
+All four must pass; CI runs the same commands on Linux, macOS and Windows
+across Python 3.9–3.13. The formatter governs Python files only — Markdown is
+excluded so worked examples can keep their hand-aligned result comments.
 
 ```bash
 pytest -q
 ruff check .
+ruff format --check .
 mypy
 ```
 

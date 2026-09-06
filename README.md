@@ -192,6 +192,7 @@ reinvent (and re-bug) it.
 pip install -e ".[dev]"
 pytest -q
 ruff check .
+ruff format --check .
 mypy
 ```
 

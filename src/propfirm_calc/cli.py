@@ -47,9 +47,7 @@ def _build_parser() -> argparse.ArgumentParser:
         description="Drawdown, consistency, payout, sizing and projection math "
         "for funded-trader futures accounts.",
     )
-    parser.add_argument(
-        "--version", action="version", version=f"propfirm-calc {__version__}"
-    )
+    parser.add_argument("--version", action="version", version=f"propfirm-calc {__version__}")
     subs = parser.add_subparsers(dest="command", required=True)
 
     commands = (

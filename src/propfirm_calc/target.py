@@ -77,25 +77,17 @@ def payout_eligibility(
     if winning_days is not None and min_winning_days is not None:
         days_met = winning_days >= min_winning_days
         if not days_met:
-            blockers.append(
-                f"{winning_days} of {min_winning_days} required winning days"
-            )
+            blockers.append(f"{winning_days} of {min_winning_days} required winning days")
 
     consistency_met: bool | None = None
     consistency_required_profit: float | None = None
     if best_day_profit is not None and consistency_pct is not None:
-        consistency_met = consistency_ok(
-            best_day_profit, current_profit, consistency_pct
-        )
-        consistency_required_profit = required_profit(
-            best_day_profit, consistency_pct
-        )
+        consistency_met = consistency_ok(best_day_profit, current_profit, consistency_pct)
+        consistency_required_profit = required_profit(best_day_profit, consistency_pct)
         if not consistency_met:
             pct = best_day_pct(best_day_profit, current_profit)
             shown = "∞" if pct == float("inf") else f"{pct:.0f}%"
-            blockers.append(
-                f"Best day {shown} over the {consistency_pct:.0f}% consistency limit"
-            )
+            blockers.append(f"Best day {shown} over the {consistency_pct:.0f}% consistency limit")
 
     return EligibilityResult(
         eligible=not blockers,

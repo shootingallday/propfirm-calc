@@ -19,9 +19,7 @@ class TestDaysToProfit:
 
 class TestPayoutProjection:
     def test_target_binds_when_it_is_furthest_out(self):
-        r = payout_projection(
-            1_000, 500, profit_target=3_000, winning_days=4, min_winning_days=5
-        )
+        r = payout_projection(1_000, 500, profit_target=3_000, winning_days=4, min_winning_days=5)
         assert r.days_to_target == 4
         assert r.days_to_min_days == 1
         assert r.trading_days == 4
@@ -29,9 +27,7 @@ class TestPayoutProjection:
         assert r.projected_profit == 3_000
 
     def test_winning_days_bind_when_profit_arrives_first(self):
-        r = payout_projection(
-            2_800, 500, profit_target=3_000, winning_days=1, min_winning_days=5
-        )
+        r = payout_projection(2_800, 500, profit_target=3_000, winning_days=1, min_winning_days=5)
         assert r.days_to_target == 1
         assert r.trading_days == 4
         assert r.binding_constraint == "winning_days"
@@ -48,9 +44,7 @@ class TestPayoutProjection:
         assert r.projected_profit == 6_000
 
     def test_already_eligible_reports_no_constraint(self):
-        r = payout_projection(
-            5_000, 500, profit_target=3_000, winning_days=6, min_winning_days=5
-        )
+        r = payout_projection(5_000, 500, profit_target=3_000, winning_days=6, min_winning_days=5)
         assert r.trading_days == 0
         assert r.binding_constraint is None
         assert r.projected_profit == 5_000
