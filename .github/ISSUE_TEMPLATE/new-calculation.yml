@@ -1,0 +1,34 @@
+name: New calculation
+description: Propose a calculation this library should cover
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        The library stays dependency-free and firm-agnostic — it bundles no firm
+        rule data. See CONTRIBUTING.md for what's out of scope.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to work out?
+      description: The trading situation, not the function signature.
+      placeholder: >
+        How much I can lose today and still be able to trade tomorrow under an
+        EOD trailing drawdown.
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs and expected answer
+      description: A worked example with real numbers.
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: How you compute it today
+      description: Spreadsheet, journal software, or by hand — whatever you use now.

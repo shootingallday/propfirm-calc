@@ -1,0 +1,54 @@
+name: Wrong calculation
+description: A result disagrees with what a prop firm actually did to an account
+labels: ["bug", "math"]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        This is the most useful kind of report. The account numbers matter more
+        than the description — with them the disagreement is reproducible in one
+        line.
+
+  - type: input
+    id: call
+    attributes:
+      label: The call you made
+      description: The exact function call or CLI command.
+      placeholder: drawdown_floor(50_000, 2_000, peak_equity=51_000)
+    validations:
+      required: true
+
+  - type: input
+    id: got
+    attributes:
+      label: What it returned
+      placeholder: "49000.0"
+    validations:
+      required: true
+
+  - type: input
+    id: expected
+    attributes:
+      label: What the firm's platform showed
+      placeholder: "49500.00 on the account dashboard"
+    validations:
+      required: true
+
+  - type: textarea
+    id: account
+    attributes:
+      label: Account details
+      description: >
+        Starting balance, max loss limit, drawdown type (trailing, EOD trailing,
+        static), peak equity and current equity. Firm name helps if you're happy
+        to share it.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: propfirm-calc version
+      placeholder: "0.2.0"
+    validations:
+      required: true
