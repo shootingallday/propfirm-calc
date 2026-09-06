@@ -4,13 +4,22 @@ build-backend = "hatchling.build"
 
 [project]
 name = "propfirm-calc"
-version = "0.1.0"
-description = "Tiny, dependency-free math for funded-trader (prop firm) futures accounts: trailing drawdown, consistency rule, payout eligibility."
+version = "0.2.0"
+description = "Tiny, dependency-free math for funded-trader (prop firm) futures accounts: trailing drawdown, consistency rule, payout eligibility, sizing and projection."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSE" }
 authors = [{ name = "shootingallday" }]
-keywords = ["trading", "futures", "prop-firm", "funded-trader", "drawdown", "topstep", "apex"]
+keywords = [
+    "trading",
+    "futures",
+    "prop-firm",
+    "funded-trader",
+    "drawdown",
+    "position-sizing",
+    "topstep",
+    "apex",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Financial and Insurance Industry",
@@ -19,16 +28,21 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Office/Business :: Financial :: Investment",
     "Typing :: Typed",
+    "Environment :: Console",
 ]
 dependencies = []
+
+[project.scripts]
+propfirm-calc = "propfirm_calc.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/shootingallday/propfirm-calc"
 Repository = "https://github.com/shootingallday/propfirm-calc"
 Issues = "https://github.com/shootingallday/propfirm-calc/issues"
+Changelog = "https://github.com/shootingallday/propfirm-calc/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
-dev = ["pytest>=7", "ruff>=0.4"]
+dev = ["pytest>=7", "pytest-cov>=4", "ruff==0.16.6", "mypy>=1.8"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/propfirm_calc"]
@@ -37,6 +51,13 @@ packages = ["src/propfirm_calc"]
 line-length = 100
 src = ["src", "tests"]
 
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "RUF"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[tool.mypy]
+files = ["src"]
+strict = true

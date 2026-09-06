@@ -1,8 +1,13 @@
 # propfirm-calc
 
+[![CI](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml/badge.svg)](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
+[![Python versions](https://img.shields.io/pypi/pyversions/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Tiny, dependency-free Python math for **funded-trader (prop firm) futures accounts**.
 
-Three calculations every prop-futures trader needs and most journals get subtly
+The calculations every prop-futures trader needs and most journals get subtly
 wrong:
 
 1. **Trailing drawdown floor** — the equity level at which your account blows,
@@ -11,6 +16,10 @@ wrong:
    *total profit* a big day forces you to reach before it's withdrawable.
 3. **Payout eligibility** — target, minimum winning days, and consistency rolled
    into one answer with human-readable blockers.
+4. **Position sizing** — the largest position that cannot breach the account,
+   sized against the *drawdown floor* rather than the balance.
+5. **Payout projection** — how many trading days until a payout is actually
+   available, and which rule is holding it up.
 
 No dependencies. No bundled firm data — you pass the numbers, so it works for
 **any** firm (Topstep, Apex, Take Profit Trader, My Funded Futures, Lucid, …)
@@ -21,6 +30,8 @@ and never goes stale when a firm changes its rules.
 ```bash
 pip install propfirm-calc
 ```
+
+Python 3.9+. Ships type information (`py.typed`) and a `propfirm-calc` CLI.
 
 ## Drawdown floor — the one people get wrong
 
@@ -90,13 +101,90 @@ r.blockers            # ('4 of 5 required winning days',
 r.consistency_required_profit   # 6_000.0
 ```
 
+## Position sizing — against the floor, not the balance
+
+On a trailing account the floor moves up underneath you, so sizing off the
+balance quietly over-risks. `max_contracts_from_cushion` sizes against the real
+distance to a breach.
+
+```python
+from propfirm_calc import max_contracts, max_contracts_from_cushion, pnl
+
+# Plain risk budget: $500 risk, 20-tick stop on NQ ($5/tick) = $100/contract.
+max_contracts(500, stop_ticks=20, tick_value=5.0)      # 5
+
+# $50k account at $50,500 with a $51k peak: the floor is $49k, cushion $1,500.
+# Risk a quarter of it on a 20-tick NQ stop:
+max_contracts_from_cushion(
+    current_equity=50_500, starting_balance=50_000,
+    max_drawdown=2_000, peak_equity=51_000,
+    stop_ticks=20, tick_value=5.0, risk_pct=25,
+)                                                       # 3
+
+pnl(ticks=20, tick_value=5.0, contracts=3)              # 300.0
+```
+
+Bring your own contract specs. Common tick values: NQ `5.00`, ES `12.50`,
+MNQ `0.50`, MES `1.25`, CL `10.00`, GC `10.00`.
+
+## Payout projection — when, not just whether
+
+```python
+from propfirm_calc import payout_projection
+
+# $2k profit, averaging $500/day, $3k target — but a $3k best day under a
+# 50% consistency rule needs $6k total, so consistency binds, not the target.
+p = payout_projection(
+    current_profit=2_000,
+    avg_daily_profit=500,
+    profit_target=3_000,
+    best_day_profit=3_000,
+    consistency_pct=50,
+)
+p.trading_days         # 8.0
+p.binding_constraint   # 'consistency'
+p.days_to_target       # 2.0
+p.projected_profit     # 6_000.0
+```
+
+Projections assume every future trading day is a winning day worth
+`avg_daily_profit` — an optimistic floor on the timeline, not a forecast.
+
+## CLI
+
+Every calculation is available without writing Python. Add `--json` to any
+subcommand for scripting; unreachable or undefined values serialize as `null`.
+
+```console
+$ propfirm-calc drawdown --balance 50000 --max-dd 2000 --peak 51000 --equity 50500
+Drawdown floor  $49,000.00
+Cushion         $1,500.00
+Blown           no
+
+$ propfirm-calc size --tick-value 5 --stop-ticks 20 \
+    --equity 50500 --balance 50000 --max-dd 2000 --peak 51000 --risk-pct 25
+Max contracts  3
+Risk at stop   $300.00
+Sized against  drawdown cushion
+
+$ propfirm-calc project --profit 2000 --avg-daily 500 --target 3000 \
+    --best-day 3000 --pct 50
+Trading days to payout  8
+Binding constraint      consistency
+Profit at that point    $6,000.00
+```
+
+`propfirm-calc --help` lists all subcommands: `drawdown`, `consistency`,
+`payout`, `size`, `project`.
+
 ## Why this exists
 
 Prop-firm rules are simple to state and easy to mis-implement — trailing
 drawdown that should lock but doesn't, a consistency check that ignores the
-"effective target" a big day creates, a payout gate that forgets minimum days.
-`propfirm-calc` is the small, well-tested core so trading journals, dashboards,
-and bots don't each reinvent (and re-bug) it.
+"effective target" a big day creates, a payout gate that forgets minimum days,
+position sizing that reads the balance instead of the floor. `propfirm-calc` is
+the small, well-tested core so trading journals, dashboards, and bots don't each
+reinvent (and re-bug) it.
 
 ## Development
 
@@ -104,7 +192,11 @@ and bots don't each reinvent (and re-bug) it.
 pip install -e ".[dev]"
 pytest -q
 ruff check .
+mypy
 ```
+
+Contributions welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Release notes
+live in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
