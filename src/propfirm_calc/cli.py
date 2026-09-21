@@ -2,7 +2,9 @@
 
 Exposes the library's calculations to traders who do not write Python. Every
 subcommand accepts ``--json`` for scripting; infinite values (an unreachable
-payout, an undefined percentage) serialize as ``null``.
+payout, an undefined percentage) serialize as ``null``. Text output is rendered
+by :mod:`propfirm_calc.render`, which upgrades to tables when the ``tui`` extra
+is installed.
 """
 
 from __future__ import annotations
@@ -18,6 +20,7 @@ from . import __version__
 from .consistency import best_day_pct, consistency_ok, required_profit
 from .drawdown import cushion, drawdown_floor, is_blown
 from .projection import payout_projection
+from .render import BAD, GOOD, WARN, Row, render
 from .sizing import max_contracts, max_contracts_from_cushion, position_risk
 from .target import payout_eligibility
 
@@ -37,7 +40,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.json:
         print(json.dumps(_jsonable(payload), indent=2))
     else:
-        _print_rows(rows)
+        render(args.title, rows)
     return 0
 
 
@@ -53,41 +56,46 @@ def _build_parser() -> argparse.ArgumentParser:
     commands = (
         (
             "drawdown",
+            "Drawdown",
             "Drawdown floor, cushion and breach status",
             _add_drawdown,
             _run_drawdown,
         ),
         (
             "consistency",
+            "Consistency rule",
             "Best-day percentage against the consistency cap",
             _add_consistency,
             _run_consistency,
         ),
         (
             "payout",
+            "Payout eligibility",
             "Whether a payout is available right now, and what blocks it",
             _add_payout,
             _run_payout,
         ),
         (
             "size",
+            "Position size",
             "Largest position that respects a risk budget or the drawdown floor",
             _add_size,
             _run_size,
         ),
         (
             "project",
+            "Payout projection",
             "Trading days until a payout becomes available",
             _add_project,
             _run_project,
         ),
     )
 
-    for name, help_text, configure, handler in commands:
+    for name, title, help_text, configure, handler in commands:
         sub = subs.add_parser(name, help=help_text, description=help_text)
         sub.add_argument("--json", action="store_true", help="emit JSON instead of text")
         configure(sub)
-        sub.set_defaults(handler=handler)
+        sub.set_defaults(handler=handler, title=title)
 
     return parser
 
@@ -117,12 +125,12 @@ def _add_drawdown(sub: argparse.ArgumentParser) -> None:
     )
 
 
-def _run_drawdown(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str, Any]]:
+def _run_drawdown(args: argparse.Namespace) -> tuple[list[Row], dict[str, Any]]:
     floor = drawdown_floor(
         args.balance, args.max_dd, args.peak, dd_type=args.dd_type, lock_at=args.lock_at
     )
     payload: dict[str, Any] = {"floor": floor, "dd_type": args.dd_type}
-    rows = [("Drawdown floor", _money(floor))]
+    rows = [Row("Drawdown floor", _money(floor))]
 
     if args.equity is not None:
         room = cushion(
@@ -142,7 +150,10 @@ def _run_drawdown(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict
             lock_at=args.lock_at,
         )
         payload.update({"cushion": room, "blown": blown})
-        rows += [("Cushion", _money(room)), ("Blown", "yes" if blown else "no")]
+        rows += [
+            Row("Cushion", _money(room), BAD if room <= 0 else GOOD),
+            Row("Blown", "yes" if blown else "no", BAD if blown else GOOD),
+        ]
 
     return rows, payload
 
@@ -153,7 +164,7 @@ def _add_consistency(sub: argparse.ArgumentParser) -> None:
     sub.add_argument("--pct", type=float, required=True, help="consistency cap as a percentage")
 
 
-def _run_consistency(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str, Any]]:
+def _run_consistency(args: argparse.Namespace) -> tuple[list[Row], dict[str, Any]]:
     pct = best_day_pct(args.best_day, args.total)
     ok = consistency_ok(args.best_day, args.total, args.pct)
     needed = required_profit(args.best_day, args.pct)
@@ -164,10 +175,10 @@ def _run_consistency(args: argparse.Namespace) -> tuple[list[tuple[str, str]], d
         "consistency_pct": args.pct,
     }
     rows = [
-        ("Best day", _pct(pct)),
-        ("Limit", _pct(args.pct)),
-        ("Within limit", "yes" if ok else "no"),
-        ("Profit needed to clear it", _money(needed)),
+        Row("Best day", _pct(pct)),
+        Row("Limit", _pct(args.pct)),
+        Row("Within limit", "yes" if ok else "no", GOOD if ok else BAD),
+        Row("Profit needed to clear it", _money(needed)),
     ]
     return rows, payload
 
@@ -187,7 +198,7 @@ def _add_payout(sub: argparse.ArgumentParser) -> None:
     _add_constraints(sub)
 
 
-def _run_payout(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str, Any]]:
+def _run_payout(args: argparse.Namespace) -> tuple[list[Row], dict[str, Any]]:
     result = payout_eligibility(
         args.profit,
         profit_target=args.target,
@@ -205,10 +216,10 @@ def _run_payout(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[s
         "profit_remaining": result.profit_remaining,
         "consistency_required_profit": result.consistency_required_profit,
     }
-    rows = [("Eligible", "yes" if result.eligible else "no")]
-    rows += [("Blocker", blocker) for blocker in result.blockers]
+    rows = [Row("Eligible", "yes" if result.eligible else "no", GOOD if result.eligible else BAD)]
+    rows += [Row("Blocker", blocker, WARN) for blocker in result.blockers]
     if result.consistency_required_profit is not None:
-        rows.append(("Consistency needs total", _money(result.consistency_required_profit)))
+        rows.append(Row("Consistency needs total", _money(result.consistency_required_profit)))
     return rows, payload
 
 
@@ -232,7 +243,7 @@ def _add_size(sub: argparse.ArgumentParser) -> None:
     _add_account(sub, required=False)
 
 
-def _run_size(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str, Any]]:
+def _run_size(args: argparse.Namespace) -> tuple[list[Row], dict[str, Any]]:
     if args.risk is not None:
         contracts = max_contracts(args.risk, args.stop_ticks, args.tick_value)
         basis = "risk budget"
@@ -258,9 +269,9 @@ def _run_size(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str
     risk = position_risk(args.stop_ticks, args.tick_value, contracts)
     payload = {"contracts": contracts, "risk_at_stop": risk, "basis": basis}
     rows = [
-        ("Max contracts", str(contracts)),
-        ("Risk at stop", _money(risk)),
-        ("Sized against", basis),
+        Row("Max contracts", str(contracts)),
+        Row("Risk at stop", _money(risk)),
+        Row("Sized against", basis),
     ]
     return rows, payload
 
@@ -273,7 +284,7 @@ def _add_project(sub: argparse.ArgumentParser) -> None:
     _add_constraints(sub)
 
 
-def _run_project(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[str, Any]]:
+def _run_project(args: argparse.Namespace) -> tuple[list[Row], dict[str, Any]]:
     result = payout_projection(
         args.profit,
         args.avg_daily,
@@ -291,10 +302,11 @@ def _run_project(args: argparse.Namespace) -> tuple[list[tuple[str, str]], dict[
         "days_to_min_days": result.days_to_min_days,
         "days_to_consistency": result.days_to_consistency,
     }
+    bound = result.binding_constraint
     rows = [
-        ("Trading days to payout", _days(result.trading_days)),
-        ("Binding constraint", result.binding_constraint or "none - payout available"),
-        ("Profit at that point", _money(result.projected_profit)),
+        Row("Trading days to payout", _days(result.trading_days)),
+        Row("Binding constraint", bound or "none - payout available", WARN if bound else GOOD),
+        Row("Profit at that point", _money(result.projected_profit)),
     ]
     return rows, payload
 
@@ -316,12 +328,6 @@ def _jsonable(payload: dict[str, Any]) -> dict[str, Any]:
         key: None if isinstance(value, float) and math.isinf(value) else value
         for key, value in payload.items()
     }
-
-
-def _print_rows(rows: Sequence[tuple[str, str]]) -> None:
-    width = max((len(label) for label, _ in rows), default=0)
-    for label, value in rows:
-        print(f"{label.ljust(width)}  {value}")
 
 
 if __name__ == "__main__":

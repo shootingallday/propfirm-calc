@@ -4,6 +4,16 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- An optional `tui` extra (`pip install "propfirm-calc[tui]"`). When Rich is
+  importable the CLI prints each command as a titled table and colours the rows
+  that carry a verdict; otherwise it prints the same values as aligned plain
+  text. The library and the default install remain dependency-free, and
+  `--json` output is unchanged by either path.
+
 ## [0.2.0] — 2026-09-06
 
 ### Added

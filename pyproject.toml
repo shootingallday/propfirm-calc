@@ -43,7 +43,8 @@ Changelog = "https://github.com/shootingallday/propfirm-calc/blob/main/CHANGELOG
 Documentation = "https://shootingallday.github.io/propfirm-calc/"
 
 [project.optional-dependencies]
-dev = ["pytest>=7", "pytest-cov>=4", "ruff==0.16.6", "mypy>=1.8"]
+tui = ["rich>=13"]
+dev = ["pytest>=7", "pytest-cov>=4", "ruff==0.16.6", "mypy>=1.8", "rich>=13"]
 docs = ["mkdocs-material>=9.7", "mkdocstrings[python]>=1.0"]
 
 [tool.hatch.build.targets.wheel]

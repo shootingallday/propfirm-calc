@@ -14,6 +14,11 @@ Every subcommand takes `--json`. Values that are infinite in the math — an
 unreachable payout, a percentage of zero profit — serialize as `null` rather
 than the invalid-JSON `Infinity`, so the output parses anywhere.
 
+Text output is aligned plain text on a bare install. Installing the optional UI
+extra, `pip install "propfirm-calc[tui]"`, adds Rich and prints the same numbers
+as a titled table with the verdict rows coloured. `--json` is byte-identical
+either way, so scripts are unaffected by which one you have.
+
 Invalid inputs exit with status `2` and a message on stderr.
 
 ---

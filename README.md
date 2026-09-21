@@ -33,6 +33,13 @@ pip install propfirm-calc
 
 Python 3.9+. Ships type information (`py.typed`) and a `propfirm-calc` CLI.
 
+For coloured tables in the terminal, install the optional UI extra. The library
+itself stays dependency-free either way:
+
+```bash
+pip install "propfirm-calc[tui]"
+```
+
 Full documentation: **<https://shootingallday.github.io/propfirm-calc/>**
 
 ## Drawdown floor — the one people get wrong
@@ -178,6 +185,22 @@ Profit at that point    $6,000.00
 
 `propfirm-calc --help` lists all subcommands: `drawdown`, `consistency`,
 `payout`, `size`, `project`.
+
+The output above is the plain install. With `propfirm-calc[tui]` the same
+commands print a titled table and colour the rows that carry a verdict — a
+breached account, a best day over the consistency cap, the constraint holding
+up a payout. The numbers and the `--json` output are identical.
+
+```console
+$ propfirm-calc payout --profit 4000 --target 3000 --winning-days 4     --min-winning-days 5 --best-day 3000 --pct 50
+Payout eligibility
+╭─────────────────────────┬─────────────────────────────────────────────╮
+│ Eligible                │ no                                          │
+│ Blocker                 │ 4 of 5 required winning days                │
+│ Blocker                 │ Best day 75% over the 50% consistency limit │
+│ Consistency needs total │ $6,000.00                                   │
+╰─────────────────────────┴─────────────────────────────────────────────╯
+```
 
 ## Why this exists
 
