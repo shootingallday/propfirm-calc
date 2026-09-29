@@ -12,7 +12,7 @@ export type EvaluateOptions = {
   today?: string;
 };
 
-export type NetDay = { date: string; pnl: Money };
+export type NetDay = { date: string; pnl: Money; low?: Money };
 
 export type ConsistencyStatus = {
   pct: Money;
@@ -296,7 +296,13 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
   const start = money(account.startingBalance);
   const days: NetDay[] = [...account.days]
     .sort((a, b) => a.date.localeCompare(b.date))
-    .map((day) => ({ date: day.date, pnl: netPnl(day, account.feePerSide) }));
+    .map((day) => {
+      const pnl = netPnl(day, account.feePerSide);
+      if (day.low === undefined) return { date: day.date, pnl };
+      const low = Decimal.min(money(day.low).minus(pnl.minus(day.pnl).negated()), pnl);
+      return { date: day.date, pnl, low };
+    });
+  const breach = rules.drawdown.breach ?? (rules.drawdown.mode === 'intraday_trailing' ? 'intraday' : undefined);
   const payouts = [...account.payouts].sort((a, b) => a.date.localeCompare(b.date));
   const byDate = new Map(days.map((day) => [day.date, day]));
   const dates = [...new Set([...days.map((day) => day.date), ...payouts.map((payout) => payout.date)])].sort();
@@ -313,10 +319,12 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
     const day = byDate.get(date);
     if (day) {
       balance = balance.plus(day.pnl);
-      const dailyHit = dailyLimit !== null && day.pnl.lte(dailyLimit.negated());
+      const worst = day.low ?? day.pnl;
+      const dailyHit = dailyLimit !== null && worst.lte(dailyLimit.negated());
       if (dailyHit) dailyHits.push(date);
       if (!blown && dailyHit && rules.dailyLoss?.effect === 'breach') blown = { date, reason: 'daily_loss' };
-      if (!blown && balance.lte(floorBefore)) blown = { date, reason: 'drawdown' };
+      const lowest = breach === 'intraday' && day.low ? balance.minus(day.pnl).plus(day.low) : balance;
+      if (!blown && Decimal.min(balance, lowest).lte(floorBefore)) blown = { date, reason: 'drawdown' };
       if (balance.gt(peak)) peak = balance;
     }
     for (const payout of payouts) {
@@ -431,10 +439,19 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
     payout,
     whatIf,
     notes: [
-      rules.drawdown.mode === 'intraday_trailing'
-        ? 'Intraday trailing drawdown, worked out from end-of-day balances. Your real floor can be higher than shown.'
-        : 'Checked on closing balances. A day that dipped through the floor and closed above it can still fail the account if the firm enforces it in real time.',
-      ...(rules.dailyLoss ? ['Daily loss is judged on the day\'s closing P&L, not the worst point during the day.'] : []),
+      ...(breach === 'intraday'
+        ? days.some((day) => !day.low)
+          ? ['The firm enforces the floor during the day. Days entered without trade times (typed, Balance History, Cash History) can only be checked at the close.']
+          : []
+        : breach === 'close'
+          ? []
+          : ['Checked on closing balances. It is not known whether this firm also enforces the floor during the day.']),
+      ...(rules.drawdown.mode === 'intraday_trailing'
+        ? ['The trailing peak includes open profit during the day, which no export records, so the real floor can be higher than shown.']
+        : []),
+      ...(rules.dailyLoss && days.some((day) => !day.low)
+        ? ['Daily loss is judged on the closing P&L for days without trade times.']
+        : []),
       ...(whatIf && rules.dailyLoss?.effect === 'session_lock' && money(options.whatIf!).lt(money(rules.dailyLoss.amount).negated())
         ? [`The firm stops you out at the ${formatMoney(money(rules.dailyLoss.amount))} daily loss, so the what-if day is capped there.`]
         : []),

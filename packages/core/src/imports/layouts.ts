@@ -17,7 +17,7 @@ import {
 } from './csv.ts';
 import type { Ledger } from './ledger.ts';
 import { pairFills, type Fill } from './pair.ts';
-import { cmeTradingDay, wallTradingDay } from './trading-day.ts';
+import { cmeTradingDay, wallInstant } from './trading-day.ts';
 import { ImportError, type LayoutId } from './types.ts';
 
 export const COLUMNS = {
@@ -142,11 +142,11 @@ const tradovatePerformance: Layout = {
         pair: `${buyId}/${sellId}`,
         pnl: readMoney(row, c.pnl),
         quantity: readQuantity(row, c.quantity),
-        date: wallTradingDay(last, timeZone),
+        at: wallInstant(last, timeZone),
       };
     });
     refuseDuplicates(this.label, trips, (trip) => trip.pair, (trip) => trip.line, 'buy/sell fill pair');
-    for (const trip of trips) ledger.add(null, trip.date, trip.pnl, trip.quantity.times(2).toNumber());
+    for (const trip of trips) ledger.add(null, cmeTradingDay(trip.at), trip.pnl, trip.quantity.times(2).toNumber(), trip.at.getTime());
     return [];
   },
 };
@@ -237,11 +237,12 @@ const topstepxTrades: Layout = {
         id,
         pnl: readMoney(row, c.pnl).minus(fees ?? ZERO).minus(commissions ?? ZERO),
         sides: fees === null && commissions === null ? quantity.times(2).toNumber() : 0,
+        at: readInstant(row, c.exitedAt),
         date: row.field(c.tradeDay) === '' ? cmeTradingDay(readInstant(row, c.exitedAt)) : readUsDate(row, c.tradeDay),
       };
     });
     refuseDuplicates(this.label, trips, (trip) => trip.id, (trip) => trip.line, c.id);
-    for (const trip of trips) ledger.add(null, trip.date, trip.pnl, trip.sides);
+    for (const trip of trips) ledger.add(null, trip.date, trip.pnl, trip.sides, trip.at.getTime());
     return [];
   },
 };

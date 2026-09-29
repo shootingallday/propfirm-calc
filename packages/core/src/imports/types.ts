@@ -10,6 +10,7 @@ export type ImportedDay = {
   date: string;
   pnl: string;
   sidesWithoutFees: number;
+  low?: string;
 };
 
 export type ImportedPayout = {

@@ -315,10 +315,11 @@ describe('findings from the engine review', () => {
     expect(calendar.events).toEqual([]);
   });
 
-  it('says when an intraday trailing floor is only approximate', () => {
+  it('says what each drawdown check can and cannot see', () => {
     const intraday = rules({ drawdown: { amount: '2000', mode: 'intraday_trailing', lockAt: 'start' } });
-    expect(evaluate(account(intraday)).notes[0]).toContain('Intraday trailing');
-    expect(evaluate(account(rules())).notes[0]).toContain('closing balances');
+    expect(evaluate(account(intraday)).notes.join(' ')).toContain('open profit');
+    expect(evaluate(account(rules())).notes[0]).toContain('not known');
+    expect(evaluate(account(rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'close' } }))).notes).toEqual(['Contract limits and news rules are not checked.']);
   });
 });
 
@@ -391,5 +392,34 @@ describe('LuxAlgo review follow-ups', () => {
     expect(isTradingDay('2027-12-24')).toBe(false);
     expect(isTradingDay('2028-01-03')).toBe(true);
     expect(addTradingDays('2026-04-02', 1)).toBe('2026-04-06');
+  });
+});
+
+describe('a floor enforced during the day', () => {
+  const intradayBreach = rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'intraday' }, profitTarget: '3000' });
+  const withLow = (low: string, pnl: string, rule = intradayBreach): Account => {
+    const acc = account(rule);
+    acc.days = [{ date: '2026-09-01', pnl, low, source: 'import:tradovate-performance', sidesWithoutFees: 4 }];
+    acc.feePerSide = '0.5';
+    return acc;
+  };
+
+  it('fails a day that dipped through the floor and closed above it', () => {
+    expect(evaluate(withLow('-2000', '-100')).blown).toEqual({ date: '2026-09-01', reason: 'drawdown' });
+  });
+
+  it('counts fees against the low, so a dip to one cent above the floor still fails', () => {
+    expect(evaluate(withLow('-1999.99', '-100')).blown?.reason).toBe('drawdown');
+    expect(evaluate(withLow('-1997.99', '-100')).blown).toBeNull();
+  });
+
+  it('ignores the dip when the firm only checks the close', () => {
+    const closeOnly = rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'close' } });
+    expect(evaluate(withLow('-2500', '-100', closeOnly)).blown).toBeNull();
+  });
+
+  it('flags a daily loss hit from the low even when the close recovered', () => {
+    const locking = rules({ drawdown: { amount: '3000', mode: 'eod_trailing', lockAt: 'start', breach: 'intraday' }, dailyLoss: { amount: '1000', effect: 'session_lock' } });
+    expect(evaluate(withLow('-1200', '200', locking)).dailyLoss!.hits).toEqual(['2026-09-01']);
   });
 });

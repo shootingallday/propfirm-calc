@@ -35,11 +35,14 @@ function offsetMs(instant: number, timeZone: string): number {
   return asUtc - Math.floor(instant / 1000) * 1000;
 }
 
-export function wallTradingDay(wall: Wall, timeZone: string): string {
+export function wallInstant(wall: Wall, timeZone: string): Date {
   const naive = Date.UTC(wall.year, wall.month - 1, wall.day, wall.hour, wall.minute, wall.second);
   const first = naive - offsetMs(naive, timeZone);
-  const instant = naive - offsetMs(first, timeZone);
-  return cmeTradingDay(new Date(instant));
+  return new Date(naive - offsetMs(first, timeZone));
+}
+
+export function wallTradingDay(wall: Wall, timeZone: string): string {
+  return cmeTradingDay(wallInstant(wall, timeZone));
 }
 
 export function localTimeZone(): string {

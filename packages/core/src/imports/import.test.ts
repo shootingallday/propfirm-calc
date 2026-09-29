@@ -320,7 +320,7 @@ describe('round-trip exports', () => {
 
   it('dates a short by its later timestamp, the buy, after the 18:00 roll', () => {
     const text = `${PERF}\n11,10,2,$40.00,09/14/2026 18:05:00,09/14/2026 17:50:00`;
-    expect(importCsv(text).accounts).toEqual([{ externalId: null, days: [{ date: '2026-09-15', pnl: '40.00', sidesWithoutFees: 4 }], payouts: [] }]);
+    expect(importCsv(text).accounts).toEqual([{ externalId: null, days: [{ date: '2026-09-15', pnl: '40.00', sidesWithoutFees: 4, low: '0.00' }], payouts: [] }]);
   });
 
   it('allows one fill on two rows but refuses the same pair twice', () => {
@@ -452,5 +452,27 @@ describe('files re-saved by Excel', () => {
 
   it('refuses a file too large to read in a browser tab', () => {
     expect(message(`${header}\n${'x'.repeat(20_000_001)}`)).toContain('20 million');
+  });
+});
+
+describe('the lowest point of each day', () => {
+  const PERF_HEADER = 'symbol,_priceFormat,_priceFormatType,_tickSize,buyFillId,sellFillId,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp,duration';
+  const trip = (ids: string, pnl: string, bought: string, sold: string) => `MNQU6,-2,0,0.25,${ids},1,1,1,${pnl},${bought},${sold},1min`;
+
+  it('walks the round trips in time order and keeps the worst running total', () => {
+    const text = [
+      PERF_HEADER,
+      trip('3,4', '$200.00', '09/14/2026 11:00:00', '09/14/2026 11:05:00'),
+      trip('1,2', '$(300.00)', '09/14/2026 10:00:00', '09/14/2026 10:05:00'),
+      trip('5,6', '$(50.00)', '09/14/2026 12:00:00', '09/14/2026 12:05:00'),
+    ].join('\n');
+    const day = importCsv(text, { timeZone: 'America/New_York' }).accounts[0]!.days[0]!;
+    expect(day.pnl).toBe('-150.00');
+    expect(day.low).toBe('-300.00');
+  });
+
+  it('leaves the low out for exports with no times, such as Balance History', () => {
+    const text = 'Account ID,Account Name,Trade Date,Total Amount,Total Realized PNL\n1,ACC,2026-09-14,"49,700.00",-300.00';
+    expect(importCsv(text).accounts[0]!.days[0]!.low).toBeUndefined();
   });
 });

@@ -10,6 +10,7 @@ export type DrawdownRule = {
   amount: string;
   mode: 'intraday_trailing' | 'eod_trailing' | 'static';
   lockAt: 'start' | 'never' | { aboveStart: string };
+  breach?: 'intraday' | 'close';
   afterFirstPayout?: { floorAboveStart: string };
 };
 

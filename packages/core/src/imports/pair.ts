@@ -15,7 +15,7 @@ export type Fill = {
   fee: Money | null;
 };
 
-type Share = { date: string; pnl: Money; sides: number };
+type Share = { date: string; pnl: Money; sides: number; at: number };
 
 export function pairFills(fills: readonly Fill[], ledger: Ledger): string[] {
   const groups = new Map<string, Fill[]>();
@@ -64,9 +64,9 @@ function pairPosition(fills: Fill[], ledger: Ledger): string | null {
     const closed = fill.quantity.minus(remaining);
     const closingFee = fee.times(closed).dividedBy(fill.quantity).toDecimalPlaces(4);
     if (closed.greaterThan(0)) {
-      shares.push({ date, pnl: realized.minus(closingFee), sides: fill.fee === null ? closed.toNumber() : 0 });
+      shares.push({ date, pnl: realized.minus(closingFee), sides: fill.fee === null ? closed.toNumber() : 0, at: fill.at.getTime() });
       if (lots.length === 0) {
-        for (const share of shares) ledger.add(account, share.date, share.pnl, share.sides);
+        for (const share of shares) ledger.add(account, share.date, share.pnl, share.sides, share.at);
         shares = [];
         lines = remaining.greaterThan(0) ? new Set([fill.line]) : new Set();
         direction = 0;
@@ -80,7 +80,7 @@ function pairPosition(fills: Fill[], ledger: Ledger): string | null {
       lots.push({ quantity: remaining, price: fill.price });
       const openingFee = fee.minus(closingFee);
       if (fill.fee === null || !openingFee.isZero()) {
-        shares.push({ date, pnl: openingFee.negated(), sides: fill.fee === null ? remaining.toNumber() : 0 });
+        shares.push({ date, pnl: openingFee.negated(), sides: fill.fee === null ? remaining.toNumber() : 0, at: fill.at.getTime() });
       }
     }
   }

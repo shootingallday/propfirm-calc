@@ -7,6 +7,7 @@ export type DayEntry = {
   pnl: string;
   source: string;
   sidesWithoutFees?: number;
+  low?: string;
 };
 
 export type PayoutEntry = {
@@ -85,7 +86,7 @@ export function applyImport(account: Account, imported: ImportedAccount, layout:
   const source = `import:${layout}`;
   const result = applyDays(
     account,
-    imported.days.map((day) => ({ date: day.date, pnl: day.pnl, source, sidesWithoutFees: day.sidesWithoutFees })),
+    imported.days.map((day) => ({ date: day.date, pnl: day.pnl, source, sidesWithoutFees: day.sidesWithoutFees, ...(day.low === undefined ? {} : { low: day.low }) })),
   );
   const known = new Set(result.account.payouts.map((payout) => `${payout.date}|${money(payout.amount).toString()}`));
   const fresh = imported.payouts

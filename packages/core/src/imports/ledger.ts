@@ -1,7 +1,8 @@
 import { ZERO, type Money } from '../money.ts';
 import type { ImportedAccount } from './types.ts';
 
-type Book = { days: Map<string, { pnl: Money; sides: number }>; payouts: Array<{ date: string; amount: Money }> };
+type Entry = { pnl: Money; at: number | null };
+type Book = { days: Map<string, { entries: Entry[]; sides: number }>; payouts: Array<{ date: string; amount: Money }> };
 
 export class Ledger {
   private readonly books = new Map<string | null, Book>();
@@ -15,10 +16,10 @@ export class Ledger {
     return book;
   }
 
-  add(account: string | null, date: string, pnl: Money, sides: number): void {
+  add(account: string | null, date: string, pnl: Money, sides: number, at: number | null = null): void {
     const days = this.open(account).days;
-    const day = days.get(date) ?? { pnl: ZERO, sides: 0 };
-    days.set(date, { pnl: day.pnl.plus(pnl), sides: day.sides + sides });
+    const day = days.get(date) ?? { entries: [], sides: 0 };
+    days.set(date, { entries: [...day.entries, { pnl, at }], sides: day.sides + sides });
   }
 
   payout(account: string | null, date: string, amount: Money): void {
@@ -32,12 +33,28 @@ export class Ledger {
         externalId,
         days: [...book.days.entries()]
           .sort(([a], [b]) => a.localeCompare(b))
-          .map(([date, day]) => ({ date, pnl: formatAmount(day.pnl), sidesWithoutFees: day.sides })),
+          .map(([date, day]) => ({
+            date,
+            pnl: formatAmount(day.entries.reduce((total, entry) => total.plus(entry.pnl), ZERO)),
+            sidesWithoutFees: day.sides,
+            ...lowOf(day.entries),
+          })),
         payouts: book.payouts
           .sort((a, b) => a.date.localeCompare(b.date))
           .map((payout) => ({ date: payout.date, amount: formatAmount(payout.amount) })),
       }));
   }
+}
+
+function lowOf(entries: readonly Entry[]): { low?: string } {
+  if (entries.some((entry) => entry.at === null)) return {};
+  let running = ZERO;
+  let low = ZERO;
+  for (const entry of [...entries].sort((a, b) => a.at! - b.at!)) {
+    running = running.plus(entry.pnl);
+    if (running.lt(low)) low = running;
+  }
+  return { low: formatAmount(low) };
 }
 
 export function formatAmount(value: Money): string {
