@@ -350,7 +350,12 @@
               "minProfit": "250",
               "minRequest": "500",
               "split": 90,
-              "notes": "Each payout after the first needs $250 of net profit since the last payout and a $500 minimum request. The first payout needs a $1,100 buffer, so the balance must reach $26,100: \"You must first build at least $1,100 in realized profits in the account before requesting your first payout.\" The buffer is for the first payout only, and the catalog cannot gate one payout differently from the rest. Payout paths are alternatives, so a separate first-payout path would show the later-payout rule as open from day one. The buffer is left out, which means the first payout shows as available before MFFU allows it."
+              "notes": "Each payout after the first needs $250 of net profit since the last payout and a $500 minimum request. The first payout needs a $1,100 buffer, so the balance must reach $26,100: \"You must first build at least $1,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only.",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "26100",
+                "firstPayoutOnly": true
+              }
             }
           ],
           "source": {
@@ -419,7 +424,12 @@
               "minProfit": "500",
               "minRequest": "500",
               "split": 90,
-              "notes": "Each payout after the first needs $500 of net profit since the last payout and a $500 minimum request. The first payout needs a $2,100 buffer, so the balance must reach $52,100: \"You must first build at least $2,100 in realized profits in the account before requesting your first payout.\" The buffer is for the first payout only, and the catalog cannot gate one payout differently from the rest. Payout paths are alternatives, so a separate first-payout path would show the later-payout rule as open from day one. The buffer is left out, which means the first payout shows as available before MFFU allows it."
+              "notes": "Each payout after the first needs $500 of net profit since the last payout and a $500 minimum request. The first payout needs a $2,100 buffer, so the balance must reach $52,100: \"You must first build at least $2,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only.",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "52100",
+                "firstPayoutOnly": true
+              }
             }
           ],
           "source": {

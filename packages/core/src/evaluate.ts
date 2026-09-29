@@ -182,10 +182,11 @@ function pathStatus(
       profitNeeds.push(need);
     }
   }
-  if (path.buffer?.kind === 'balance_to_request') {
-    const need = money(path.buffer.amount).minus(balance);
+  const buffer = path.buffer && !(path.buffer.firstPayoutOnly && lastPayout !== null) ? path.buffer : undefined;
+  if (buffer?.kind === 'balance_to_request') {
+    const need = money(buffer.amount).minus(balance);
     if (need.gt(0)) {
-      blockers.push(`Balance must reach ${formatMoney(money(path.buffer.amount))} (${formatMoney(need)} to go)`);
+      blockers.push(`Balance must reach ${formatMoney(money(buffer.amount))} (${formatMoney(need)} to go)`);
       profitNeeds.push(need);
     }
   }
@@ -202,7 +203,7 @@ function pathStatus(
 
   const profitAboveStart = balance.minus(start);
   const floorForWithdrawal = Decimal.max(
-    path.buffer?.kind === 'balance_retained' ? money(path.buffer.amount) : start,
+    buffer?.kind === 'balance_retained' ? money(buffer.amount) : start,
     context.floor,
     context.postPayoutFloor ?? context.floor,
   );

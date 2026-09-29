@@ -321,3 +321,24 @@ describe('findings from the engine review', () => {
     expect(evaluate(account(rules())).notes).toEqual([]);
   });
 });
+
+describe('a buffer that gates only the first payout', () => {
+  const eodLike = rules({
+    stage: 'funded',
+    drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: { aboveStart: '100' } },
+    payoutPaths: [{ name: 'Only', minProfit: '500', minRequest: '500', split: 90, buffer: { kind: 'balance_to_request', amount: '52100', firstPayoutOnly: true } }],
+  });
+
+  it('holds the first payout until the balance reaches it', () => {
+    const status = evaluate(account(eodLike, [['2026-09-01', 900], ['2026-09-02', 900]]));
+    expect(status.payout!.best.eligible).toBe(false);
+    expect(status.payout!.best.blockers[0]).toContain('$52,100.00');
+  });
+
+  it('stops gating once a payout has been taken', () => {
+    let acc = account(eodLike, [['2026-09-01', 1500], ['2026-09-02', 1500]]);
+    acc = addPayout(acc, '2026-09-02', '800');
+    acc = applyDays(acc, [{ date: '2026-09-03', pnl: '600', source: 'manual' }]).account;
+    expect(evaluate(acc).payout!.best.eligible).toBe(true);
+  });
+});

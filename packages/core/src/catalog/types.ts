@@ -28,6 +28,7 @@ export type ConsistencyRule = {
 export type PayoutBuffer = {
   kind: 'balance_to_request' | 'balance_retained';
   amount: string;
+  firstPayoutOnly?: boolean;
 };
 
 export type PayoutPath = {
