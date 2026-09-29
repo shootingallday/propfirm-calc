@@ -60,7 +60,7 @@ export function Import({ store }: { store: Store }) {
       <div className="panel">
         <h2>Import a CSV</h2>
         <p className="muted">
-          Tradovate: Fills, Performance, Account Balance History, Cash History. TopstepX: Orders, Trades. Files are read in your browser and never uploaded.
+          Tradovate: Fills, Performance, Account Balance History, Cash History. TopstepX: Orders, Trades. For TopstepX, use Orders: the Trades export can leave out round trips. Files are read in your browser and never uploaded.
         </p>
         <label className="drop">
           <input type="file" accept=".csv,text/csv" multiple onChange={(event) => read(event.target.files)} data-testid="csv-input" />

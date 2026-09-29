@@ -53,8 +53,12 @@ Each list lives in `COLUMNS` in `src/imports/layouts.ts`, so a renamed column is
   payout type (` Withdrawal` here) and fee types are guesses: any type containing "withdraw" or
   "payout" is a payout, any containing "fee" counts as trading cost.
 - Cash History's `Amount` is the running balance, not the change. `Delta` is the change.
-- TopstepX Trades `PnL` is gross in the real export (short 3 MNQ from 28995 to 29002.25 reads
-  -43.5), so `Fees` and `Commissions` are subtracted. Whether `Fees` already includes
-  `Commissions` is not known.
+- TopstepX Trades `PnL` is gross, and `Fees` does not include `Commissions`. On MNQ a real export
+  shows $0.36 + $0.25 per side, which is Topstep's published $1.22 round turn
+  (help.topstep.com/en/articles/8284213, checked 2026-09-28). Both are subtracted.
+- TopstepX Trades can leave out round trips. On a real export for 2026-09-22 it listed 2 round
+  trips (+$33.00 gross) where the Orders export for the same account shows 3 (-$63.50), missing
+  a -$69.00 trade and two scale-ins. Orders is the export to trust; the importer adds the fees
+  from the account's fee per side (MNQ on TopstepX: $0.61).
 - Tradovate Fills identifies the account by `Account` (the name, as in balance and cash history),
   not `_accountId`.
