@@ -412,3 +412,19 @@ describe('ledgers', () => {
     expect(refusal([CASH, row, row].join('\n'))).toMatch(/Transaction ID 1 already appeared on line 2/);
   });
 });
+
+describe('Performance timestamps are in the time zone of whoever exported them', () => {
+  const header = 'symbol,_priceFormat,_priceFormatType,_tickSize,buyFillId,sellFillId,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp,duration';
+  const row = (bought: string, sold: string) => `MNQU6,-2,0,0.25,1,2,1,29093.50,29093.75,$0.50,${bought},${sold},5min`;
+  const day = (text: string, timeZone: string) => importCsv(text, { timeZone }).accounts[0]!.days[0]!.date;
+
+  it('puts a Sunday afternoon trade in Los Angeles on Monday, as Cash History does', () => {
+    expect(day(`${header}\n${row('09/13/2026 15:33:46', '09/13/2026 15:39:06')}`, 'America/Los_Angeles')).toBe('2026-09-14');
+  });
+
+  it('rolls a weekday trade at 15:30 in Los Angeles to the next day but not the same time in New York', () => {
+    const text = `${header}\n${row('09/15/2026 15:20:00', '09/15/2026 15:30:00')}`;
+    expect(day(text, 'America/Los_Angeles')).toBe('2026-09-16');
+    expect(day(text, 'America/New_York')).toBe('2026-09-15');
+  });
+});

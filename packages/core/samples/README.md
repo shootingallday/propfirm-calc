@@ -43,9 +43,12 @@ Each list lives in `COLUMNS` in `src/imports/layouts.ts`, so a renamed column is
 
 ## What is still assumed
 
-- Tradovate display timestamps (`boughtTimestamp`, `soldTimestamp`) have no zone. The real
-  exports show US Eastern; the importer assumes that. A trader whose Tradovate shows another zone
-  would get Performance days wrong near the 18:00 New York roll.
+- Tradovate display timestamps (`boughtTimestamp`, `soldTimestamp`) have no zone. They are shown in
+  the zone of whoever exported them, so the importer reads them in the browser's (or machine's)
+  local zone. Confirmed on a real Pacific-time export on 2026-09-28: a Sunday 15:33 trade belongs
+  to Monday, as Cash History says.
+- `Total Realized PNL` in Balance History is net of commissions: on a real export it matches Cash
+  History's daily totals to the cent for 15 trading days.
 - Cash History: only ` Commission` and ` Trade Paired` have been seen in a real export. The
   payout type (` Withdrawal` here) and fee types are guesses: any type containing "withdraw" or
   "payout" is a payout, any containing "fee" counts as trading cost.

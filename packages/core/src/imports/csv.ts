@@ -158,16 +158,24 @@ export function readInstant(row: Row, name: string): Date {
   return new Date(Date.UTC(year!, month! - 1, day!, hour!, minute!, second, millisecond) - offset * 60_000);
 }
 
-export type EasternWall = { date: string; hour: number; sortKey: string };
+export type Wall = { year: number; month: number; day: number; hour: number; minute: number; second: number; sortKey: string };
 
-export function readEasternWall(row: Row, name: string): EasternWall {
+export function readWall(row: Row, name: string): Wall {
   const value = row.field(name);
   const parts = US_WALL.exec(value);
   if (!parts) throw new RowProblem(`${name} must look like 09/14/2026 09:24:03, not "${value}"`);
   const [month, day, year, hour, minute, second] = [1, 2, 3, 4, 5, 6].map((index) => Number(parts[index]));
   checkCalendar(year!, month!, day!, hour!, minute!, second!, name, value);
   const date = isoDate(year!, month!, day!);
-  return { date, hour: hour!, sortKey: `${date} ${String(hour).padStart(2, '0')}:${parts[5]}:${parts[6]}` };
+  return {
+    year: year!,
+    month: month!,
+    day: day!,
+    hour: hour!,
+    minute: minute!,
+    second: second!,
+    sortKey: `${date} ${String(hour).padStart(2, '0')}:${parts[5]}:${parts[6]}`,
+  };
 }
 
 export function readIsoDate(row: Row, name: string): string {

@@ -3,7 +3,7 @@ import { pointValue } from './contracts.ts';
 import {
   RowProblem,
   collectRows,
-  readEasternWall,
+  readWall,
   readInstant,
   readIsoDate,
   readMoney,
@@ -17,7 +17,7 @@ import {
 } from './csv.ts';
 import type { Ledger } from './ledger.ts';
 import { pairFills, type Fill } from './pair.ts';
-import { cmeTradingDay, easternWallTradingDay } from './trading-day.ts';
+import { cmeTradingDay, wallTradingDay } from './trading-day.ts';
 import { ImportError, type LayoutId } from './types.ts';
 
 export const COLUMNS = {
@@ -57,7 +57,9 @@ export const REFUSED = [
   { name: 'Tradovate Position History', marks: ['Position ID', 'Pair ID', 'Buy Fill ID'], why: 'repeats fills across its pairing rows' },
 ];
 
-type Layout = { id: LayoutId; label: string; read: (table: Table, ledger: Ledger) => string[] };
+export type ImportOptions = { timeZone?: string };
+
+type Layout = { id: LayoutId; label: string; read: (table: Table, ledger: Ledger, timeZone: string) => string[] };
 
 const tradovateFills: Layout = {
   id: 'tradovate-fills',
@@ -127,20 +129,20 @@ const topstepxOrders: Layout = {
 const tradovatePerformance: Layout = {
   id: 'tradovate-performance',
   label: 'Tradovate Performance',
-  read(table, ledger) {
+  read(table, ledger, timeZone) {
     const c = COLUMNS['tradovate-performance'].required;
     const trips = collectRows(this.label, table.rows, (row) => {
       const [buyId, sellId] = [row.field(c.buyId), row.field(c.sellId)];
       if (buyId === '' || sellId === '') throw new RowProblem(`${c.buyId} and ${c.sellId} must both be filled in`);
-      const bought = readEasternWall(row, c.bought);
-      const sold = readEasternWall(row, c.sold);
+      const bought = readWall(row, c.bought);
+      const sold = readWall(row, c.sold);
       const last = bought.sortKey > sold.sortKey ? bought : sold;
       return {
         line: row.line,
         pair: `${buyId}/${sellId}`,
         pnl: readMoney(row, c.pnl),
         quantity: readQuantity(row, c.quantity),
-        date: easternWallTradingDay(last.date, last.hour),
+        date: wallTradingDay(last, timeZone),
       };
     });
     refuseDuplicates(this.label, trips, (trip) => trip.pair, (trip) => trip.line, 'buy/sell fill pair');
