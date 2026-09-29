@@ -3,7 +3,7 @@
   "name": "Lucid Trading",
   "website": "https://lucidtrading.com/",
   "rulesUrl": "https://support.lucidtrading.com/en/",
-  "checkedAt": "2026-09-10",
+  "checkedAt": "2026-09-29",
   "plans": [
     {
       "id": "lucid-trading/lucidpro/25000",
@@ -23,16 +23,20 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
           "contracts": {
             "minis": 2,
             "micros": 20
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher, unpublished price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. The 25K daily loss limit of $600 comes from Lucid's home page plan card; the help centre's LucidPro evaluation and daily loss limit articles still list None for the 25K."
         },
         {
           "stage": "funded",
@@ -43,6 +47,10 @@
             "lockAt": {
               "aboveStart": "100"
             }
+          },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
           },
           "contracts": {
             "minis": 2,
@@ -69,10 +77,10 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. The 25K has no daily loss limit."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above $26,100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. The $600 limit comes from Lucid's home page and the LucidPro funded account article; the LucidPro daily loss limit article still lists None for the 25K."
         },
         {
           "stage": "live",
@@ -99,7 +107,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -134,10 +142,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher, unpublished price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -178,7 +186,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/funded"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -208,7 +216,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -243,10 +251,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher, unpublished price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -287,7 +295,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/funded"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -317,7 +325,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -352,10 +360,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher, unpublished price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -396,7 +404,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890136-lucidpro-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/funded"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -426,7 +434,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -450,6 +458,10 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
           "consistency": {
             "pct": "50",
             "basis": "total_profit",
@@ -461,10 +473,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. An optional daily loss limit can be bought, but Lucid publishes no amount for it, so none is modelled."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $600 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -478,6 +490,10 @@
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
+          },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
           },
           "contracts": {
             "minis": 2,
@@ -494,15 +510,15 @@
               "cap": "1000",
               "minRequest": "500",
               "split": 90,
-              "notes": "Lucid caps each payout at half of the profit made in the current cycle, not total profit. The fifth payout closes the account and moves the trader live."
+              "notes": "Lucid's table says each payout is capped at \"50% of Profit\" and its text says \"50% of their account balance\"; neither says whether profit counts from the start or from the last payout. The fifth payout closes the account and moves the trader live."
             }
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The optional daily loss limit has no published amount."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $600 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
         },
         {
           "stage": "live",
@@ -529,7 +545,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -553,6 +569,10 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "1200",
+            "effect": "session_lock"
+          },
           "consistency": {
             "pct": "50",
             "basis": "total_profit",
@@ -564,10 +584,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. An optional daily loss limit can be bought, but Lucid publishes no amount for it, so none is modelled."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,200 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -581,6 +601,10 @@
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
+          },
+          "dailyLoss": {
+            "amount": "1200",
+            "effect": "session_lock"
           },
           "contracts": {
             "minis": 4,
@@ -597,15 +621,15 @@
               "cap": "2000",
               "minRequest": "500",
               "split": 90,
-              "notes": "Lucid caps each payout at half of the profit made in the current cycle, not total profit. The fifth payout closes the account and moves the trader live."
+              "notes": "Lucid's table says each payout is capped at \"50% of Profit\" and its text says \"50% of their account balance\"; neither says whether profit counts from the start or from the last payout. The fifth payout closes the account and moves the trader live."
             }
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The optional daily loss limit has no published amount."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,200 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
         },
         {
           "stage": "live",
@@ -632,7 +656,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -656,6 +680,10 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "1800",
+            "effect": "session_lock"
+          },
           "consistency": {
             "pct": "50",
             "basis": "total_profit",
@@ -667,10 +695,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. An optional daily loss limit can be bought, but Lucid publishes no amount for it, so none is modelled."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,800 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -684,6 +712,10 @@
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
+          },
+          "dailyLoss": {
+            "amount": "1800",
+            "effect": "session_lock"
           },
           "contracts": {
             "minis": 6,
@@ -700,15 +732,15 @@
               "cap": "2500",
               "minRequest": "500",
               "split": 90,
-              "notes": "Lucid caps each payout at half of the profit made in the current cycle, not total profit. The fifth payout closes the account and moves the trader live."
+              "notes": "Lucid's table says each payout is capped at \"50% of Profit\" and its text says \"50% of their account balance\"; neither says whether profit counts from the start or from the last payout. The fifth payout closes the account and moves the trader live."
             }
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The optional daily loss limit has no published amount."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,800 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
         },
         {
           "stage": "live",
@@ -735,7 +767,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -759,6 +791,10 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "2700",
+            "effect": "session_lock"
+          },
           "consistency": {
             "pct": "50",
             "basis": "total_profit",
@@ -770,10 +806,10 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. An optional daily loss limit can be bought, but Lucid publishes no amount for it, so none is modelled."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $2,700 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
         },
         {
           "stage": "funded",
@@ -787,6 +823,10 @@
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
+          },
+          "dailyLoss": {
+            "amount": "2700",
+            "effect": "session_lock"
           },
           "contracts": {
             "minis": 10,
@@ -803,15 +843,15 @@
               "cap": "3000",
               "minRequest": "500",
               "split": 90,
-              "notes": "Lucid caps each payout at half of the profit made in the current cycle, not total profit. The fifth payout closes the account and moves the trader live."
+              "notes": "Lucid's table says each payout is capped at \"50% of Profit\" and its text says \"50% of their account balance\"; neither says whether profit counts from the start or from the last payout. The fifth payout closes the account and moves the trader live."
             }
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12945815-lucidflex-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The optional daily loss limit has no published amount."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $2,700 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
         },
         {
           "stage": "live",
@@ -838,7 +878,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -877,7 +917,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -914,7 +954,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -944,7 +984,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -983,7 +1023,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1020,7 +1060,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1050,7 +1090,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1089,7 +1129,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1126,7 +1166,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1156,7 +1196,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1195,7 +1235,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1232,7 +1272,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1262,7 +1302,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1301,7 +1341,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1338,7 +1378,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1368,7 +1408,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1407,7 +1447,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1444,7 +1484,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1474,7 +1514,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1513,7 +1553,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1550,7 +1590,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1580,7 +1620,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1619,7 +1659,7 @@
           },
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/eval"
           },
           "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
@@ -1656,7 +1696,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/15998425-luciddaily-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/funded"
           },
           "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
@@ -1686,7 +1726,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
@@ -1731,7 +1771,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890192-luciddirect-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/25000/pack-1/stages/funded"
           },
           "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The 25K has no daily loss limit."
@@ -1761,7 +1801,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/25000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -1810,7 +1850,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890192-luciddirect-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/50000/pack-1/stages/funded"
           },
           "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -1840,7 +1880,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/50000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -1889,7 +1929,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890192-luciddirect-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/100000/pack-1/stages/funded"
           },
           "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -1919,7 +1959,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/100000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
@@ -1968,7 +2008,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/12890192-luciddirect-drawdown",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/150000/pack-1/stages/funded"
           },
           "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
@@ -1998,7 +2038,7 @@
           ],
           "source": {
             "url": "https://support.lucidtrading.com/en/articles/13425130-new-live-structure",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/150000/pack-1/stages/live"
           },
           "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."

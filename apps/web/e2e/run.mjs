@@ -92,7 +92,7 @@ try {
   check('dashboard shows three account cards', (await cards.count()) === 3);
   const topstepCard = cards.filter({ hasText: 'Topstep 50K Combine' });
   const topstepText = await topstepCard.innerText();
-  check('Topstep eval card states its consistency rule and when it passes', /Consistency 50%/.test(topstepText) && /Pass (in|now)|Passed/.test(topstepText), topstepText.replaceAll('\n', ' | '));
+  check('Topstep eval card states its consistency rule and when it passes', /Consistency 55%/.test(topstepText) && /Pass (in|now)|Passed/.test(topstepText), topstepText.replaceAll('\n', ' | '));
   const mffuText = await cards.filter({ hasText: 'MFFU Rapid 50K' }).innerText();
   check('MFFU funded card states its payout path', /Rapid daily payout/.test(mffuText), mffuText.replaceAll('\n', ' | '));
   await shot('05-dashboard');

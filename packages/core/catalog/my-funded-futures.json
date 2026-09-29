@@ -60,12 +60,12 @@
             {
               "name": "Rapid daily payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "26100"
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "The buffer applies to every payout: \"You must first build at least $1,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
+              "notes": "The buffer gates the request and also limits the amount. The Rapid page says \"You must first build at least $1,100 in realized profits in the account before requesting any payout.\" MFFU's Rapid plan page says \"Stay above the buffer and you're eligible to request a payout every 24 hours\", and the Rapid Reserve Program article (updated 2026-01-16) says \"Remaining Sim Funded buffer funds (reference SIM FUNDED ARTICLES) may be withdrawn exclusively following Live account breach\". So only money above $26,100 can be withdrawn, and with the $500 minimum the first payout needs $26,600. Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
@@ -132,12 +132,12 @@
             {
               "name": "Rapid daily payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "52100"
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "The buffer applies to every payout: \"You must first build at least $2,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
+              "notes": "The buffer gates the request and also limits the amount. The Rapid page says \"You must first build at least $2,100 in realized profits in the account before requesting any payout.\" MFFU's Rapid plan page says \"Stay above the buffer and you're eligible to request a payout every 24 hours\", and the Rapid Reserve Program article (updated 2026-01-16) says \"Remaining Sim Funded buffer funds (reference SIM FUNDED ARTICLES) may be withdrawn exclusively following Live account breach\". So only money above $52,100 can be withdrawn, and with the $500 minimum the first payout needs $52,600. Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
@@ -204,12 +204,12 @@
             {
               "name": "Rapid daily payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "103100"
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "The buffer applies to every payout: \"You must first build at least $3,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
+              "notes": "The buffer gates the request and also limits the amount. The Rapid page says \"You must first build at least $3,100 in realized profits in the account before requesting any payout.\" MFFU's Rapid plan page says \"Stay above the buffer and you're eligible to request a payout every 24 hours\", and the Rapid Reserve Program article (updated 2026-01-16) says \"Remaining Sim Funded buffer funds (reference SIM FUNDED ARTICLES) may be withdrawn exclusively following Live account breach\". So only money above $103,100 can be withdrawn, and with the $500 minimum the first payout needs $103,600. Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
@@ -276,12 +276,12 @@
             {
               "name": "Rapid daily payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "154600"
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "The buffer applies to every payout: \"You must first build at least $4,600 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
+              "notes": "The buffer gates the request and also limits the amount. The Rapid page says \"You must first build at least $4,600 in realized profits in the account before requesting any payout.\" MFFU's Rapid plan page says \"Stay above the buffer and you're eligible to request a payout every 24 hours\", and the Rapid Reserve Program article (updated 2026-01-16) says \"Remaining Sim Funded buffer funds (reference SIM FUNDED ARTICLES) may be withdrawn exclusively following Live account breach\". So only money above $154,600 can be withdrawn, and with the $500 minimum the first payout needs $155,100. Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
@@ -350,7 +350,7 @@
               "minProfit": "250",
               "minRequest": "500",
               "split": 90,
-              "notes": "Each payout after the first needs $250 of net profit since the last payout and a $500 minimum request. The first payout needs a $1,100 buffer, so the balance must reach $26,100: \"You must first build at least $1,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only.",
+              "notes": "Each payout after the first needs $250 of net profit since the last payout and a $500 minimum request. The first payout needs a $1,100 buffer, so the balance must reach $26,100: \"You must first build at least $1,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only. MFFU's Rapid Reserve Program article says Rapid sim funded \"buffer funds ... may be withdrawn exclusively following Live account breach\", which would keep the buffer in the account on every payout. The Rapid EOD page ties the buffer to the first payout only and has its own profit-since-last-payout rule, so it is modelled as the Rapid EOD page says.",
               "buffer": {
                 "kind": "balance_to_request",
                 "amount": "26100",
@@ -424,7 +424,7 @@
               "minProfit": "500",
               "minRequest": "500",
               "split": 90,
-              "notes": "Each payout after the first needs $500 of net profit since the last payout and a $500 minimum request. The first payout needs a $2,100 buffer, so the balance must reach $52,100: \"You must first build at least $2,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only.",
+              "notes": "Each payout after the first needs $500 of net profit since the last payout and a $500 minimum request. The first payout needs a $2,100 buffer, so the balance must reach $52,100: \"You must first build at least $2,100 in realized profits in the account before requesting your first payout.\" The buffer gates the first payout only. MFFU's Rapid Reserve Program article says Rapid sim funded \"buffer funds ... may be withdrawn exclusively following Live account breach\", which would keep the buffer in the account on every payout. The Rapid EOD page ties the buffer to the first payout only and has its own profit-since-last-payout rule, so it is modelled as the Rapid EOD page says.",
               "buffer": {
                 "kind": "balance_to_request",
                 "amount": "52100",
@@ -437,7 +437,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid-eod/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule."
+          "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. MFFU's Rapid EOD plan page lists 4 mini / 40 micro for the 50K; the help article and MFFU's plan data both say 3 / 30, which is used."
         }
       ]
     },
@@ -496,12 +496,22 @@
             {
               "name": "Pro payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "52100"
               },
               "minRequest": "1000",
+              "calendarDaysAfterFirstTrade": 14,
               "split": 80,
-              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
+              "notes": "Opens 14 calendar days after the first trade: \"Request a payout every 14 calendar days from your first trade\" (payout policy overview, updated 2026-08-25). Later payouts also wait 14 days each, which the catalog does not model. Only money above the $2,100 buffer can be taken: the Pro plan page says a payout is \"subject to your live equity above the required buffer at the time of request\", and the overview says you \"Must meet the buffer target before requesting a payout\". $100,000 maximum per trader."
+            },
+            {
+              "name": "Pro one-time withdrawal inside the buffer",
+              "minRequest": "1000",
+              "capPctOfProfit": 60,
+              "calendarDaysAfterFirstTrade": 14,
+              "maxPayouts": 1,
+              "split": 80,
+              "notes": "Pro FAQ (updated 2026-06-30): \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The overview says the same: \"You can withdraw up to 60% of your profits before fully clearing the buffer.\" The 60% is taken of profit above the starting balance, once per account, as its first payout. MFFU names no other split, so the plan's 80/20 applies. The 14-day wait applies to every Pro payout. MFFU does not say whether this option stays open once the buffer clears; the catalog cannot close it there, so it can show a bigger first payout than the main path when profit is between the buffer and about 2.5 times the buffer. After any first payout the limit moves to $50,100 and later payouts use the main path."
             }
           ],
           "source": {
@@ -568,12 +578,22 @@
             {
               "name": "Pro payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "103100"
               },
               "minRequest": "1000",
+              "calendarDaysAfterFirstTrade": 14,
               "split": 80,
-              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
+              "notes": "Opens 14 calendar days after the first trade: \"Request a payout every 14 calendar days from your first trade\" (payout policy overview, updated 2026-08-25). Later payouts also wait 14 days each, which the catalog does not model. Only money above the $3,100 buffer can be taken: the Pro plan page says a payout is \"subject to your live equity above the required buffer at the time of request\", and the overview says you \"Must meet the buffer target before requesting a payout\". $100,000 maximum per trader."
+            },
+            {
+              "name": "Pro one-time withdrawal inside the buffer",
+              "minRequest": "1000",
+              "capPctOfProfit": 60,
+              "calendarDaysAfterFirstTrade": 14,
+              "maxPayouts": 1,
+              "split": 80,
+              "notes": "Pro FAQ (updated 2026-06-30): \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The overview says the same: \"You can withdraw up to 60% of your profits before fully clearing the buffer.\" The 60% is taken of profit above the starting balance, once per account, as its first payout. MFFU names no other split, so the plan's 80/20 applies. The 14-day wait applies to every Pro payout. MFFU does not say whether this option stays open once the buffer clears; the catalog cannot close it there, so it can show a bigger first payout than the main path when profit is between the buffer and about 2.5 times the buffer. After any first payout the limit moves to $100,100 and later payouts use the main path."
             }
           ],
           "source": {
@@ -640,12 +660,22 @@
             {
               "name": "Pro payout",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "154600"
               },
               "minRequest": "1000",
+              "calendarDaysAfterFirstTrade": 14,
               "split": 80,
-              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
+              "notes": "Opens 14 calendar days after the first trade: \"Request a payout every 14 calendar days from your first trade\" (payout policy overview, updated 2026-08-25). Later payouts also wait 14 days each, which the catalog does not model. Only money above the $4,600 buffer can be taken: the Pro plan page says a payout is \"subject to your live equity above the required buffer at the time of request\", and the overview says you \"Must meet the buffer target before requesting a payout\". $100,000 maximum per trader."
+            },
+            {
+              "name": "Pro one-time withdrawal inside the buffer",
+              "minRequest": "1000",
+              "capPctOfProfit": 60,
+              "calendarDaysAfterFirstTrade": 14,
+              "maxPayouts": 1,
+              "split": 80,
+              "notes": "Pro FAQ (updated 2026-06-30): \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The overview says the same: \"You can withdraw up to 60% of your profits before fully clearing the buffer.\" The 60% is taken of profit above the starting balance, once per account, as its first payout. MFFU names no other split, so the plan's 80/20 applies. The 14-day wait applies to every Pro payout. MFFU does not say whether this option stays open once the buffer clears; the catalog cannot close it there, so it can show a bigger first payout than the main path when profit is between the buffer and about 2.5 times the buffer. After any first payout the limit moves to $150,100 and later payouts use the main path."
             }
           ],
           "source": {
@@ -698,6 +728,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -734,7 +767,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
+          "notes": "The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25)."
         }
       ]
     },
@@ -779,6 +812,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -792,6 +828,7 @@
           "payoutPaths": [
             {
               "name": "Builder payout",
+              "minTradingDays": 2,
               "minProfit": "500",
               "consistency": {
                 "pct": "50",
@@ -806,7 +843,7 @@
               "minRequest": "500",
               "cap": "2000",
               "split": 80,
-              "notes": "The buffer (MLL plus $100) must be cleared before any request, and the first payout needs $500 above it (\"your account balance must reach at least $2,600\" on the 50K), so the buffer is modelled as balance kept back. Later payouts need $500 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade. MFFU's Builder 50K page (updated 2026-08-24) asks for 2 trading days per payout cycle, but MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets no minimum payout days for this plan, so the day count is left out."
+              "notes": "The buffer (MLL plus $100) must be cleared before any request, and the first payout needs $500 above it (\"your account balance must reach at least $2,600\" on the 50K), so the buffer is modelled as balance kept back. Later payouts need $500 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade. Needs 2 trading days per payout cycle: the Builder 50K page (updated 2026-08-24) and the Builder plan page (read 2026-09-29) both list \"Minimum Qualifying Days / Cycle 2 Days\"; MFFU's plan data sets no day count, but the two pages agree."
             }
           ],
           "source": {
@@ -814,7 +851,171 @@
             "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/default/50000/pack-1/stages/funded"
           },
-          "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
+          "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25)."
+        }
+      ]
+    },
+    {
+      "id": "my-funded-futures/builder/100000",
+      "firm": "my-funded-futures",
+      "program": "Builder",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Builder Evaluation",
+          "profitTarget": "6000",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1750",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 6,
+            "micros": 60
+          },
+          "source": {
+            "url": "https://help.myfundedfutures.com/en/articles/17005296-builder-plan-100k-comprehensive-guide",
+            "checkedAt": "2026-09-29"
+          },
+          "notes": "No consistency rule in the evaluation. The $1,750 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
+        },
+        {
+          "stage": "funded",
+          "name": "Builder Sim Funded",
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1750",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 6,
+            "micros": 60
+          },
+          "payoutPaths": [
+            {
+              "name": "Builder payout",
+              "minTradingDays": 2,
+              "minProfit": "1000",
+              "consistency": {
+                "pct": "50",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_retained",
+                "amount": "103100"
+              },
+              "minRequest": "1000",
+              "cap": "3000",
+              "split": 80,
+              "notes": "Needs 2 trading days per payout cycle. The $3,100 buffer (MLL plus $100) must be cleared before any request, and the first payout needs $1,000 above it (\"For your first payout: you must have at least $1,000 in net profit above the buffer\"), so the buffer is modelled as balance kept back. Later payouts need $1,000 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade. The $3,000 cap per cycle matches the help article, the Builder plan page and MFFU's plan data."
+            }
+          ],
+          "source": {
+            "url": "https://help.myfundedfutures.com/en/articles/17005296-builder-plan-100k-comprehensive-guide",
+            "checkedAt": "2026-09-29"
+          },
+          "notes": "The $1,750 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25). One Builder sim funded account per trader on this size. Builder Live (after the 5th sim payout) is not modelled."
+        }
+      ]
+    },
+    {
+      "id": "my-funded-futures/builder/150000",
+      "firm": "my-funded-futures",
+      "program": "Builder",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Builder Evaluation",
+          "profitTarget": "9000",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "2500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 9,
+            "micros": 90
+          },
+          "source": {
+            "url": "https://help.myfundedfutures.com/en/articles/17035331-builder-plan-150k-comprehensive-guide",
+            "checkedAt": "2026-09-29"
+          },
+          "notes": "No consistency rule in the evaluation. The $2,500 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
+        },
+        {
+          "stage": "funded",
+          "name": "Builder Sim Funded",
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "2500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 9,
+            "micros": 90
+          },
+          "payoutPaths": [
+            {
+              "name": "Builder payout",
+              "minTradingDays": 2,
+              "minProfit": "1500",
+              "consistency": {
+                "pct": "50",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_retained",
+                "amount": "154600"
+              },
+              "minRequest": "1500",
+              "cap": "3500",
+              "split": 80,
+              "notes": "Needs 2 trading days per payout cycle. The $4,600 buffer (MLL plus $100) must be cleared before any request, and the first payout needs $1,500 above it (\"For your first payout: you must have at least $1,500 in net profit above the buffer\"), so the buffer is modelled as balance kept back. Later payouts need $1,500 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade. The cap is $3,500 per cycle from the Builder plan page (\"Maximum Payout Per Cycle ... $3,500\") and MFFU's plan data (withdrawal cap 3500). The Builder 150K help article says \"Maximum payout per cycle is $4,500\", but its own worked example requests $3,500; the lower figure is used."
+            }
+          ],
+          "source": {
+            "url": "https://help.myfundedfutures.com/en/articles/17035331-builder-plan-150k-comprehensive-guide",
+            "checkedAt": "2026-09-29"
+          },
+          "notes": "The $2,500 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25). One Builder sim funded account per trader on this size. Builder Live (after the 5th sim payout) is not modelled."
         }
       ]
     }
