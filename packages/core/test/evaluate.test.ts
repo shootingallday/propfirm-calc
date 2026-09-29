@@ -342,3 +342,28 @@ describe('a buffer that gates only the first payout', () => {
     expect(evaluate(acc).payout!.best.eligible).toBe(true);
   });
 });
+
+describe('payout paths gated by calendar days and by use count', () => {
+  const proLike = rules({
+    stage: 'funded',
+    payoutPaths: [{ name: 'Standard', minRequest: '1000', split: 80, calendarDaysAfterFirstTrade: 14 }],
+  });
+
+  it('holds the payout until 14 calendar days after the first trade, weekends included', () => {
+    const acc = account(proLike, [['2026-09-01', 1500], ['2026-09-02', 500]]);
+    const early = evaluate(acc, { today: '2026-09-14', avgDay: 100 });
+    expect(early.payout!.best.eligible).toBe(false);
+    expect(early.payout!.best.blockers[0]).toContain('2026-09-15');
+    expect(early.payout!.best.daysToEligible).toBe(1);
+    expect(evaluate(acc, { today: '2026-09-15' }).payout!.best.eligible).toBe(true);
+  });
+
+  it('closes a one-time path once a payout has been taken', () => {
+    const oneTime = rules({ stage: 'funded', payoutPaths: [{ name: 'Early', split: 60, capPctOfProfit: 60, maxPayouts: 1 }] });
+    const acc = account(oneTime, [['2026-09-01', 1000]]);
+    expect(evaluate(acc, { today: '2026-09-01' }).payout!.best.eligible).toBe(true);
+    const used = evaluate(addPayout(acc, '2026-09-01', '600'), { today: '2026-09-02' });
+    expect(used.payout!.best.eligible).toBe(false);
+    expect(used.payout!.best.daysToEligible).toBe(Infinity);
+  });
+});

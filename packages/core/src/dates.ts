@@ -33,3 +33,17 @@ export function weekStart(date: string): string {
 export function todayIso(): string {
   return new Date().toISOString().slice(0, 10);
 }
+
+export function addCalendarDays(date: string, count: number): string {
+  return fromUtc(new Date(toUtc(date).getTime() + count * DAY_MS));
+}
+
+export function tradingDaysUntil(from: string, until: string): number {
+  let count = 0;
+  let cursor = from;
+  while (cursor < until) {
+    cursor = addTradingDays(cursor, 1);
+    count += 1;
+  }
+  return count;
+}

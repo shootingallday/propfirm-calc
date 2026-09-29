@@ -41,6 +41,8 @@ export type PayoutPath = {
   minRequest?: string;
   cap?: string;
   capPctOfProfit?: number;
+  calendarDaysAfterFirstTrade?: number;
+  maxPayouts?: number;
   split: number;
   notes?: string;
   pxKey?: string;

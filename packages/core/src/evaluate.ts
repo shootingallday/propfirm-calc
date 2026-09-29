@@ -1,7 +1,7 @@
 import { netPnl, type Account, type DayEntry } from './account.ts';
 import type { ConsistencyRule, DrawdownRule, PayoutPath } from './catalog/types.ts';
 import { bestDayPct } from './consistency.ts';
-import { addTradingDays, todayIso } from './dates.ts';
+import { addCalendarDays, addTradingDays, todayIso, tradingDaysUntil } from './dates.ts';
 import { Decimal, formatMoney, money, sum, ZERO, type Money, type MoneyInput } from './money.ts';
 import { daysToProfit } from './projection.ts';
 
@@ -149,6 +149,8 @@ function pathStatus(
     postPayoutFloor: Money | null;
     avg: Money | null;
     profitTarget: Money | null;
+    now: string;
+    payoutCount: number;
   },
 ): PathStatus {
   const { start, balance, days, lastPayout, blown, avg } = context;
@@ -158,6 +160,21 @@ function pathStatus(
   const counts: number[] = [];
   const profitNeeds: Money[] = [];
   if (blown) blockers.push('Account is blown');
+  if (path.maxPayouts !== undefined && context.payoutCount >= path.maxPayouts) {
+    blockers.push(`Already used: this path allows ${path.maxPayouts} ${path.maxPayouts === 1 ? 'payout' : 'payouts'}`);
+    counts.push(Infinity);
+  }
+  if (path.calendarDaysAfterFirstTrade !== undefined) {
+    const first = days[0]?.date;
+    const opens = first === undefined ? null : addCalendarDays(first, path.calendarDaysAfterFirstTrade);
+    if (opens === null) {
+      blockers.push(`Opens ${path.calendarDaysAfterFirstTrade} calendar days after the first trade`);
+      counts.push(Infinity);
+    } else if (context.now < opens) {
+      blockers.push(`Opens ${opens}, ${path.calendarDaysAfterFirstTrade} calendar days after the first trade`);
+      counts.push(avg !== null && avg.gt(0) ? tradingDaysUntil(context.now, opens) : Infinity);
+    }
+  }
 
   let winningDays: number | null = null;
   let winningDaysNeeded: number | null = null;
@@ -382,6 +399,8 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
           postPayoutFloor: rules.drawdown.afterFirstPayout ? start.plus(rules.drawdown.afterFirstPayout.floorAboveStart) : null,
           avg: avgDayUsed,
           profitTarget,
+          now: [days.at(-1)?.date ?? '', options.today ?? todayIso()].sort().at(-1)!,
+          payoutCount: payouts.length,
         }),
       ),
     );
