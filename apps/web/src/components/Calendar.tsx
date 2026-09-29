@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { evaluate, payoutCalendar } from 'propfirm-calc';
+import { evaluate, netPnl, payoutCalendar } from 'propfirm-calc';
 
 import { usd } from '../format.ts';
 import type { Store } from '../store.ts';
@@ -19,7 +19,7 @@ export function Calendar({ store }: { store: Store }) {
       <div className="panel">
         <h2>Payout calendar</h2>
         <p className="muted">
-          Each account assumes every future trading day is the same winning day below. That's the best case, not a forecast. Weekends are skipped; exchange holidays aren't.
+          Each account assumes every future trading day is the same winning day below. That's the best case, not a forecast. Weekends and full exchange closures (New Year, Good Friday, Christmas) are skipped.
         </p>
         <table>
           <thead>
@@ -32,10 +32,14 @@ export function Calendar({ store }: { store: Store }) {
           <tbody>
             {accounts.map((account) => {
               const measured = evaluate(account).avgWinningDay;
+              const winners = account.days.filter((day) => netPnl(day, account.feePerSide).gt(0)).length;
               return (
                 <tr key={account.id}>
                   <td>{account.label}</td>
-                  <td className="num mono">{usd(measured)}</td>
+                  <td className="num mono">
+                    {usd(measured)}
+                    <span className={`small ${winners < 5 ? 'warn-text' : 'muted'}`}> from {winners} winning {winners === 1 ? 'day' : 'days'}{winners < 5 ? ', too few to lean on' : ''}</span>
+                  </td>
                   <td className="num">
                     <input
                       className="narrow"

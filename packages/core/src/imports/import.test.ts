@@ -428,3 +428,29 @@ describe('Performance timestamps are in the time zone of whoever exported them',
     expect(day(text, 'America/New_York')).toBe('2026-09-15');
   });
 });
+
+describe('files re-saved by Excel', () => {
+  const header = 'Account ID,Account Name,Trade Date,Total Amount';
+  const message = (text: string) => {
+    try {
+      importCsv(text);
+    } catch (error) {
+      expect(error).toBeInstanceOf(ImportError);
+      return (error as Error).message;
+    }
+    throw new Error('expected a refusal');
+  };
+
+  it('names semicolon and tab separators instead of calling the file unknown', () => {
+    expect(message(header.replaceAll(',', ';'))).toContain('semicolons');
+    expect(message(header.replaceAll(',', '\t'))).toContain('tabs');
+  });
+
+  it('names UTF-16 text read as UTF-8', () => {
+    expect(message(Array.from(header).join('\u0000'))).toContain('UTF-16');
+  });
+
+  it('refuses a file too large to read in a browser tab', () => {
+    expect(message(`${header}\n${'x'.repeat(20_000_001)}`)).toContain('20 million');
+  });
+});

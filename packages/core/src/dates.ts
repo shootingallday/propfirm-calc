@@ -9,9 +9,40 @@ function fromUtc(value: Date): string {
   return value.toISOString().slice(0, 10);
 }
 
-export function isWeekday(date: string): boolean {
-  const day = toUtc(date).getUTCDay();
-  return day !== 0 && day !== 6;
+function easterSunday(year: number): Date {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - Math.floor(b / 4) - g + 15) % 30;
+  const l = (32 + 2 * (b % 4) + 2 * Math.floor(c / 4) - h - (c % 4)) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function observed(year: number, month: number, day: number): string {
+  const value = new Date(Date.UTC(year, month - 1, day));
+  const weekday = value.getUTCDay();
+  const shift = weekday === 6 ? -1 : weekday === 0 ? 1 : 0;
+  return fromUtc(new Date(value.getTime() + shift * DAY_MS));
+}
+
+export function exchangeClosures(year: number): string[] {
+  return [
+    ...(new Date(Date.UTC(year, 0, 1)).getUTCDay() === 6 ? [] : [observed(year, 1, 1)]),
+    fromUtc(new Date(easterSunday(year).getTime() - 2 * DAY_MS)),
+    observed(year, 12, 25),
+  ];
+}
+
+export function isTradingDay(date: string): boolean {
+  const value = toUtc(date);
+  const day = value.getUTCDay();
+  if (day === 0 || day === 6) return false;
+  return !exchangeClosures(value.getUTCFullYear()).includes(date);
 }
 
 export function addTradingDays(date: string, count: number): string {
@@ -19,7 +50,7 @@ export function addTradingDays(date: string, count: number): string {
   let remaining = count;
   while (remaining > 0) {
     cursor = new Date(cursor.getTime() + DAY_MS);
-    if (isWeekday(fromUtc(cursor))) remaining -= 1;
+    if (isTradingDay(fromUtc(cursor))) remaining -= 1;
   }
   return fromUtc(cursor);
 }

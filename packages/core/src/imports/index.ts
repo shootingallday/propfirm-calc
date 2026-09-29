@@ -9,7 +9,22 @@ export type { ImportOptions } from './layouts.ts';
 
 const SUPPORTED = LAYOUTS.map((layout) => layout.label).join(', ');
 
+const MAX_CHARACTERS = 20_000_000;
+
+function refuseResaved(text: string): void {
+  if (text.includes('\u0000') || text.startsWith('\ufffd\ufffd') || text.startsWith('\u00ff\u00fe')) {
+    throw new ImportError('This file was saved as UTF-16 ("Unicode text"), probably by Excel. Export it again from the platform, or save it from Excel as "CSV UTF-8".');
+  }
+  const header = text.replace(/^\ufeff/, '').split(/\r?\n/, 1)[0] ?? '';
+  if (!header.includes(',') && (header.includes(';') || header.includes('\t'))) {
+    const separator = header.includes(';') ? 'semicolons' : 'tabs';
+    throw new ImportError(`This file separates columns with ${separator}, which usually means it was re-saved by Excel with regional settings. Use the file exactly as the platform exported it.`);
+  }
+}
+
 export function importCsv(text: string, options: ImportOptions = {}): ImportResult {
+  if (text.length > MAX_CHARACTERS) throw new ImportError('This file is over 20 million characters. Export a shorter date range.');
+  refuseResaved(text);
   const table = readTable(text);
   const layout = LAYOUTS.find((candidate) => requiredColumns(candidate.id).every((name) => table.header.includes(name)));
   if (!layout) {

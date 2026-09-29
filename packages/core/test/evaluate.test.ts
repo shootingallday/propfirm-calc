@@ -318,7 +318,7 @@ describe('findings from the engine review', () => {
   it('says when an intraday trailing floor is only approximate', () => {
     const intraday = rules({ drawdown: { amount: '2000', mode: 'intraday_trailing', lockAt: 'start' } });
     expect(evaluate(account(intraday)).notes[0]).toContain('Intraday trailing');
-    expect(evaluate(account(rules())).notes).toEqual([]);
+    expect(evaluate(account(rules())).notes[0]).toContain('closing balances');
   });
 });
 
@@ -365,5 +365,31 @@ describe('payout paths gated by calendar days and by use count', () => {
     const used = evaluate(addPayout(acc, '2026-09-01', '600'), { today: '2026-09-02' });
     expect(used.payout!.best.eligible).toBe(false);
     expect(used.payout!.best.daysToEligible).toBe(Infinity);
+  });
+});
+
+describe('LuxAlgo review follow-ups', () => {
+  it('caps a what-if day at a session-lock daily loss, because the firm flattens you there', () => {
+    const locking = rules({ dailyLoss: { amount: '1000', effect: 'session_lock' } });
+    const status = evaluate(account(locking, [['2026-09-01', 500]]), { whatIf: -3000, today: '2026-09-01' });
+    expect(n(status.whatIf!.pnl)).toBe(-1000);
+    expect(status.blown).toBeNull();
+    expect(status.notes.some((note) => note.includes('capped'))).toBe(true);
+  });
+
+  it('does not cap a breach-type daily loss', () => {
+    const breaching = rules({ dailyLoss: { amount: '1000', effect: 'breach' } });
+    const status = evaluate(account(breaching, [['2026-09-01', 500]]), { whatIf: -3000, today: '2026-09-01' });
+    expect(n(status.whatIf!.pnl)).toBe(-3000);
+    expect(status.blown?.reason).toBe('daily_loss');
+  });
+
+  it('skips exchange holidays when counting trading days', async () => {
+    const { addTradingDays, isTradingDay } = await import('../src/dates.ts');
+    expect(isTradingDay('2026-04-03')).toBe(false);
+    expect(isTradingDay('2026-12-25')).toBe(false);
+    expect(isTradingDay('2027-12-24')).toBe(false);
+    expect(isTradingDay('2028-01-03')).toBe(true);
+    expect(addTradingDays('2026-04-02', 1)).toBe('2026-04-06');
   });
 });

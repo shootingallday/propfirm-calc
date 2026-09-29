@@ -274,7 +274,10 @@ export function withWhatIf(account: Account, pnl: MoneyInput, date?: string, tod
   const last = account.days.at(-1)?.date ?? null;
   const anchor = today ?? todayIso();
   const base = last !== null && last > anchor ? last : anchor;
-  const day: DayEntry = { date: date ?? addTradingDays(base, 1), pnl: money(pnl).toString(), source: 'what-if' };
+  const limit = account.rules.dailyLoss?.effect === 'session_lock' ? money(account.rules.dailyLoss.amount).negated() : null;
+  const asked = money(pnl);
+  const capped = limit !== null && asked.lt(limit) ? limit : asked;
+  const day: DayEntry = { date: date ?? addTradingDays(base, 1), pnl: capped.toString(), source: 'what-if' };
   const days = [...account.days.filter((existing) => existing.date !== day.date), day].sort((a, b) =>
     a.date.localeCompare(b.date),
   );
@@ -427,9 +430,15 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
     evaluation,
     payout,
     whatIf,
-    notes:
+    notes: [
       rules.drawdown.mode === 'intraday_trailing'
-        ? ['Intraday trailing drawdown, worked out from end-of-day balances. Your real floor can be higher than shown.']
-        : [],
+        ? 'Intraday trailing drawdown, worked out from end-of-day balances. Your real floor can be higher than shown.'
+        : 'Checked on closing balances. A day that dipped through the floor and closed above it can still fail the account if the firm enforces it in real time.',
+      ...(rules.dailyLoss ? ['Daily loss is judged on the day\'s closing P&L, not the worst point during the day.'] : []),
+      ...(whatIf && rules.dailyLoss?.effect === 'session_lock' && money(options.whatIf!).lt(money(rules.dailyLoss.amount).negated())
+        ? [`The firm stops you out at the ${formatMoney(money(rules.dailyLoss.amount))} daily loss, so the what-if day is capped there.`]
+        : []),
+      'Contract limits and news rules are not checked.',
+    ],
   };
 }

@@ -82,6 +82,7 @@ export function Import({ store }: { store: Store }) {
               <tr>
                 <th>In the file</th>
                 <th className="num">Days</th>
+                <th>Dates</th>
                 <th className="num">Net P&amp;L</th>
                 <th className="num">Payouts</th>
                 <th>Goes into</th>
@@ -95,6 +96,7 @@ export function Import({ store }: { store: Store }) {
                   <tr key={key}>
                     <td>{imported.externalId ?? <span className="muted">no account named</span>}</td>
                     <td className="num mono">{imported.days.length}</td>
+                    <td className="mono small">{imported.days.length ? `${imported.days[0]!.date} to ${imported.days.at(-1)!.date}` : '—'}</td>
                     <td className={`num mono ${tone(total)}`}>{signed(total)}</td>
                     <td className="num mono">{imported.payouts.length}</td>
                     <td>

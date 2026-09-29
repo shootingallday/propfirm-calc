@@ -112,3 +112,4 @@ tr:last-child td { border-bottom: none; }
   .accounts { grid-template-columns: 1fr; }
 }
 .note { margin: 0; }
+.warn-text { color: var(--warn); }
