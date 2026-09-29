@@ -47,84 +47,112 @@ try {
   page.on('console', (message) => message.type() === 'error' && errors.push(message.text()));
   const shot = (name) => page.screenshot({ path: join(out, `${name}.png`), fullPage: true });
 
+  const visible = (locator) => locator.waitFor({ state: 'visible', timeout: 5000 }).then(() => true, () => false);
   await page.goto(base);
-  check('empty state on first visit', await page.getByText('No accounts yet').isVisible());
-  await shot('01-empty');
+  const rows = page.getByTestId('account-row');
+  check('first visit loads the five demo accounts', (await visible(page.getByText("You're looking at demo accounts."))) && (await rows.count()) === 5);
+  await shot('01-demo-accounts');
 
-  await page.getByRole('button', { name: 'Accounts', exact: true }).click();
-  async function add(firm, planId, stage, name) {
-    await page.getByRole('button', { name: '+ Add account' }).click();
-    await page.getByLabel('Firm').selectOption({ label: firm });
-    await page.getByLabel('Plan').selectOption(planId);
-    await page.getByLabel('Stage').selectOption(stage);
-    await page.getByLabel('Name').fill(name);
-    await page.getByRole('button', { name: 'Add account', exact: true }).click();
-    await page.getByTestId('account-detail').waitFor();
-  }
-  await add('Topstep', 'topstep/trading-combine/50000', 'eval', 'Topstep 50K Combine');
-  await shot('02-account-added');
-  await add('Take Profit Trader', 'take-profit-trader/test/50000', 'funded', 'TPT 50K PRO');
-  await add('MyFundedFutures', 'my-funded-futures/rapid/50000', 'funded', 'MFFU Rapid 50K');
-  check('three accounts in the list', (await page.locator('.list > button').count()) === 4);
+  const slide = (value) => page.locator('#whatif').evaluate((input, v) => {
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, String(v));
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }, value);
+  await slide(-1500);
+  const topstep = rows.filter({ hasText: 'Topstep 50K Express' });
+  check('what-if −$1,500 shows Topstep blowing', await visible(topstep.getByText('Blows the account')));
+  check('what-if caps Tradeify at its daily loss lock', await visible(rows.filter({ hasText: 'Tradeify Growth 50K' }).getByText('Hits the daily loss lock')));
+  await shot('02-whatif-minus-1500');
+  await page.getByRole('button', { name: 'Reset' }).click();
+  check('reset clears the what-if', (await page.getByTestId('whatif-value').textContent()) === '$0' && (await page.getByTestId('whatif-effects').count()) === 0);
 
-  await page.getByRole('button', { name: 'Import', exact: true }).click();
-  await page.getByTestId('csv-input').setInputFiles([
-    join(samples, 'tradovate-fills.csv'),
-    join(samples, 'topstepx-trades.csv'),
-    join(samples, 'tradovate-cash-history.csv'),
-  ]);
-  await page.getByText('topstepx-trades.csv').waitFor();
-  const tpt = page.getByLabel('Account for TPT50K-1');
-  const mffu = page.getByLabel('Account for MFFU50K-2');
-  const unnamed = page.getByLabel('Account for unnamed rows');
-  await tpt.selectOption({ label: 'TPT 50K PRO' });
-  for (let i = 0; i < (await mffu.count()); i += 1) await mffu.nth(i).selectOption({ label: 'MFFU Rapid 50K' });
-  await unnamed.selectOption({ label: 'Topstep 50K Combine' });
-  await shot('03-import-mapped');
-  await page.getByRole('button', { name: 'Apply import' }).click();
-  const log = await page.getByTestId('import-log').innerText();
-  check('import log names every account', ['TPT 50K PRO', 'MFFU Rapid 50K', 'Topstep 50K Combine'].every((label) => log.includes(label)), log.replaceAll('\n', ' | '));
-  check('cash history adds the payout', /MFFU Rapid 50K: added \d+ days.*1 payouts/.test(log));
-  await shot('04-import-applied');
+  await rows.filter({ hasText: 'MFFU Rapid 50K' }).click();
+  const panel = page.getByTestId('account-panel');
+  check('clicking a row opens its panel', await visible(panel.getByRole('heading', { name: 'MFFU Rapid 50K' })));
+  check('panel shows the next step', await visible(panel.getByText('Pass in 1 trading day')));
+  check('panel draws the balance and floor chart', await visible(panel.locator('.px-chart svg')));
+  await shot('03-panel-overview');
 
-  await page.getByRole('button', { name: 'Dashboard', exact: true }).click();
-  const cards = page.getByTestId('account-card');
-  check('dashboard shows three account cards', (await cards.count()) === 3);
-  const topstepCard = cards.filter({ hasText: 'Topstep 50K Combine' });
-  const topstepText = await topstepCard.innerText();
-  check('Topstep eval card states its consistency rule and when it passes', /Consistency 55%/.test(topstepText) && /Pass (in|now)|Passed/.test(topstepText), topstepText.replaceAll('\n', ' | '));
-  const mffuText = await cards.filter({ hasText: 'MFFU Rapid 50K' }).innerText();
-  check('MFFU funded card states its payout path', /Rapid daily payout/.test(mffuText), mffuText.replaceAll('\n', ' | '));
-  await shot('05-dashboard');
+  await panel.getByRole('tab', { name: /Days/ }).click();
+  await panel.getByLabel('Net P&L').fill('600');
+  await panel.getByRole('button', { name: 'Save day' }).click();
+  check('typing a +$600 day passes the evaluation', await visible(panel.getByRole('button', { name: /^Add .* account$/ })));
+  await shot('04-panel-passed');
+  const dayCount = await panel.locator('tbody tr').count();
+  await panel.locator('tbody tr').first().getByRole('button', { name: /^Remove/ }).click();
+  check('removing a day drops it', (await panel.locator('tbody tr').count()) === dayCount - 1);
+  await page.getByRole('button', { name: 'Undo' }).click();
+  check('Undo puts the day back', (await panel.locator('tbody tr').count()) === dayCount);
 
-  const slider = page.locator('#whatif');
-  await slider.fill('-2500');
-  await page.getByTestId('whatif-notes').first().waitFor();
-  const down = await page.getByTestId('whatif-notes').allInnerTexts();
-  check('a -$2,500 day blows at least one account', down.some((text) => /Blows the account|daily loss/.test(text)), down.join(' | '));
-  await shot('06-whatif-down');
-  await slider.fill('1500');
-  const up = await page.getByTestId('whatif-notes').allInnerTexts();
-  check('a +$1,500 day reports every included account', up.length === 3, up.join(' | '));
-  await shot('07-whatif-up');
+  await panel.getByRole('button', { name: 'Actions for MFFU Rapid 50K' }).click();
+  await page.getByRole('menuitem', { name: 'Rename' }).click();
+  await panel.getByLabel('Account name').fill('MFFU Rapid #2');
+  await panel.getByLabel('Account name').press('Enter');
+  check('rename from the menu', await visible(rows.filter({ hasText: 'MFFU Rapid #2' })));
+  await page.keyboard.press('Escape');
 
-  await page.getByRole('button', { name: 'Calendar', exact: true }).click();
-  const weeks = page.getByTestId('calendar-weeks');
-  const hasWeeks = await weeks.isVisible().catch(() => false);
-  check('calendar schedules at least one event', hasWeeks, hasWeeks ? (await weeks.innerText()).split('\n').slice(0, 4).join(' | ') : await page.locator('main').innerText());
-  await shot('08-calendar');
+  await page.getByRole('link', { name: 'Calendar' }).first().click();
+  check('calendar lists payout weeks', await visible(page.getByTestId('calendar-weeks').locator('.week').first()));
+  await shot('05-calendar');
+
+  await page.getByRole('link', { name: 'Import' }).first().click();
+  await page.getByTestId('csv-input').setInputFiles(join(samples, 'tradovate-fills.csv'));
+  check('import matches TPT50K-1 to the demo account', await visible(page.getByText('Matched before').first()));
+  await shot('06-import-preview');
+  await page.getByRole('button', { name: /^Import \d+ days? into/ }).click();
+  check('import applies and reports per account', await visible(page.getByTestId('import-log').getByText(/TPT 50K PRO: added/)));
+  await shot('07-import-done');
+
+  await page.getByRole('link', { name: 'Tools' }).first().click();
+  await page.getByLabel('Risk per trade').fill('500');
+  check('position size: $500 risk, 20 ticks at $5 is 5 contracts', (await page.getByTestId('contracts').textContent()) === '5 contracts');
+  await shot('08-tools');
+
+  await page.getByRole('link', { name: 'Accounts' }).first().click();
+  await page.getByRole('button', { name: 'Start with my own accounts' }).click();
+  check('starting fresh clears the demo', await visible(page.getByText('No accounts yet')));
+  await shot('09-empty');
+
+  await page.getByRole('button', { name: 'Add an account' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add an account' });
+  await dialog.getByLabel('Firm').selectOption({ label: 'Topstep' });
+  await dialog.getByLabel('Name').fill('My Combine');
+  await page.waitForTimeout(500);
+  await shot('10-add-dialog');
+  await dialog.getByRole('button', { name: 'Add account' }).click();
+  check('adding an account opens its panel', await visible(panel.getByRole('heading', { name: 'My Combine' })));
+  await panel.getByRole('tab', { name: /Days/ }).click();
+  await panel.getByLabel('Date').fill('2026-09-01');
+  await panel.getByLabel('Net P&L').fill('−250');
+  await panel.getByRole('button', { name: 'Save day' }).click();
 
   await page.reload();
-  await page.getByTestId('account-card').first().waitFor();
-  check('accounts survive a reload', (await page.getByTestId('account-card').count()) === 3);
+  check('accounts survive a reload', (await visible(rows.first().getByText('My Combine'))) && (await visible(rows.first().getByText('−$250.00'))) && (await rows.count()) === 1);
 
-  await page.getByRole('button', { name: 'Accounts', exact: true }).click();
-  await page.locator('.list > button', { hasText: 'Topstep 50K Combine' }).click();
-  await page.getByLabel('Day', { exact: true }).fill('2026-09-15');
-  await page.getByLabel('P&L').fill('-450');
-  await page.getByRole('button', { name: 'Save day' }).click();
-  check('a typed day lands in the table', (await page.getByTestId('account-detail').innerText()).includes('2026-09-15'));
-  await shot('09-account-detail');
+  await rows.first().click();
+  await panel.getByRole('button', { name: 'Actions for My Combine' }).click();
+  await page.getByRole('menuitem', { name: 'Delete account…' }).click();
+  await page.getByRole('alertdialog').getByRole('button', { name: 'Delete account' }).click();
+  check('delete asks first, then removes', await visible(page.getByText('No accounts yet')));
+
+  await page.getByRole('button', { name: 'Load demo accounts' }).click();
+  check('load demo accounts from the empty state', (await rows.count()) === 5);
+
+  await page.getByRole('button', { name: 'Switch to dark mode' }).click();
+  await page.waitForTimeout(700);
+  check('dark mode', await page.evaluate(() => document.documentElement.classList.contains('dark')));
+  await shot('11-dark');
+  await page.getByRole('button', { name: 'Switch to light mode' }).click();
+  await page.waitForTimeout(900);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${base}/#accounts`);
+  check('phone: bottom tab bar', await visible(page.locator('.tabbar')));
+  await page.waitForTimeout(300);
+  await shot('12-phone-accounts');
+  await rows.filter({ hasText: 'Topstep 50K Express' }).click();
+  await page.waitForTimeout(300);
+  await shot('13-phone-panel');
+  await page.setViewportSize({ width: 1320, height: 1000 });
 
   const manifest = await (await fetch(`${base}/manifest.webmanifest`)).json();
   check('PWA manifest is served', manifest.display === 'standalone');

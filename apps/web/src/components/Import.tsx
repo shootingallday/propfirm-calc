@@ -1,27 +1,29 @@
 import { useState } from 'react';
 import { applyImport, importCsv, matchImportedAccount, money, sum, type ImportResult } from 'propfirm-calc';
 
-import { signed, tone } from '../format.ts';
+import { shortDate } from '../format.ts';
 import type { Store } from '../store.ts';
+import { Fold, Icon, PageHead, Signed } from '../ui.tsx';
 
 type Loaded = { name: string; result: ImportResult };
 
 export function Import({ store }: { store: Store }) {
   const [loaded, setLoaded] = useState<Loaded[]>([]);
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<{ name: string; message: string }[]>([]);
   const [choice, setChoice] = useState<Record<string, string>>({});
   const [log, setLog] = useState<string[]>([]);
+  const [over, setOver] = useState(false);
   const accounts = store.saved.accounts;
 
-  async function read(files: FileList | null) {
-    if (!files) return;
+  async function read(files: File[]) {
+    if (!files.length) return;
     const next: Loaded[] = [];
-    const failed: string[] = [];
-    for (const file of Array.from(files)) {
+    const failed: { name: string; message: string }[] = [];
+    for (const file of files) {
       try {
         next.push({ name: file.name, result: importCsv(await file.text()) });
       } catch (error) {
-        failed.push(`${file.name}: ${error instanceof Error ? error.message : String(error)}`);
+        failed.push({ name: file.name, message: error instanceof Error ? error.message : String(error) });
       }
     }
     setLoaded(next);
@@ -30,12 +32,17 @@ export function Import({ store }: { store: Store }) {
     const picks: Record<string, string> = {};
     next.forEach((file, fileIndex) =>
       file.result.accounts.forEach((imported, index) => {
-        const match = matchImportedAccount(accounts, imported.externalId);
-        picks[`${fileIndex}:${index}`] = match?.id ?? '';
+        picks[`${fileIndex}:${index}`] = matchImportedAccount(accounts, imported.externalId)?.id ?? '';
       }),
     );
     setChoice(picks);
   }
+
+  const picked = Object.values(choice).filter(Boolean);
+  const dayCount = loaded.reduce(
+    (total, file, fileIndex) => total + file.result.accounts.reduce((count, imported, index) => count + (choice[`${fileIndex}:${index}`] ? imported.days.length : 0), 0),
+    0,
+  );
 
   function apply() {
     const lines: string[] = [];
@@ -47,94 +54,145 @@ export function Import({ store }: { store: Store }) {
         const account = next[at]!;
         const result = applyImport(account, imported, file.result.layout);
         next[at] = result.account;
-        const replaced = result.replaced.length ? `, replaced ${result.replaced.length} (${result.replaced[0]}${result.replaced.length > 1 ? ` to ${result.replaced.at(-1)}` : ''})` : '';
-        lines.push(`${account.label}: added ${result.added.length} days${replaced}${result.payoutsAdded ? `, ${result.payoutsAdded} payouts` : ''}`);
+        const replaced = result.replaced.length ? `, replaced ${result.replaced.length} (${result.replaced.map(shortDate).join(', ')})` : '';
+        lines.push(`${account.label}: added ${result.added.length} ${result.added.length === 1 ? 'day' : 'days'}${replaced}${result.payoutsAdded ? `, ${result.payoutsAdded} payouts` : ''}.`);
       }),
     );
     store.setSaved((current) => ({ ...current, accounts: next }));
-    setLog(lines.length ? lines : ['Nothing applied. Pick an account for each row first.']);
+    setLog(lines);
+    setLoaded([]);
   }
 
   return (
-    <section className="import">
-      <div className="panel">
-        <h2>Import a CSV</h2>
-        <p className="muted">
-          Tradovate: Fills, Performance, Account Balance History, Cash History. TopstepX: Orders, Trades. For TopstepX, use Orders: the Trades export can leave out round trips. Files are read in your browser and never uploaded.
-        </p>
-        <label className="drop">
-          <input type="file" accept=".csv,text/csv" multiple onChange={(event) => read(event.target.files)} data-testid="csv-input" />
-          Choose or drop CSV files
-        </label>
-        {errors.map((error) => (
-          <p key={error} className="error">
-            {error}
-          </p>
-        ))}
-      </div>
-      {loaded.map((file, fileIndex) => (
-        <div className="panel" key={file.name}>
-          <h3>
-            {file.name} <span className="badge">{file.result.label}</span>
-          </h3>
-          <table>
-            <thead>
-              <tr>
-                <th>In the file</th>
-                <th className="num">Days</th>
-                <th>Dates</th>
-                <th className="num">Net P&amp;L</th>
-                <th className="num">Payouts</th>
-                <th>Goes into</th>
-              </tr>
-            </thead>
-            <tbody>
-              {file.result.accounts.map((imported, index) => {
-                const key = `${fileIndex}:${index}`;
-                const total = sum(imported.days.map((day) => money(day.pnl)));
-                return (
-                  <tr key={key}>
-                    <td>{imported.externalId ?? <span className="muted">no account named</span>}</td>
-                    <td className="num mono">{imported.days.length}</td>
-                    <td className="mono small">{imported.days.length ? `${imported.days[0]!.date} to ${imported.days.at(-1)!.date}` : '—'}</td>
-                    <td className={`num mono ${tone(total)}`}>{signed(total)}</td>
-                    <td className="num mono">{imported.payouts.length}</td>
-                    <td>
-                      <select aria-label={`Account for ${imported.externalId ?? 'unnamed rows'}`} value={choice[key] ?? ''} onChange={(event) => setChoice({ ...choice, [key]: event.target.value })}>
-                        <option value="">Skip</option>
-                        {accounts.map((account) => (
-                          <option key={account.id} value={account.id}>
-                            {account.label}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          {file.result.warnings.length > 0 && (
-            <ul className="warnings">
-              {file.result.warnings.map((warning) => (
-                <li key={warning}>{warning}</li>
+    <div className="narrow">
+      <PageHead title="Import">Tradovate Fills, Performance, Account Balance History and Cash History, and TopstepX Orders and Trades. Files never leave this browser.</PageHead>
+      <label
+        className="px-drop"
+        data-state={over ? 'over' : undefined}
+        onDragOver={(event) => {
+          event.preventDefault();
+          setOver(true);
+        }}
+        onDragLeave={() => setOver(false)}
+        onDrop={(event) => {
+          event.preventDefault();
+          setOver(false);
+          read([...event.dataTransfer.files]);
+        }}
+      >
+        <span>
+          <b>Drop exports here</b> or browse
+        </span>
+        <input
+          type="file"
+          accept=".csv,text/csv"
+          multiple
+          data-testid="csv-input"
+          onChange={(event) => {
+            read([...(event.target.files ?? [])]);
+            event.target.value = '';
+          }}
+        />
+        <span className="px-drop-note">Several at once. From TopstepX, export Orders: Trades can drop round trips.</span>
+      </label>
+      <div className="stack" style={{ marginBlockStart: 'var(--card-gap)' }}>
+        {log.length > 0 && (
+          <div className="px-alert" data-tone="gain" role="status" data-testid="import-log">
+            <Icon name="success" />
+            <div>
+              <b>Imported</b>
+              {log.map((line) => (
+                <p key={line}>{line}</p>
               ))}
-            </ul>
-          )}
-        </div>
-      ))}
-      {loaded.length > 0 && (
-        <button type="button" className="primary" onClick={apply}>
-          Apply import
-        </button>
-      )}
-      {log.length > 0 && (
-        <ul className="panel plain" data-testid="import-log">
-          {log.map((line) => (
-            <li key={line}>{line}</li>
-          ))}
-        </ul>
-      )}
-    </section>
+            </div>
+            <a className="px-btn" data-variant="secondary" data-size="sm" href="#accounts">
+              See accounts
+            </a>
+          </div>
+        )}
+        {loaded.map((file, fileIndex) => (
+          <div className="px-card" key={file.name}>
+            <div className="px-card-title row" style={{ padding: 'var(--px-space-3) var(--cell-px) 0' }}>
+              <Icon name="trades" />
+              {file.name}
+              <span className="px-tag">{file.result.label}</span>
+            </div>
+            <div style={{ overflowX: 'auto', padding: 'var(--px-space-2) var(--cell-px) var(--px-space-3)' }}>
+              <table className="px-table">
+                <thead>
+                  <tr>
+                    <th>In the file</th>
+                    <th className="r">Days</th>
+                    <th className="r col-profit">Net P&amp;L</th>
+                    <th>Goes into</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {file.result.accounts.map((imported, index) => {
+                    const key = `${fileIndex}:${index}`;
+                    const matched = matchImportedAccount(accounts, imported.externalId);
+                    const name = imported.externalId ?? 'No account named';
+                    return (
+                      <tr key={key}>
+                        <td>
+                          {name}
+                          <div className="acct-sub">
+                            {imported.days.length ? `${shortDate(imported.days[0]!.date)} – ${shortDate(imported.days.at(-1)!.date)}` : 'No days'}
+                            {imported.payouts.length ? ` · ${imported.payouts.length} ${imported.payouts.length === 1 ? 'payout' : 'payouts'}` : ''}
+                          </div>
+                        </td>
+                        <td className="r px-num">{imported.days.length}</td>
+                        <td className="r col-profit">
+                          <Signed value={sum(imported.days.map((day) => money(day.pnl)))} />
+                        </td>
+                        <td>
+                          <select className="px-input" aria-label={`Goes into, for ${name}`} value={choice[key] ?? ''} onChange={(event) => setChoice({ ...choice, [key]: event.target.value })}>
+                            <option value="">Skip</option>
+                            {accounts.map((account) => (
+                              <option key={account.id} value={account.id}>
+                                {account.label}
+                              </option>
+                            ))}
+                          </select>
+                          {matched && choice[key] === matched.id && <div className="acct-sub">Matched before</div>}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {file.result.warnings.length > 0 && (
+              <div className="px-accordion">
+                <Fold title={`${file.result.warnings.length} ${file.result.warnings.length === 1 ? 'warning' : 'warnings'}`}>
+                  {file.result.warnings.map((warning) => (
+                    <p key={warning} className="small">
+                      {warning}
+                    </p>
+                  ))}
+                </Fold>
+              </div>
+            )}
+          </div>
+        ))}
+        {errors.map((error) => (
+          <div key={error.name} className="px-alert" data-tone="loss" role="alert">
+            <Icon name="error" />
+            <div>
+              <b>{error.name} wasn't read</b>
+              <p>{error.message}</p>
+            </div>
+          </div>
+        ))}
+        {loaded.length > 0 && (
+          <div className="row">
+            <button type="button" className="px-btn" data-variant="primary" disabled={!picked.length} onClick={apply}>
+              {picked.length ? `Import ${dayCount} ${dayCount === 1 ? 'day' : 'days'} into ${new Set(picked).size} ${new Set(picked).size === 1 ? 'account' : 'accounts'}` : 'Pick an account to import into'}
+            </button>
+            {accounts.length === 0 && <span className="small muted">Add an account first, then pick it here.</span>}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

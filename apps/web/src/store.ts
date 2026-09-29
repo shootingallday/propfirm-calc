@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 import type { Account } from 'propfirm-calc';
 
+import { loadDemo } from './demo.ts';
+
 const KEY = 'propfirm-calc:v1';
 
 export type Saved = {
   version: 1;
   accounts: Account[];
   avgDay: Record<string, string>;
+  demo?: boolean;
 };
 
-const EMPTY: Saved = { version: 1, accounts: [], avgDay: {} };
+export const EMPTY: Saved = { version: 1, accounts: [], avgDay: {} };
 
 function load(): Saved {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return EMPTY;
+    if (!raw) return loadDemo();
     const parsed = JSON.parse(raw) as Saved;
     return parsed.version === 1 && Array.isArray(parsed.accounts) ? { ...EMPTY, ...parsed } : EMPTY;
   } catch {

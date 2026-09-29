@@ -9,6 +9,9 @@ and next payout. Then drag one slider to see what tomorrow does to every account
 
 There's no sign-up and no broker login. Your data stays in your browser.
 
+**Try it:** https://propfirm-calc.jomardippiton2005.workers.dev opens with five demo accounts
+already loaded, so you can drag the slider and open each one before adding your own.
+
 - **What-if slider**: set tomorrow's P&L once and see which account blows, which breaks
   consistency, and which unlocks a payout.
 - **Payout calendar**: when each account can pay out at your average winning day, and how much
@@ -28,6 +31,7 @@ There's no sign-up and no broker login. Your data stays in your browser.
 | `packages/core/catalog` | One JSON file per firm |
 | `packages/core/samples` | Synthetic sample exports for every supported CSV layout |
 | `apps/web` | The web app (Vite + React), installable as a PWA |
+| `apps/web/src/px` | The PX Brand design kit the app is styled with (see `docs/DESIGN.md`) |
 
 ## Run it
 
