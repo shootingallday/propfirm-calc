@@ -318,8 +318,7 @@ describe('findings from the engine review', () => {
   it('says what each drawdown check can and cannot see', () => {
     const intraday = rules({ drawdown: { amount: '2000', mode: 'intraday_trailing', lockAt: 'start' } });
     expect(evaluate(account(intraday)).notes.join(' ')).toContain('open profit');
-    expect(evaluate(account(rules())).notes[0]).toContain('not known');
-    expect(evaluate(account(rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'close' } }))).notes).toEqual(['Contract limits and news rules are not checked.']);
+    expect(evaluate(account(rules(), [['2026-09-01', 100]])).notes[0]).toContain('during the day');
   });
 });
 
@@ -367,6 +366,14 @@ describe('payout paths gated by calendar days and by use count', () => {
     expect(used.payout!.best.eligible).toBe(false);
     expect(used.payout!.best.daysToEligible).toBe(Infinity);
   });
+
+  it('closes an inside-the-buffer path once the balance reaches the buffer', () => {
+    const inBuffer = rules({ stage: 'funded', payoutPaths: [{ name: 'Inside buffer', split: 80, capPctOfProfit: 60, closesAtBalance: '52100' }] });
+    expect(evaluate(account(inBuffer, [['2026-09-01', 2000]]), { today: '2026-09-01' }).payout!.best.eligible).toBe(true);
+    const cleared = evaluate(account(inBuffer, [['2026-09-01', 2100]]), { today: '2026-09-01' }).payout!.best;
+    expect(cleared.eligible).toBe(false);
+    expect(cleared.daysToEligible).toBe(Infinity);
+  });
 });
 
 describe('LuxAlgo review follow-ups', () => {
@@ -396,7 +403,7 @@ describe('LuxAlgo review follow-ups', () => {
 });
 
 describe('a floor enforced during the day', () => {
-  const intradayBreach = rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'intraday' }, profitTarget: '3000' });
+  const intradayBreach = rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start' }, profitTarget: '3000' });
   const withLow = (low: string, pnl: string, rule = intradayBreach): Account => {
     const acc = account(rule);
     acc.days = [{ date: '2026-09-01', pnl, low, source: 'import:tradovate-performance', sidesWithoutFees: 4 }];
@@ -413,13 +420,8 @@ describe('a floor enforced during the day', () => {
     expect(evaluate(withLow('-1997.99', '-100')).blown).toBeNull();
   });
 
-  it('ignores the dip when the firm only checks the close', () => {
-    const closeOnly = rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', breach: 'close' } });
-    expect(evaluate(withLow('-2500', '-100', closeOnly)).blown).toBeNull();
-  });
-
   it('flags a daily loss hit from the low even when the close recovered', () => {
-    const locking = rules({ drawdown: { amount: '3000', mode: 'eod_trailing', lockAt: 'start', breach: 'intraday' }, dailyLoss: { amount: '1000', effect: 'session_lock' } });
+    const locking = rules({ drawdown: { amount: '3000', mode: 'eod_trailing', lockAt: 'start' }, dailyLoss: { amount: '1000', effect: 'session_lock' } });
     expect(evaluate(withLow('-1200', '200', locking)).dailyLoss!.hits).toEqual(['2026-09-01']);
   });
 });

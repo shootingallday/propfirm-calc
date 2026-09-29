@@ -35,7 +35,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/25000/pack-1/purchased-from-2026-08-17/stages/eval"
           },
-          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit stops trailing at the starting balance. The best day must be strictly below 50%. TPT's Rule 5 page divides the best day by total net profit; its FAQ measures it against the profit target. Modelled against total profit. Breaking it delays passing; it does not fail the Test."
+          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
         {
           "stage": "funded",
@@ -57,7 +57,7 @@
                 "amount": "26500"
               },
               "split": 80,
-              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance above the buffer. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
+              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance at or above the buffer (starting balance plus the drawdown), so a withdrawal cannot bring the balance near the floor. Reaching the buffer means the floor has already locked at the starting balance, and TPT's pages give no rule that moves it after a withdrawal. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
             }
           ],
           "source": {
@@ -83,15 +83,15 @@
             {
               "name": "PRO+ daily withdrawal",
               "split": 90,
-              "notes": "Daily from day one, no buffer and no maximum."
+              "notes": "Daily from day one, no buffer and no maximum. TPT does not say whether a withdrawal may take the balance down to the $0 floor; the balance, including open positions, must never reach the floor."
             }
           ],
           "source": {
-            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171978600349-PRO-Account-Upgrade-Process-Overview-and-Guidelines",
+            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/25000/pack-1/purchased-from-2026-08-17/stages/live"
           },
-          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0. Promotion is by review, and $5,000 of PRO profit is held on upgrade. TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
+          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
       ]
     },
@@ -125,7 +125,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/50000/pack-1/purchased-from-2026-08-17/stages/eval"
           },
-          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit stops trailing at the starting balance. The best day must be strictly below 50%. TPT's Rule 5 page divides the best day by total net profit; its FAQ measures it against the profit target. Modelled against total profit. Breaking it delays passing; it does not fail the Test."
+          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
         {
           "stage": "funded",
@@ -147,7 +147,7 @@
                 "amount": "52000"
               },
               "split": 80,
-              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance above the buffer. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
+              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance at or above the buffer (starting balance plus the drawdown), so a withdrawal cannot bring the balance near the floor. Reaching the buffer means the floor has already locked at the starting balance, and TPT's pages give no rule that moves it after a withdrawal. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
             }
           ],
           "source": {
@@ -173,15 +173,15 @@
             {
               "name": "PRO+ daily withdrawal",
               "split": 90,
-              "notes": "Daily from day one, no buffer and no maximum."
+              "notes": "Daily from day one, no buffer and no maximum. TPT does not say whether a withdrawal may take the balance down to the $0 floor; the balance, including open positions, must never reach the floor."
             }
           ],
           "source": {
-            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171978600349-PRO-Account-Upgrade-Process-Overview-and-Guidelines",
+            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/50000/pack-1/purchased-from-2026-08-17/stages/live"
           },
-          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0. Promotion is by review, and $5,000 of PRO profit is held on upgrade. TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
+          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
       ]
     },
@@ -215,7 +215,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/75000/pack-1/purchased-from-2026-08-17/stages/eval"
           },
-          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit stops trailing at the starting balance. The best day must be strictly below 50%. TPT's Rule 5 page divides the best day by total net profit; its FAQ measures it against the profit target. Modelled against total profit. Breaking it delays passing; it does not fail the Test."
+          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
         {
           "stage": "funded",
@@ -237,7 +237,7 @@
                 "amount": "77500"
               },
               "split": 80,
-              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance above the buffer. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
+              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance at or above the buffer (starting balance plus the drawdown), so a withdrawal cannot bring the balance near the floor. Reaching the buffer means the floor has already locked at the starting balance, and TPT's pages give no rule that moves it after a withdrawal. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
             }
           ],
           "source": {
@@ -263,15 +263,15 @@
             {
               "name": "PRO+ daily withdrawal",
               "split": 90,
-              "notes": "Daily from day one, no buffer and no maximum."
+              "notes": "Daily from day one, no buffer and no maximum. TPT does not say whether a withdrawal may take the balance down to the $0 floor; the balance, including open positions, must never reach the floor."
             }
           ],
           "source": {
-            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171978600349-PRO-Account-Upgrade-Process-Overview-and-Guidelines",
+            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/75000/pack-1/purchased-from-2026-08-17/stages/live"
           },
-          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0. Promotion is by review, and $5,000 of PRO profit is held on upgrade. TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
+          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
       ]
     },
@@ -305,7 +305,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/100000/pack-1/purchased-from-2026-08-17/stages/eval"
           },
-          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit stops trailing at the starting balance. The best day must be strictly below 50%. TPT's Rule 5 page divides the best day by total net profit; its FAQ measures it against the profit target. Modelled against total profit. Breaking it delays passing; it does not fail the Test."
+          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
         {
           "stage": "funded",
@@ -327,7 +327,7 @@
                 "amount": "103000"
               },
               "split": 80,
-              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance above the buffer. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
+              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance at or above the buffer (starting balance plus the drawdown), so a withdrawal cannot bring the balance near the floor. Reaching the buffer means the floor has already locked at the starting balance, and TPT's pages give no rule that moves it after a withdrawal. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
             }
           ],
           "source": {
@@ -353,15 +353,15 @@
             {
               "name": "PRO+ daily withdrawal",
               "split": 90,
-              "notes": "Daily from day one, no buffer and no maximum."
+              "notes": "Daily from day one, no buffer and no maximum. TPT does not say whether a withdrawal may take the balance down to the $0 floor; the balance, including open positions, must never reach the floor."
             }
           ],
           "source": {
-            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171978600349-PRO-Account-Upgrade-Process-Overview-and-Guidelines",
+            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/100000/pack-1/purchased-from-2026-08-17/stages/live"
           },
-          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0. Promotion is by review, and $5,000 of PRO profit is held on upgrade. TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
+          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
       ]
     },
@@ -395,7 +395,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/150000/pack-1/purchased-from-2026-08-17/stages/eval"
           },
-          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit stops trailing at the starting balance. The best day must be strictly below 50%. TPT's Rule 5 page divides the best day by total net profit; its FAQ measures it against the profit target. Modelled against total profit. Breaking it delays passing; it does not fail the Test."
+          "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
         {
           "stage": "funded",
@@ -417,7 +417,7 @@
                 "amount": "154500"
               },
               "split": 80,
-              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance above the buffer. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
+              "notes": "Daily withdrawals from day one, but every withdrawal from an active PRO account must leave the balance at or above the buffer (starting balance plus the drawdown), so a withdrawal cannot bring the balance near the floor. Reaching the buffer means the floor has already locked at the starting balance, and TPT's pages give no rule that moves it after a withdrawal. Profits inside the buffer can only be taken by closing the account, which pays 50% (60 or fewer trading days) or 80% of them. No cap and no consistency rule."
             }
           ],
           "source": {
@@ -443,15 +443,15 @@
             {
               "name": "PRO+ daily withdrawal",
               "split": 90,
-              "notes": "Daily from day one, no buffer and no maximum."
+              "notes": "Daily from day one, no buffer and no maximum. TPT does not say whether a withdrawal may take the balance down to the $0 floor; the balance, including open positions, must never reach the floor."
             }
           ],
           "source": {
-            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171978600349-PRO-Account-Upgrade-Process-Overview-and-Guidelines",
+            "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
             "checkedAt": "2026-09-29",
             "pxKey": "take-profit-trader/1-step-test/standard/150000/pack-1/purchased-from-2026-08-17/stages/live"
           },
-          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0. Promotion is by review, and $5,000 of PRO profit is held on upgrade. TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
+          "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
       ]
     }

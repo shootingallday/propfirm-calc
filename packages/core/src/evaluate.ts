@@ -164,6 +164,10 @@ function pathStatus(
     blockers.push(`Already used: this path allows ${path.maxPayouts} ${path.maxPayouts === 1 ? 'payout' : 'payouts'}`);
     counts.push(Infinity);
   }
+  if (path.closesAtBalance !== undefined && balance.gte(money(path.closesAtBalance))) {
+    blockers.push(`Closed: open only while the balance is under ${formatMoney(money(path.closesAtBalance))}`);
+    counts.push(Infinity);
+  }
   if (path.calendarDaysAfterFirstTrade !== undefined) {
     const first = days[0]?.date;
     const opens = first === undefined ? null : addCalendarDays(first, path.calendarDaysAfterFirstTrade);
@@ -302,7 +306,6 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
       const low = Decimal.min(money(day.low).minus(pnl.minus(day.pnl).negated()), pnl);
       return { date: day.date, pnl, low };
     });
-  const breach = rules.drawdown.breach ?? (rules.drawdown.mode === 'intraday_trailing' ? 'intraday' : undefined);
   const payouts = [...account.payouts].sort((a, b) => a.date.localeCompare(b.date));
   const byDate = new Map(days.map((day) => [day.date, day]));
   const dates = [...new Set([...days.map((day) => day.date), ...payouts.map((payout) => payout.date)])].sort();
@@ -323,7 +326,7 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
       const dailyHit = dailyLimit !== null && worst.lte(dailyLimit.negated());
       if (dailyHit) dailyHits.push(date);
       if (!blown && dailyHit && rules.dailyLoss?.effect === 'breach') blown = { date, reason: 'daily_loss' };
-      const lowest = breach === 'intraday' && day.low ? balance.minus(day.pnl).plus(day.low) : balance;
+      const lowest = day.low ? balance.minus(day.pnl).plus(day.low) : balance;
       if (!blown && Decimal.min(balance, lowest).lte(floorBefore)) blown = { date, reason: 'drawdown' };
       if (balance.gt(peak)) peak = balance;
     }
@@ -439,13 +442,9 @@ export function evaluate(input: Account, options: EvaluateOptions = {}): Account
     payout,
     whatIf,
     notes: [
-      ...(breach === 'intraday'
-        ? days.some((day) => !day.low)
-          ? ['The firm enforces the floor during the day. Days entered without trade times (typed, Balance History, Cash History) can only be checked at the close.']
-          : []
-        : breach === 'close'
-          ? []
-          : ['Checked on closing balances. It is not known whether this firm also enforces the floor during the day.']),
+      ...(days.some((day) => !day.low)
+        ? ['The firm enforces the floor during the day. Days entered without trade times (typed, Balance History, Cash History) can only be checked at the close.']
+        : []),
       ...(rules.drawdown.mode === 'intraday_trailing'
         ? ['The trailing peak includes open profit during the day, which no export records, so the real floor can be higher than shown.']
         : []),

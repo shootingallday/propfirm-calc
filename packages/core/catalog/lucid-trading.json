@@ -36,7 +36,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. The 25K daily loss limit of $600 comes from Lucid's home page plan card; the help centre's LucidPro evaluation and daily loss limit articles still list None for the 25K."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. The 25K daily loss limit of $600 comes from Lucid's home page plan card; the help centre's LucidPro evaluation and daily loss limit articles still list None for the 25K. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -46,6 +46,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -80,7 +83,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above $26,100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. The $600 limit comes from Lucid's home page and the LucidPro funded account article; the LucidPro daily loss limit article still lists None for the 25K."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above $26,100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. The $600 limit comes from Lucid's home page and the LucidPro funded account article; the LucidPro daily loss limit article still lists None for the 25K. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -110,7 +113,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/25000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -145,7 +148,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -155,6 +158,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -189,7 +195,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -219,7 +225,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/50000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -254,7 +260,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -264,6 +270,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -298,7 +307,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -328,7 +337,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/100000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -363,7 +372,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. No consistency rule in the evaluation. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -373,6 +382,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -407,7 +419,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above the starting balance plus the drawdown plus $100, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -437,7 +449,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidpro/standard/150000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -476,7 +488,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $600 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $600 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -518,7 +530,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $600 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $600 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid says \"There is no buffer balance that must be maintained in LucidFlex funded accounts\"; the 50% of profit cap still leaves at least half the profit above the start, and the floor snaps to the start plus $100 on a payout request."
         },
         {
           "stage": "live",
@@ -548,7 +560,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/25000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -587,7 +599,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,200 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,200 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -629,7 +641,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,200 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,200 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid says \"There is no buffer balance that must be maintained in LucidFlex funded accounts\"; the 50% of profit cap still leaves at least half the profit above the start, and the floor snaps to the start plus $100 on a payout request."
         },
         {
           "stage": "live",
@@ -659,7 +671,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/50000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -698,7 +710,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,800 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $1,800 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -740,7 +752,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,800 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $1,800 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid says \"There is no buffer balance that must be maintained in LucidFlex funded accounts\"; the 50% of profit cap still leaves at least half the profit above the start, and the floor snaps to the start plus $100 on a payout request."
         },
         {
           "stage": "live",
@@ -770,7 +782,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/100000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -809,7 +821,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $2,700 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. No minimum trading days are published; the 50% rule makes two days the practical floor. The daily loss limit of $2,700 comes from Lucid's home page plan card and locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout for a higher price; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -851,7 +863,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $2,700 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The limit moves to the locked level as soon as a payout is requested. Contract limits start lower and grow with the balance. The daily loss limit of $2,700 comes from Lucid's home page, which labels it the limit below the Initial Trail Balance and publishes nothing for above it. It locks the account for the session; it does not fail it. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid says \"There is no buffer balance that must be maintained in LucidFlex funded accounts\"; the 50% of profit cap still leaves at least half the profit above the start, and the floor snaps to the start plus $100 on a payout request."
         },
         {
           "stage": "live",
@@ -881,7 +893,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/lucidflex/standard/150000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -920,7 +932,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -930,6 +942,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -957,7 +972,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -987,7 +1002,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/25000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1026,7 +1041,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -1036,6 +1051,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1063,7 +1081,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1093,7 +1111,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/50000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1132,7 +1150,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -1142,6 +1160,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1169,7 +1190,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1199,7 +1220,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/100000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1238,7 +1259,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence."
         },
         {
           "stage": "funded",
@@ -1248,6 +1269,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1275,7 +1299,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1305,7 +1329,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-eod/standard/150000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1344,7 +1368,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\"."
         },
         {
           "stage": "funded",
@@ -1354,6 +1378,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1381,7 +1408,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1411,7 +1438,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/25000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1450,7 +1477,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\"."
         },
         {
           "stage": "funded",
@@ -1460,6 +1487,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1487,7 +1517,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1517,7 +1547,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/50000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1556,7 +1586,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\"."
         },
         {
           "stage": "funded",
@@ -1566,6 +1596,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1593,7 +1626,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1623,7 +1656,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/100000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1662,7 +1695,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/eval"
           },
-          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one."
+          "notes": "The limit trails the highest unrealised balance during the session and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. A Daily Loss Limit Off version can be bought at checkout; this plan models the standard one. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\"."
         },
         {
           "stage": "funded",
@@ -1672,6 +1705,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1699,7 +1735,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach."
+          "notes": "The funded account always uses an intraday trailing limit, whichever drawdown the evaluation used, and it locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Trading US high-impact news on this funded account is a hard breach. The intraday floor is enforced in real time; Lucid's LucidDaily customization article says intraday drawdown \"is monitored continuously throughout the trading session\". Payouts can only come from balance above the buffer of starting balance plus the drawdown plus $100, which Lucid calls \"a safety net to avoid hitting Max Loss Limit after a payout\"; a balance above it has already locked the floor at the start plus $100, where it stays after a payout. If a trade before approval drops the balance into the buffer the request may be denied."
         },
         {
           "stage": "live",
@@ -1729,7 +1765,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddaily-intraday/standard/150000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. LucidDaily live: the buffer funds the starting drawdown and cannot be withdrawn, simulated profit above the buffer is capped at $15,000 in total, and there is no live bonus. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1747,6 +1783,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -1774,7 +1813,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/25000/pack-1/stages/funded"
           },
-          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The 25K has no daily loss limit."
+          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The 25K has no daily loss limit. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for LucidDirect. The first cycle's profit goal is above the Initial Trail Balance, so the floor is already locked at the start plus $100 by the first payout and stays there; Lucid does not say whether a later payout may take the balance down to that floor."
         },
         {
           "stage": "live",
@@ -1804,7 +1843,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/25000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1822,6 +1861,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1853,7 +1895,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/50000/pack-1/stages/funded"
           },
-          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for LucidDirect. The first cycle's profit goal is above the Initial Trail Balance, so the floor is already locked at the start plus $100 by the first payout and stays there; Lucid does not say whether a later payout may take the balance down to that floor."
         },
         {
           "stage": "live",
@@ -1883,7 +1925,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/50000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1901,6 +1943,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -1932,7 +1977,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/100000/pack-1/stages/funded"
           },
-          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for LucidDirect. The first cycle's profit goal is above the Initial Trail Balance, so the floor is already locked at the start plus $100 by the first payout and stays there; Lucid does not say whether a later payout may take the balance down to that floor."
         },
         {
           "stage": "live",
@@ -1962,7 +2007,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/100000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     },
@@ -1980,6 +2025,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "dailyLoss": {
@@ -2011,7 +2059,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/150000/pack-1/stages/funded"
           },
-          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down."
+          "notes": "Funded on purchase with no evaluation. The limit trails the highest end-of-day balance and locks at the starting balance plus $100. The daily loss limit locks the account for the session; it does not fail it. Once the account closes above its lock level, the daily loss limit becomes 60% of the highest end-of-day profit and never goes down. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for LucidDirect. The first cycle's profit goal is above the Initial Trail Balance, so the floor is already locked at the start plus $100 by the first payout and stays there; Lucid does not say whether a later payout may take the balance down to that floor."
         },
         {
           "stage": "live",
@@ -2041,7 +2089,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "lucid-trading/luciddirect/standard/150000/pack-1/stages/live"
           },
-          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group."
+          "notes": "A live account starts at a $0 balance. The drawdown locks $100 below that start once live profit equals the drawdown, or at once if a payout is requested first. Lucid's wording does not match a plain trailing floor, so the lock is an approximation. No daily loss limit and no consistency rule live. Contract limits grow with live profit by exchange group. Breach is checked in real time: Lucid's drawdown article says \"If your account balance reached the MLL, your account will be breached\", and its daily loss limit articles restrict trading \"provided your account has not been liquidated\". End of day only sets when the floor moves. Two r/LucidProp traders say an open position that dips below the floor breaches even if the day recovers, and a third reports being auto-stopped out mid-trade on an EOD evaluation; FundedWiki, Velotrade and DamnPropFirms say the opposite without evidence. Lucid publishes no payout buffer for live accounts and does not say whether a live payout may take the balance to the floor; an early payout locks the floor at $100."
         }
       ]
     }

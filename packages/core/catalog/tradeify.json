@@ -77,7 +77,7 @@
               "minRequest": "250",
               "cap": "1000",
               "split": 90,
-              "notes": "The cap rises with each payout: 1000, 1000, 1000, 1000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+              "notes": "The cap rises with each payout: 1000, 1000, 1000, 1000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it. After reaching the minimum balance, a payout may take the balance down toward the locked floor (starting balance plus $100); Tradeify says you are able to take it out, and its 50K example ends at $51,500 against a $50,100 floor."
             }
           ],
           "source": {
@@ -105,7 +105,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -113,7 +113,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/growth-evaluation/standard/25000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -189,7 +189,7 @@
               "minRequest": "500",
               "cap": "1500",
               "split": 90,
-              "notes": "The cap rises with each payout: 1500, 2000, 2500, 3000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+              "notes": "The cap rises with each payout: 1500, 2000, 2500, 3000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it. After reaching the minimum balance, a payout may take the balance down toward the locked floor (starting balance plus $100); Tradeify says you are able to take it out, and its 50K example ends at $51,500 against a $50,100 floor."
             }
           ],
           "source": {
@@ -217,7 +217,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -225,7 +225,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/growth-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -301,7 +301,7 @@
               "minRequest": "1000",
               "cap": "2000",
               "split": 90,
-              "notes": "The cap rises with each payout: 2000, 2500, 3000, 4000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+              "notes": "The cap rises with each payout: 2000, 2500, 3000, 4000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it. After reaching the minimum balance, a payout may take the balance down toward the locked floor (starting balance plus $100); Tradeify says you are able to take it out, and its 50K example ends at $51,500 against a $50,100 floor."
             }
           ],
           "source": {
@@ -329,7 +329,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -337,7 +337,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/growth-evaluation/standard/100000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -413,7 +413,7 @@
               "minRequest": "1500",
               "cap": "2500",
               "split": 90,
-              "notes": "The cap rises with each payout: 2500, 3000, 4000, 5000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+              "notes": "The cap rises with each payout: 2500, 3000, 4000, 5000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it. After reaching the minimum balance, a payout may take the balance down toward the locked floor (starting balance plus $100); Tradeify says you are able to take it out, and its 50K example ends at $51,500 against a $50,100 floor."
             }
           ],
           "source": {
@@ -441,7 +441,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -449,7 +449,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/growth-evaluation/standard/150000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -513,7 +513,7 @@
               "cap": "1250",
               "split": 90,
               "minRequest": "250",
-              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request."
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request. No minimum balance applies; the 50%-of-profit limit keeps the balance above the locked floor (starting balance plus $100)."
             }
           ],
           "source": {
@@ -541,7 +541,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -549,7 +549,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -613,7 +613,7 @@
               "cap": "2500",
               "split": 90,
               "minRequest": "250",
-              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request."
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request. No minimum balance applies; the 50%-of-profit limit keeps the balance above the locked floor (starting balance plus $100)."
             }
           ],
           "source": {
@@ -641,7 +641,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -649,7 +649,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -713,7 +713,7 @@
               "cap": "3500",
               "split": 90,
               "minRequest": "250",
-              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request."
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request. No minimum balance applies; the 50%-of-profit limit keeps the balance above the locked floor (starting balance plus $100)."
             }
           ],
           "source": {
@@ -741,7 +741,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -749,7 +749,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -813,7 +813,7 @@
               "cap": "4500",
               "split": 90,
               "minRequest": "250",
-              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request."
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. After the first payout, profit in the current payout cycle must be positive before another request. No minimum balance applies; the 50%-of-profit limit keeps the balance above the locked floor (starting balance plus $100)."
             }
           ],
           "source": {
@@ -841,7 +841,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -849,7 +849,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -919,7 +919,7 @@
               "capPctOfProfit": 50,
               "cap": "10000",
               "split": 90,
-              "notes": "A payout is up to 50% of total profit, capped per payout. After the first payout, profit in the current payout cycle must be positive before another request."
+              "notes": "A payout is up to 50% of total profit, capped per payout. After the first payout, profit in the current payout cycle must be positive before another request. No minimum balance applies; the 50%-of-profit limit keeps the balance above the locked floor (starting balance plus $100)."
             }
           ],
           "source": {
@@ -947,7 +947,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -955,7 +955,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $6,100 (drawdown + $100). Contracts start at 8 minis / 60 micros and rise to 10 minis / 100 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $6,100 (drawdown + $100). Contracts start at 8 minis / 60 micros and rise to 10 minis / 100 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1016,13 +1016,13 @@
             {
               "name": "Select Daily",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "26100"
               },
               "cap": "600",
               "split": 90,
               "minRequest": "250",
-              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. A payout cannot take the balance below the buffer balance; the drawdown floor stays locked at the starting balance plus $100."
             }
           ],
           "source": {
@@ -1050,7 +1050,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1058,7 +1058,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1119,13 +1119,13 @@
             {
               "name": "Select Daily",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "52100"
               },
               "cap": "1250",
               "split": 90,
               "minRequest": "250",
-              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. A payout cannot take the balance below the buffer balance; the drawdown floor stays locked at the starting balance plus $100."
             }
           ],
           "source": {
@@ -1153,7 +1153,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1161,7 +1161,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1222,13 +1222,13 @@
             {
               "name": "Select Daily",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "102600"
               },
               "cap": "1750",
               "split": 90,
               "minRequest": "250",
-              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. A payout cannot take the balance below the buffer balance; the drawdown floor stays locked at the starting balance plus $100."
             }
           ],
           "source": {
@@ -1256,7 +1256,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1264,7 +1264,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1325,13 +1325,13 @@
             {
               "name": "Select Daily",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "153600"
               },
               "cap": "2500",
               "split": 90,
               "minRequest": "250",
-              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap. A payout cannot take the balance below the buffer balance; the drawdown floor stays locked at the starting balance plus $100."
             }
           ],
           "source": {
@@ -1359,7 +1359,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1367,7 +1367,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1431,12 +1431,12 @@
             {
               "name": "Select Daily",
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "306100"
               },
               "cap": "4000",
               "split": 90,
-              "notes": "One request a day, capped, and half of each payout must come from profit made since the last one."
+              "notes": "One request a day, capped, and half of each payout must come from profit made since the last one. A payout cannot take the balance below the buffer balance; the drawdown floor stays locked at the starting balance plus $100."
             }
           ],
           "source": {
@@ -1464,7 +1464,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1472,7 +1472,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $6,100 (drawdown + $100). Contracts start at 8 minis / 60 micros and rise to 10 minis / 100 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $6,100 (drawdown + $100). Contracts start at 8 minis / 60 micros and rise to 10 minis / 100 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1540,7 +1540,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1548,7 +1548,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/lightning-funded/standard/25000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $1,600 (drawdown + $100). Contracts start at 1 minis / 10 micros and rise to 2 minis / 20 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1620,7 +1620,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1628,7 +1628,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/lightning-funded/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $2,100 (drawdown + $100). Contracts start at 2 minis / 20 micros and rise to 4 minis / 40 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1700,7 +1700,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1708,7 +1708,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/lightning-funded/standard/100000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $3,100 (drawdown + $100). Contracts start at 4 minis / 40 micros and rise to 8 minis / 80 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     },
@@ -1780,7 +1780,7 @@
             {
               "name": "Elite Live",
               "split": 80,
-              "notes": "Payouts can be requested daily; any amount above the trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account."
+              "notes": "Payouts can be requested every day; any amount above the $0 trading capital can be withdrawn, and a payout that brings the balance to $0 closes the account. Tradeify's Elite page publishes no minimum request, no per-request cap and no payout consistency rule; a Tradeify moderator on r/tradeify (17 June 2026) confirms daily payouts and a trader comment there says there is no payout cap. A payout requested before the drawdown locks is held to the next business day so the end-of-day drawdown moves up first, which leaves less room."
             }
           ],
           "source": {
@@ -1788,7 +1788,7 @@
             "checkedAt": "2026-09-29",
             "pxKey": "tradeify/lightning-funded/standard/150000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. The account starts at a $0 balance with no daily loss limit, and sim profit made after the last payout does not carry over. The end-of-day drawdown locks at start + $100 once the EOD balance reaches $4,600 (drawdown + $100). Contracts start at 6 minis / 40 micros and rise to 12 minis / 120 micros once the balance is above the drawdown. A payout requested before the lock is held to the next business day so the drawdown moves up first. The drawdown is enforced in real time on net liquidation value: Tradeify's Trailing Max Drawdowns page says this applies to all Tradeify accounts, the Elite page itself only says the limit updates at the close, and one third-party guide (proptradingvibes.com, August 2026) states Elite Live floors are enforced in real time."
         }
       ]
     }

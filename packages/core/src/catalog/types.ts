@@ -10,7 +10,6 @@ export type DrawdownRule = {
   amount: string;
   mode: 'intraday_trailing' | 'eod_trailing' | 'static';
   lockAt: 'start' | 'never' | { aboveStart: string };
-  breach?: 'intraday' | 'close';
   afterFirstPayout?: { floorAboveStart: string };
 };
 
@@ -44,6 +43,7 @@ export type PayoutPath = {
   capPctOfProfit?: number;
   calendarDaysAfterFirstTrade?: number;
   maxPayouts?: number;
+  closesAtBalance?: string;
   split: number;
   notes?: string;
   pxKey?: string;
