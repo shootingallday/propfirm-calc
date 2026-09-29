@@ -3,7 +3,7 @@
   "name": "MyFundedFutures",
   "website": "https://myfundedfutures.com/",
   "rulesUrl": "https://help.myfundedfutures.com/en/",
-  "checkedAt": "2026-09-10",
+  "checkedAt": "2026-09-29",
   "plans": [
     {
       "id": "my-funded-futures/rapid/25000",
@@ -34,10 +34,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14116402-rapid-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/25000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass. Lock point: MFFU's Rapid 25K page (help.myfundedfutures.com, read 2026-09-28) says the evaluation drawdown locks at $25,100. The 50K, 100K and 150K pages do not say, so those still lock at the starting balance."
+          "notes": "No daily loss limit. The limit stops trailing at $25,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $25,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -47,6 +47,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -62,15 +65,15 @@
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "Daily payouts once the buffer is cleared; the first is available 24 hours after the first trade."
+              "notes": "The buffer applies to every payout: \"You must first build at least $1,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14116402-rapid-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
+          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
         }
       ]
     },
@@ -88,7 +91,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "start"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -101,10 +106,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13134709-rapid-plan-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/50000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. The limit stops trailing at the starting balance. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -114,6 +119,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -129,15 +137,15 @@
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "Daily payouts once the buffer is cleared; the first is available 24 hours after the first trade."
+              "notes": "The buffer applies to every payout: \"You must first build at least $2,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13134709-rapid-plan-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
+          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
         }
       ]
     },
@@ -155,7 +163,9 @@
           "drawdown": {
             "amount": "3000",
             "mode": "eod_trailing",
-            "lockAt": "start"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -168,10 +178,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286542-rapid-plan-100k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/100000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. The limit stops trailing at the starting balance. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. The limit stops trailing at $100,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $100,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -181,6 +191,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -196,15 +209,15 @@
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "Daily payouts once the buffer is cleared; the first is available 24 hours after the first trade."
+              "notes": "The buffer applies to every payout: \"You must first build at least $3,100 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286542-rapid-plan-100k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/100000/pack-1/stages/funded"
           },
-          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
+          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
         }
       ]
     },
@@ -222,7 +235,9 @@
           "drawdown": {
             "amount": "4500",
             "mode": "eod_trailing",
-            "lockAt": "start"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -235,10 +250,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286582-rapid-plan-150k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/150000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. The limit stops trailing at the starting balance. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. The limit stops trailing at $150,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $150,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -248,6 +263,9 @@
             "mode": "intraday_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -263,15 +281,15 @@
               },
               "minRequest": "500",
               "split": 90,
-              "notes": "Daily payouts once the buffer is cleared; the first is available 24 hours after the first trade."
+              "notes": "The buffer applies to every payout: \"You must first build at least $4,600 in realized profits in the account before requesting any payout.\" Payouts every 24 hours; the first is available 24 hours after the first trade."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286582-rapid-plan-150k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid/standard/150000/pack-1/stages/funded"
           },
-          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
+          "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000."
         }
       ]
     },
@@ -289,7 +307,9 @@
           "drawdown": {
             "amount": "1000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "30",
@@ -302,10 +322,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16727601-rapid-eod-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid-eod/standard/25000/pack-1/stages/eval"
           },
-          "notes": "MFFU does not say where this limit stops trailing, so it is modelled as never stopping, the strictest reading. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. The limit stops trailing at $25,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $25,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 30% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -315,6 +335,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -325,16 +348,17 @@
             {
               "name": "Rapid EOD payout",
               "minProfit": "250",
+              "minRequest": "500",
               "split": 90,
-              "notes": "Each later payout needs this much new profit. The first payout also needs a buffer that the PX record does not carry (MFFU's 50K page read 2026-09-28 says $2,100), so it is not modelled."
+              "notes": "Each payout after the first needs $250 of net profit since the last payout and a $500 minimum request. The first payout needs a $1,100 buffer, so the balance must reach $26,100: \"You must first build at least $1,100 in realized profits in the account before requesting your first payout.\" The buffer is for the first payout only, and the catalog cannot gate one payout differently from the rest. Payout paths are alternatives, so a separate first-payout path would show the later-payout rule as open from day one. The buffer is left out, which means the first payout shows as available before MFFU allows it."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16727601-rapid-eod-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid-eod/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit locks once the floor reaches the starting balance plus $100."
+          "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule."
         }
       ]
     },
@@ -352,7 +376,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "30",
@@ -365,10 +391,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16158363-rapid-eod-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid-eod/standard/50000/pack-1/stages/eval"
           },
-          "notes": "MFFU does not say where this limit stops trailing, so it is modelled as never stopping, the strictest reading. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 30% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text."
         },
         {
           "stage": "funded",
@@ -378,6 +404,9 @@
             "mode": "eod_trailing",
             "lockAt": {
               "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
             }
           },
           "contracts": {
@@ -388,16 +417,17 @@
             {
               "name": "Rapid EOD payout",
               "minProfit": "500",
+              "minRequest": "500",
               "split": 90,
-              "notes": "Each later payout needs this much new profit. The first payout also needs a buffer that the PX record does not carry (MFFU's 50K page read 2026-09-28 says $2,100), so it is not modelled."
+              "notes": "Each payout after the first needs $500 of net profit since the last payout and a $500 minimum request. The first payout needs a $2,100 buffer, so the balance must reach $52,100: \"You must first build at least $2,100 in realized profits in the account before requesting your first payout.\" The buffer is for the first payout only, and the catalog cannot gate one payout differently from the rest. Payout paths are alternatives, so a separate first-payout path would show the later-payout rule as open from day one. The buffer is left out, which means the first payout shows as available before MFFU allows it."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16158363-rapid-eod-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/rapid-eod/standard/50000/pack-1/stages/funded"
           },
-          "notes": "The limit locks once the floor reaches the starting balance plus $100."
+          "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule."
         }
       ]
     },
@@ -415,7 +445,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -423,15 +455,15 @@
             "effect": "raises_target"
           },
           "contracts": {
-            "minis": 5,
-            "micros": 5
+            "minis": 3,
+            "micros": 30
           },
           "source": {
-            "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/50000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. MFFU does not say where this limit stops trailing, so it is modelled as never stopping, the strictest reading. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass. The 1Day add-on bought at checkout changes the evaluation to a 4000 target, 1 trading day and no consistency rule; this plan models the standard evaluation."
+          "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 3 mini / 30 micro. The free 1Day add-on on the Pro 50K changes the evaluation to a $4,000 target, 1 trading day and no consistency rule; this plan models the standard evaluation."
         },
         {
           "stage": "funded",
@@ -439,7 +471,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never",
+            "lockAt": {
+              "aboveStart": "100"
+            },
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
@@ -457,15 +491,15 @@
               },
               "minRequest": "1000",
               "split": 80,
-              "notes": "Payouts unlock 14 calendar days after the first trade, with a $100,000 maximum per trader."
+              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/50000/pack-1/stages/funded"
           },
-          "notes": "After the first payout the limit becomes static at the starting balance plus $100. MFFU does not say where the limit before the first payout stops trailing, so it is modelled as never stopping, the strictest reading. No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
+          "notes": "The limit stops trailing at $50,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $50,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
         }
       ]
     },
@@ -483,7 +517,9 @@
           "drawdown": {
             "amount": "3000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -491,15 +527,15 @@
             "effect": "raises_target"
           },
           "contracts": {
-            "minis": 10,
-            "micros": 10
+            "minis": 6,
+            "micros": 60
           },
           "source": {
-            "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/100000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. MFFU does not say where this limit stops trailing, so it is modelled as never stopping, the strictest reading. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass. The 1Day add-on bought at checkout changes the evaluation to a 4000 target, 1 trading day and no consistency rule; this plan models the standard evaluation."
+          "notes": "No daily loss limit. The limit stops trailing at $100,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $100,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 6 mini / 60 micro."
         },
         {
           "stage": "funded",
@@ -507,7 +543,9 @@
           "drawdown": {
             "amount": "3000",
             "mode": "eod_trailing",
-            "lockAt": "never",
+            "lockAt": {
+              "aboveStart": "100"
+            },
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
@@ -525,15 +563,15 @@
               },
               "minRequest": "1000",
               "split": 80,
-              "notes": "Payouts unlock 14 calendar days after the first trade, with a $100,000 maximum per trader."
+              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/100000/pack-1/stages/funded"
           },
-          "notes": "After the first payout the limit becomes static at the starting balance plus $100. MFFU does not say where the limit before the first payout stops trailing, so it is modelled as never stopping, the strictest reading. No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
+          "notes": "The limit stops trailing at $100,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $100,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
         }
       ]
     },
@@ -551,7 +589,9 @@
           "drawdown": {
             "amount": "4500",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -559,15 +599,15 @@
             "effect": "raises_target"
           },
           "contracts": {
-            "minis": 15,
-            "micros": 15
+            "minis": 9,
+            "micros": 90
           },
           "source": {
-            "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/150000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. MFFU does not say where this limit stops trailing, so it is modelled as never stopping, the strictest reading. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass. The 1Day add-on bought at checkout changes the evaluation to a 4000 target, 1 trading day and no consistency rule; this plan models the standard evaluation."
+          "notes": "No daily loss limit. The limit stops trailing at $150,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $150,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 9 mini / 90 micro."
         },
         {
           "stage": "funded",
@@ -575,7 +615,9 @@
           "drawdown": {
             "amount": "4500",
             "mode": "eod_trailing",
-            "lockAt": "never",
+            "lockAt": {
+              "aboveStart": "100"
+            },
             "afterFirstPayout": {
               "floorAboveStart": "100"
             }
@@ -593,15 +635,15 @@
               },
               "minRequest": "1000",
               "split": 80,
-              "notes": "Payouts unlock 14 calendar days after the first trade, with a $100,000 maximum per trader."
+              "notes": "Payouts every 14 calendar days from the first trade (\"Request a payout every 14 calendar days from your first trade\", payout policy overview, updated 2026-08-25); the catalog has no calendar-day gate, so this is not modelled. The overview says you \"Must meet the buffer target before requesting a payout\"; the older Pro page (updated 2026-06-30) says only the first withdrawal needs it. Modelled on every payout, per the newer page. A one-time withdrawal of up to 60% of profit, minimum $1,000, is allowed before the buffer clears; not modelled. $100,000 maximum per trader."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/pro/standard/150000/pack-1/stages/funded"
           },
-          "notes": "After the first payout the limit becomes static at the starting balance plus $100. MFFU does not say where the limit before the first payout stops trailing, so it is modelled as never stopping, the strictest reading. No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
+          "notes": "The limit stops trailing at $150,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $150,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live."
         }
       ]
     },
@@ -623,16 +665,20 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
           "contracts": {
             "minis": 2,
             "micros": 20
           },
           "source": {
-            "url": "https://help.myfundedfutures.com/en/articles/15862870-builder-plan-25k-a-comprehensive-guide",
-            "checkedAt": "2026-09-10",
+            "url": "https://help.myfundedfutures.com/en/articles/17036130-builder-plan-25k-a-comprehensive-look",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/standard/25000/pack-1/stages/eval"
           },
-          "notes": "No consistency rule in the evaluation. The limit locks once the floor reaches the starting balance plus $100 (MFFU's Builder pages read 2026-09-28; the PX record does not state the lock)."
+          "notes": "No consistency rule in the evaluation. The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" The Builder 25K without a daily loss limit is now a legacy plan (help article 15862870) and is not modelled."
         },
         {
           "stage": "funded",
@@ -644,6 +690,10 @@
               "aboveStart": "100"
             }
           },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
           "contracts": {
             "minis": 2,
             "micros": 20
@@ -651,6 +701,8 @@
           "payoutPaths": [
             {
               "name": "Builder payout",
+              "minTradingDays": 2,
+              "minProfit": "250",
               "consistency": {
                 "pct": "50",
                 "basis": "profit_since_payout",
@@ -658,21 +710,21 @@
                 "bestDay": "resets"
               },
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "26100"
               },
               "minRequest": "250",
               "cap": "1000",
-              "split": 90,
-              "notes": "MFFU's 25K Builder page read 2026-09-28 shows an 80/20 split, not the 90/10 in the PX record; check before relying on the split."
+              "split": 80,
+              "notes": "Needs 2 trading days per payout cycle. The buffer (MLL plus $100) must be cleared before any request, and the first payout needs $250 above it (\"your account balance must reach at least $2,600\" on the 50K), so the buffer is modelled as balance kept back. Later payouts need $250 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade."
             }
           ],
           "source": {
-            "url": "https://help.myfundedfutures.com/en/articles/15862870-builder-plan-25k-a-comprehensive-guide",
-            "checkedAt": "2026-09-10",
+            "url": "https://help.myfundedfutures.com/en/articles/17036130-builder-plan-25k-a-comprehensive-look",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/standard/25000/pack-1/stages/funded"
           },
-          "notes": "The limit locks once the floor reaches the starting balance plus $100 (MFFU's Builder pages read 2026-09-28; the PX record does not state the lock)."
+          "notes": "The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
         }
       ]
     },
@@ -686,6 +738,7 @@
           "stage": "eval",
           "name": "Builder Evaluation",
           "profitTarget": "3000",
+          "minTradingDays": 1,
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
@@ -703,10 +756,10 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14290805-builder-plan-50k-a-comprehensive-guide",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/default/50000/pack-1/stages/eval"
           },
-          "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100 (MFFU's Builder pages read 2026-09-28; the PX record does not state the lock). A reduced-drawdown add-on lowers the limit to 1500 and the payout buffer to match; this plan models the default. The PX record gives no minimum trading days or evaluation consistency rule for the 50K."
+          "notes": "No consistency rule in the evaluation. The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" A reduced-drawdown add-on lowers the limit to 1500 and the payout buffer to match; this plan models the default."
         },
         {
           "stage": "funded",
@@ -729,22 +782,29 @@
           "payoutPaths": [
             {
               "name": "Builder payout",
+              "minProfit": "500",
+              "consistency": {
+                "pct": "50",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
               "buffer": {
-                "kind": "balance_to_request",
+                "kind": "balance_retained",
                 "amount": "52100"
               },
               "minRequest": "500",
               "cap": "2000",
               "split": 80,
-              "notes": "At most 5 sim payouts. The PX record has no split for this plan; 80/20 is from MFFU's Builder 50K page read 2026-09-28, which also lists a 50% payout consistency rule per cycle that the PX record does not carry."
+              "notes": "The buffer (MLL plus $100) must be cleared before any request, and the first payout needs $500 above it (\"your account balance must reach at least $2,600\" on the 50K), so the buffer is modelled as balance kept back. Later payouts need $500 of net profit since the last one. The consistency rule is measured on the current payout cycle and \"resets after each approved payout.\" Up to 5 sim payouts; the first 48 hours after the first trade. MFFU's Builder 50K page (updated 2026-08-24) asks for 2 trading days per payout cycle, but MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets no minimum payout days for this plan, so the day count is left out."
             }
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14290805-builder-plan-50k-a-comprehensive-guide",
-            "checkedAt": "2026-09-10",
+            "checkedAt": "2026-09-29",
             "pxKey": "my-funded-futures/builder/default/50000/pack-1/stages/funded"
           },
-          "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100 (MFFU's Builder pages read 2026-09-28; the PX record does not state the lock)."
+          "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\""
         }
       ]
     }
