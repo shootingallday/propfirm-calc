@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   addPayout,
+  applyDays,
   CATALOG_VERSION,
   createAccount,
   findPlan,
@@ -15,7 +16,7 @@ import {
   type StageRules,
 } from 'propfirm-calc';
 
-import { inDays, shortDate, signed, usd } from '../format.ts';
+import { amount, inDays, shortDate, signed, usd } from '../format.ts';
 import { openOverlay } from '../px/overlay.js';
 import { toast } from '../px/toast.js';
 import { allowance, changes, consistencyText, dailyLossText, drawdownText, firmOf, nextStep, planName, roomTone, series, stageTag, targetText } from '../status.ts';
@@ -42,6 +43,15 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
 
   useEffect(() => {
     title.current?.focus({ preventScroll: true });
+    const narrow = matchMedia('(max-width: 1023px)');
+    const behind = () => [...document.querySelectorAll<HTMLElement>('#root > :not(main), main > :not(.desk), .desk > :not(#panel)')];
+    const apply = () => behind().forEach((el) => (el.inert = narrow.matches));
+    apply();
+    narrow.addEventListener('change', apply);
+    return () => {
+      narrow.removeEventListener('change', apply);
+      behind().forEach((el) => (el.inert = false));
+    };
   }, []);
 
   useEffect(() => {
@@ -435,8 +445,8 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
         className="inline-form"
         onSubmit={(event) => {
           event.preventDefault();
-          const value = pnl.replace(/[−–]/g, '-').replace(/[$,\s]/g, '');
-          if (!value || Number.isNaN(Number(value))) return;
+          const value = amount(pnl, { signed: true });
+          if (!value) return;
           store.updateAccount(account.id, (current) => setDay(current, date, value).account);
           setPnl('');
           toast.success(`Saved ${shortDate(date)}`);
@@ -500,7 +510,7 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
                     onClick={() => {
                       store.updateAccount(account.id, (current) => removeDay(current, day.date));
                       toast(`Removed ${shortDate(day.date)}`, {
-                        action: { label: 'Undo', onClick: () => store.updateAccount(account.id, (current) => setDay(current, day.date, day.pnl).account) },
+                        action: { label: 'Undo', onClick: () => store.updateAccount(account.id, (current) => applyDays(current, [day]).account) },
                       });
                     }}
                   >
@@ -518,17 +528,17 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
 
 function Payouts({ account, store }: { account: Account; store: Store }) {
   const [date, setDate] = useState(todayIso());
-  const [amount, setAmount] = useState('');
+  const [payoutText, setPayoutText] = useState('');
   return (
     <>
       <form
         className="inline-form"
         onSubmit={(event) => {
           event.preventDefault();
-          const value = amount.replace(/[$,\s]/g, '');
+          const value = amount(payoutText);
           if (!value || !(Number(value) > 0)) return;
           store.updateAccount(account.id, (current) => addPayout(current, date, value));
-          setAmount('');
+          setPayoutText('');
           toast.success(`Recorded ${usd(money(value))}`);
         }}
       >
@@ -538,7 +548,7 @@ function Payouts({ account, store }: { account: Account; store: Store }) {
         </label>
         <label className="px-field">
           <span className="px-label">Amount</span>
-          <input className="px-input" inputMode="decimal" placeholder="1,000.00" value={amount} onChange={(event) => setAmount(event.target.value)} />
+          <input className="px-input" inputMode="decimal" placeholder="1,000.00" value={payoutText} onChange={(event) => setPayoutText(event.target.value)} />
         </label>
         <button className="px-btn" data-variant="secondary" type="submit">
           Record payout
@@ -574,7 +584,7 @@ function Payouts({ account, store }: { account: Account; store: Store }) {
                     onClick={() => {
                       store.updateAccount(account.id, (current) => removePayout(current, index));
                       toast(`Removed the ${shortDate(payout.date)} payout`, {
-                        action: { label: 'Undo', onClick: () => store.updateAccount(account.id, (current) => addPayout(current, payout.date, payout.amount)) },
+                        action: { label: 'Undo', onClick: () => store.updateAccount(account.id, (current) => ({ ...current, payouts: [...current.payouts, payout].sort((a, b) => a.date.localeCompare(b.date)) })) },
                       });
                     }}
                   >
@@ -635,10 +645,7 @@ function Rules({ account, store }: { account: Account; store: Store }) {
         <Fold title="Override this account's rules">
           <div className="stack">
             <div className="fields">
-              <label className="px-field">
-                <span className="px-label">Drawdown</span>
-                <input className="px-input" inputMode="decimal" value={rules.drawdown.amount} onChange={(event) => update({ drawdown: { ...rules.drawdown, amount: event.target.value || '0' } })} />
-              </label>
+              <RuleField label="Drawdown" value={rules.drawdown.amount} valid={(n) => n > 0} onCommit={(value) => value && update({ drawdown: { ...rules.drawdown, amount: value } })} />
               <label className="px-field">
                 <span className="px-label">Drawdown type</span>
                 <select className="px-input" value={rules.drawdown.mode} onChange={(event) => update({ drawdown: { ...rules.drawdown, mode: event.target.value as StageRules['drawdown']['mode'] } })}>
@@ -647,34 +654,22 @@ function Rules({ account, store }: { account: Account; store: Store }) {
                   <option value="static">Static</option>
                 </select>
               </label>
-              <label className="px-field">
-                <span className="px-label">Profit target</span>
-                <input className="px-input" inputMode="decimal" value={rules.profitTarget ?? ''} placeholder="None" onChange={(event) => update({ profitTarget: event.target.value || undefined })} />
-              </label>
-              <label className="px-field">
-                <span className="px-label">Daily loss limit</span>
-                <input
-                  className="px-input"
-                  inputMode="decimal"
-                  value={rules.dailyLoss?.amount ?? ''}
-                  placeholder="None"
-                  onChange={(event) => update({ dailyLoss: event.target.value ? { amount: event.target.value, effect: rules.dailyLoss?.effect ?? 'session_lock' } : undefined })}
-                />
-              </label>
-              <label className="px-field">
-                <span className="px-label">Consistency %</span>
-                <input
-                  className="px-input"
-                  inputMode="decimal"
-                  value={rules.consistency?.pct ?? ''}
-                  placeholder="None"
-                  onChange={(event) => update({ consistency: event.target.value ? { basis: 'total_profit', effect: 'raises_target', ...rules.consistency, pct: event.target.value } : undefined })}
-                />
-              </label>
-              <label className="px-field">
-                <span className="px-label">Fee per contract per side</span>
-                <input className="px-input" inputMode="decimal" value={account.feePerSide} onChange={(event) => store.updateAccount(account.id, (current) => ({ ...current, feePerSide: event.target.value || '0' }))} />
-              </label>
+              <RuleField label="Profit target" optional value={rules.profitTarget} valid={(n) => n > 0} onCommit={(value) => update({ profitTarget: value })} />
+              <RuleField
+                label="Daily loss limit"
+                optional
+                value={rules.dailyLoss?.amount}
+                valid={(n) => n > 0}
+                onCommit={(value) => update({ dailyLoss: value ? { amount: value, effect: rules.dailyLoss?.effect ?? 'session_lock' } : undefined })}
+              />
+              <RuleField
+                label="Consistency %"
+                optional
+                value={rules.consistency?.pct}
+                valid={(n) => n > 0 && n <= 100}
+                onCommit={(value) => update({ consistency: value ? { basis: 'total_profit', effect: 'raises_target', ...rules.consistency, pct: value } : undefined })}
+              />
+              <RuleField label="Fee per contract per side" value={account.feePerSide} valid={() => true} onCommit={(value) => value && store.updateAccount(account.id, (current) => ({ ...current, feePerSide: value }))} />
             </div>
             <p className="px-hint" style={{ margin: 0 }}>
               Copied from catalog version {account.catalogVersion}. Changes only this account.
@@ -683,5 +678,37 @@ function Rules({ account, store }: { account: Account; store: Store }) {
         </Fold>
       </div>
     </>
+  );
+}
+
+function RuleField({ label, value, optional = false, valid, onCommit }: { label: string; value: string | undefined; optional?: boolean; valid: (n: number) => boolean; onCommit: (value: string | undefined) => void }) {
+  const [draft, setDraft] = useState(value ?? '');
+  const parsed = amount(draft);
+  const ok = draft.trim() === '' ? optional : parsed !== null && valid(Number(parsed));
+  const id = useId();
+  return (
+    <label className="px-field">
+      <span className="px-label">{label}</span>
+      <input
+        className="px-input"
+        inputMode="decimal"
+        value={draft}
+        placeholder={optional ? 'None' : undefined}
+        aria-invalid={!ok}
+        aria-describedby={ok ? undefined : id}
+        onChange={(event) => {
+          const text = event.target.value;
+          setDraft(text);
+          const next = amount(text);
+          if (text.trim() === '' && optional) onCommit(undefined);
+          else if (next !== null && valid(Number(next))) onCommit(next);
+        }}
+      />
+      {!ok && (
+        <span className="px-error" id={id}>
+          {draft.trim() === '' ? 'Needs a number' : 'Not a valid amount, so the old one is kept'}
+        </span>
+      )}
+    </label>
   );
 }

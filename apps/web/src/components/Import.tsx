@@ -7,7 +7,7 @@ import { Fold, Icon, PageHead, Signed } from '../ui.tsx';
 
 type Loaded = { name: string; result: ImportResult };
 
-export function Import({ store }: { store: Store }) {
+export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
   const [loaded, setLoaded] = useState<Loaded[]>([]);
   const [errors, setErrors] = useState<{ name: string; message: string }[]>([]);
   const [choice, setChoice] = useState<Record<string, string>>({});
@@ -189,7 +189,11 @@ export function Import({ store }: { store: Store }) {
             <button type="button" className="px-btn" data-variant="primary" disabled={!picked.length} onClick={apply}>
               {picked.length ? `Import ${dayCount} ${dayCount === 1 ? 'day' : 'days'} into ${new Set(picked).size} ${new Set(picked).size === 1 ? 'account' : 'accounts'}` : 'Pick an account to import into'}
             </button>
-            {accounts.length === 0 && <span className="small muted">Add an account first, then pick it here.</span>}
+            {accounts.length === 0 && (
+              <button type="button" className="px-btn" data-variant="secondary" onClick={onAdd}>
+                Add an account to import into
+              </button>
+            )}
           </div>
         )}
       </div>

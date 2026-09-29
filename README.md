@@ -12,6 +12,8 @@ There's no sign-up and no broker login. Your data stays in your browser.
 **Try it:** https://propfirm-calc.jomardippiton2005.workers.dev opens with five demo accounts
 already loaded, so you can drag the slider and open each one before adding your own.
 
+![propfirm-calc with five demo accounts and the what-if slider at −$1,500](docs/screenshot.png)
+
 - **What-if slider**: set tomorrow's P&L once and see which account blows, which breaks
   consistency, and which unlocks a payout.
 - **Payout calendar**: when each account can pay out at your average winning day, and how much

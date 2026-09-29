@@ -1,15 +1,18 @@
 import { useMemo } from 'react';
-import { evaluate, netPnl, payoutCalendar, sum } from 'propfirm-calc';
+import { evaluate, netPnl, payoutCalendar, sum, type CalendarEvent } from 'propfirm-calc';
 
-import { shortDate, usd } from '../format.ts';
+import { amount, shortDate, usd } from '../format.ts';
 import type { Store } from '../store.ts';
 import { Empty, Fold, Num, PageHead, Stat } from '../ui.tsx';
 
 export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) {
   const { accounts, avgDay } = store.saved;
   const calendar = useMemo(() => {
-    const overrides = Object.fromEntries(Object.entries(avgDay).filter(([, value]) => value !== '' && !Number.isNaN(Number(value))));
-    return payoutCalendar(accounts, { avgDay: overrides, horizonDays: 60 });
+    const overrides = Object.fromEntries(Object.entries(avgDay).flatMap(([id, value]) => {
+      const parsed = amount(value, { signed: true });
+      return parsed ? [[id, parsed]] : [];
+    }));
+    return payoutCalendar(accounts, { avgDay: overrides, horizonDays: 60, maxPayouts: Infinity });
   }, [accounts, avgDay]);
   const statuses = useMemo(() => new Map(accounts.map((account) => [account.id, evaluate(account)])), [accounts]);
 
@@ -64,13 +67,13 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
             <div className="week" key={week.week}>
               <b>Week of {shortDate(week.week)}</b>
               <div className="stack" style={{ gap: 8 }}>
-                {week.events.map((event) => (
-                  <div className="event" key={`${event.accountId}-${event.date}-${event.kind}`}>
-                    <time dateTime={event.date}>{shortDate(event.date)}</time>
+                {group(week.events).map((line) => (
+                  <div className="event" key={line.key}>
+                    <time dateTime={line.first}>{shortDate(line.first)}</time>
                     <span>
-                      <b>{event.label}</b>
+                      <b>{line.label}</b>
                       <br />
-                      <span className="small muted">{event.kind === 'pass' ? 'Passes the evaluation' : `About ${usd(event.amount, 0)} to you via ${event.path}`}</span>
+                      <span className="small muted">{line.text}</span>
                     </span>
                   </div>
                 ))}
@@ -119,6 +122,7 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
                           placeholder={measured ? measured.toFixed(0) : '300'}
                           aria-label={`Your average day for ${account.label}`}
                           value={avgDay[account.id] ?? ''}
+                          aria-invalid={!!avgDay[account.id]?.trim() && !amount(avgDay[account.id]!, { signed: true })}
                           onChange={(event) => store.setAvgDay(account.id, event.target.value)}
                         />
                       </td>
@@ -144,4 +148,23 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
       </div>
     </div>
   );
+}
+
+function group(events: CalendarEvent[]) {
+  const lines = new Map<string, CalendarEvent[]>();
+  for (const event of events) {
+    const key = `${event.accountId}-${event.kind}-${event.path}`;
+    lines.set(key, [...(lines.get(key) ?? []), event]);
+  }
+  return [...lines].map(([key, list]) => {
+    const first = list[0]!;
+    const total = sum(list.map((event) => event.amount));
+    const text =
+      first.kind === 'pass'
+        ? 'Passes the evaluation'
+        : list.length === 1
+          ? `About ${usd(total, 0)} to you via ${first.path}`
+          : `${list.length} payouts through ${shortDate(list.at(-1)!.date)}, about ${usd(total, 0)} to you via ${first.path}`;
+    return { key, first: first.date, label: first.label, text };
+  });
 }

@@ -6,12 +6,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-09-29
+
 ### Changed
 
 - Rewritten in TypeScript as a pnpm monorepo. The math lives in the `propfirm-calc` npm package
   (`packages/core`), and money is `decimal.js` throughout. Every case from the Python test
   suite gives the same answer in the new engine. The Python package, its CLI extras and the
-  MkDocs site are gone.
+  MkDocs site are gone. Releases now go to npm instead of PyPI.
 
 ### Added
 
@@ -69,5 +71,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `consistency_ok`, `required_profit`, `target_remaining`, `target_reached` and
   `payout_eligibility`.
 
+[0.3.0]: https://github.com/shootingallday/propfirm-calc/releases/tag/v0.3.0
 [0.2.0]: https://github.com/shootingallday/propfirm-calc/releases/tag/v0.2.0
 [0.1.0]: https://github.com/shootingallday/propfirm-calc/releases/tag/v0.1.0

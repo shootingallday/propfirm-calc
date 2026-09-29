@@ -3,7 +3,29 @@
   "version": "0.3.0",
   "description": "Drawdown, consistency, payout and import math for prop firm futures accounts, with an open firm-rules catalog.",
   "license": "MIT",
+  "author": "shootingallday",
+  "homepage": "https://propfirm-calc.jomardippiton2005.workers.dev",
+  "bugs": {
+    "url": "https://github.com/shootingallday/propfirm-calc/issues"
+  },
+  "keywords": [
+    "prop-firm",
+    "futures",
+    "trading",
+    "drawdown",
+    "trailing-drawdown",
+    "consistency-rule",
+    "payout",
+    "topstep",
+    "tradeify",
+    "tradovate",
+    "topstepx",
+    "position-sizing"
+  ],
   "type": "module",
+  "engines": {
+    "node": ">=20.10"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shootingallday/propfirm-calc.git",
@@ -17,7 +39,8 @@
   },
   "files": [
     "dist",
-    "catalog"
+    "catalog",
+    "README.md"
   ],
   "publishConfig": {
     "exports": {

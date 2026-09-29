@@ -24,3 +24,8 @@ export function inDays(days: number): string {
 export function shortDate(iso: string): string {
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 }
+
+export function amount(text: string, { signed = false } = {}): string | null {
+  const clean = text.trim().replace(/[−–]/g, '-').replace(/[$,\s]/g, '');
+  return (signed ? /^-?\d+(\.\d+)?$/ : /^\d+(\.\d+)?$/).test(clean) ? clean : null;
+}

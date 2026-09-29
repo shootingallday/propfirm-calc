@@ -14,8 +14,12 @@ const base = `http://localhost:${port}`;
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
+if (await fetch(base).then(() => true, () => false)) {
+  console.error(`Something is already serving ${base}. Stop it or set E2E_PORT.`);
+  process.exit(1);
+}
 execFileSync('npx', ['vite', 'build'], { cwd: web, stdio: 'inherit' });
-const server = spawn('npx', ['vite', 'preview', '--port', String(port), '--strictPort'], { cwd: web, stdio: 'pipe' });
+const server = spawn('npx', ['vite', 'preview', '--port', String(port), '--strictPort'], { cwd: web, stdio: 'pipe', detached: true });
 
 const checks = [];
 function check(name, ok, detail = '') {
@@ -88,10 +92,21 @@ try {
   await panel.getByLabel('Account name').fill('MFFU Rapid #2');
   await panel.getByLabel('Account name').press('Enter');
   check('rename from the menu', await visible(rows.filter({ hasText: 'MFFU Rapid #2' })));
+  await panel.getByRole('tab', { name: 'Rules' }).click();
+  await panel.getByRole('button', { name: "Override this account's rules" }).click();
+  await panel.getByLabel('Drawdown', { exact: true }).fill('abc');
+  check('a bad rule override is refused, not saved', (await visible(panel.getByText('Not a valid amount, so the old one is kept'))) && (await visible(panel.getByText('$2,000 end-of-day trailing', { exact: false }).first())));
   await page.keyboard.press('Escape');
+
+  await page.locator('input[type=file][accept*="json"]').setInputFiles({ name: 'broken.json', mimeType: 'application/json', buffer: Buffer.from('{"version":1,"accounts":[{}]}') });
+  check('a broken backup is refused and nothing is replaced', (await visible(page.getByText('nothing was loaded'))) && (await rows.count()) === 5);
 
   await page.getByRole('link', { name: 'Calendar' }).first().click();
   check('calendar lists payout weeks', await visible(page.getByTestId('calendar-weeks').locator('.week').first()));
+  await page.getByRole('button', { name: 'Averages used' }).click();
+  await page.getByLabel('Your average day for TPT 50K PRO').fill(' ');
+  check('a blank average leaves the calendar working', await visible(page.getByTestId('calendar-weeks').locator('.week').first()));
+  await page.getByLabel('Your average day for TPT 50K PRO').fill('');
   await shot('05-calendar');
 
   await page.getByRole('link', { name: 'Import' }).first().click();
@@ -165,7 +180,9 @@ try {
   check('run finished without throwing', false, error instanceof Error ? error.message : String(error));
 } finally {
   await browser?.close();
-  server.kill();
+  try {
+    process.kill(-server.pid);
+  } catch {}
 }
 
 const failed = checks.filter((item) => !item.ok);

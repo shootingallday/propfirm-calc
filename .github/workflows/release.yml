@@ -18,7 +18,13 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test
-      - run: pnpm --filter propfirm-calc build
-      - run: pnpm --filter propfirm-calc publish --access public --no-git-checks --provenance
+      - id: published
+        run: echo "done=$(npm view propfirm-calc@$(node -p "require('./packages/core/package.json').version") version >/dev/null 2>&1 && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm install --frozen-lockfile
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm test
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm --filter propfirm-calc build
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm --filter propfirm-calc publish --access public --no-git-checks --provenance

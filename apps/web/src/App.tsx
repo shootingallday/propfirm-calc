@@ -53,7 +53,14 @@ export function App() {
 
   return (
     <>
-      <a className="px-skip-link" href="#main">
+      <a
+        className="px-skip-link"
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById('main')?.focus();
+        }}
+      >
         Skip to content
       </a>
       <header className="bar">
@@ -87,7 +94,7 @@ export function App() {
       <main id="main" tabIndex={-1}>
         {tab === 'accounts' && <Accounts store={store} openId={page === 'account' ? (id ?? null) : null} onAdd={add} />}
         {tab === 'calendar' && <Calendar store={store} onAdd={add} />}
-        {tab === 'import' && <Import store={store} />}
+        {tab === 'import' && <Import store={store} onAdd={add} />}
         {tab === 'tools' && <Tools store={store} />}
       </main>
       <footer className="foot">
@@ -107,7 +114,7 @@ export function App() {
           store={store}
           onClose={(newId) => {
             setAdding(false);
-            if (newId) location.hash = `account/${newId}`;
+            if (newId && tab !== 'import') location.hash = `account/${newId}`;
           }}
         />
       )}
