@@ -86,8 +86,15 @@ built from and lists every number that has changed.
 
 ## Deploy
 
-It's a static site. Vercel picks up `vercel.json`. On any other static host, run
-`pnpm --filter web build` and serve `apps/web/dist`.
+It's a static site served from Cloudflare Workers. Sign in once with `npx cf auth login`, then:
+
+```bash
+cd apps/web
+npx cf deploy
+```
+
+`cloudflare.config.ts` names the Worker. `npx cf deploy --dry-run` builds and checks without
+uploading.
 
 ## License
 

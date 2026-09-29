@@ -6,3 +6,5 @@ dist/
 .playwright-cli/
 apps/web/e2e/artifacts/
 .vercel
+.cloudflare/
+.wrangler/
