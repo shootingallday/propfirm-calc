@@ -19,7 +19,9 @@
           "drawdown": {
             "amount": "1000",
             "mode": "eod_trailing",
-            "lockAt": "start"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "consistency": {
             "pct": "50",
@@ -35,7 +37,7 @@
             "checkedAt": "2026-09-10",
             "pxKey": "my-funded-futures/rapid/standard/25000/pack-1/stages/eval"
           },
-          "notes": "No daily loss limit. The limit stops trailing at the starting balance. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass."
+          "notes": "No daily loss limit. MFFU does not say whether the best day is measured against total profit or the profit target; modelled against total profit, where a big day means more profit is needed to pass. Lock point: MFFU's Rapid 25K page (help.myfundedfutures.com, read 2026-09-28) says the evaluation drawdown locks at $25,100. The 50K, 100K and 150K pages do not say, so those still lock at the starting balance."
         },
         {
           "stage": "funded",

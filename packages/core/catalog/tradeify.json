@@ -177,7 +177,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "payoutPaths": [
             {
@@ -190,7 +192,7 @@
             "checkedAt": "2026-09-10",
             "pxKey": "tradeify/growth-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Lock point: Tradeify's Elite page (help.tradeify.co/en/articles/12969284, read 2026-09-28) locks the end-of-day drawdown at start + $100 once the EOD balance reaches the drawdown + $100."
         }
       ]
     },
@@ -510,7 +512,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "payoutPaths": [
             {
@@ -523,7 +527,7 @@
             "checkedAt": "2026-09-10",
             "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Lock point: Tradeify's Elite page (help.tradeify.co/en/articles/12969284, read 2026-09-28) locks the end-of-day drawdown at start + $100 once the EOD balance reaches the drawdown + $100."
         }
       ]
     },
@@ -895,7 +899,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "payoutPaths": [
             {
@@ -908,7 +914,7 @@
             "checkedAt": "2026-09-10",
             "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Lock point: Tradeify's Elite page (help.tradeify.co/en/articles/12969284, read 2026-09-28) locks the end-of-day drawdown at start + $100 once the EOD balance reaches the drawdown + $100."
         }
       ]
     },
@@ -1231,7 +1237,9 @@
           "drawdown": {
             "amount": "2000",
             "mode": "eod_trailing",
-            "lockAt": "never"
+            "lockAt": {
+              "aboveStart": "100"
+            }
           },
           "payoutPaths": [
             {
@@ -1244,7 +1252,7 @@
             "checkedAt": "2026-09-10",
             "pxKey": "tradeify/lightning-funded/standard/50000/pack-1/stages/live"
           },
-          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Lock point: Tradeify's Elite page (help.tradeify.co/en/articles/12969284, read 2026-09-28) locks the end-of-day drawdown at start + $100 once the EOD balance reaches the drawdown + $100."
         }
       ]
     },
