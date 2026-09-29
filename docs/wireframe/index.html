@@ -1,420 +1,473 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>propfirm-calc wireframe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Accounts · propfirm-calc</title>
+<link rel="icon" href="../../apps/web/public/icon.png">
+<link rel="stylesheet" href="px/tokens.css">
+<link rel="stylesheet" href="px/components.css">
+<link rel="stylesheet" href="px/chart.css">
 <style>
-:root{--bg:#ececec;--surface:#f9f9f9;--fill:#e2e2e2;--fill2:#d4d4d4;--line:#d6d6d6;--ink:#1d1d1d;--muted:#6e6e6e;--faint:#a3a3a3;--dark:#4a4a4a;--r:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;font-size:14px;line-height:1.4;color:var(--ink);background:var(--bg)}
-*{box-sizing:border-box}body{margin:0}
-button,input,select{font:inherit;color:inherit}
-a{color:inherit}
-.num{font-variant-numeric:tabular-nums}
-.muted{color:var(--muted)}.small{font-size:12px}.faint{color:var(--faint)}
-h1{font-size:22px;margin:0;font-weight:600}h2{font-size:16px;margin:0;font-weight:600}h3{font-size:14px;margin:0;font-weight:600}
-.btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;white-space:nowrap;text-decoration:none}
-.btn.primary{background:var(--dark);border-color:var(--dark);color:#fff}
-.btn.ghost{background:none;border-color:transparent}
-.btn.sm{height:28px;padding:0 10px;font-size:13px}
-.btn:active{transform:scale(.97)}
-.field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
-.field input,.field select,.in{height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 10px;color:var(--ink);font-size:14px;min-width:0}
-.pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;background:var(--fill);font-size:12px;color:var(--ink);white-space:nowrap}
-.pill.outline{background:none;border:1px solid var(--fill2)}
-.pill.dark{background:var(--dark);color:#fff}
-.card{background:var(--surface);border-radius:var(--r);border:1px solid var(--line)}
-.pad{padding:16px}
-.row{display:flex;align-items:center;gap:10px}
-.between{justify-content:space-between}
-.wrap{flex-wrap:wrap}
-.stack{display:flex;flex-direction:column;gap:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.skel{height:9px;border-radius:5px;background:var(--fill2);margin:6px 0}
-.ic{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.app{min-height:100vh;display:flex;flex-direction:column}
-.top{display:flex;align-items:center;gap:18px;height:60px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.brand{display:flex;align-items:center;gap:8px;font-weight:600}
-.logo{width:26px;height:26px;border-radius:7px;background:var(--dark)}
-.nav{display:flex;gap:2px}
-.nav a{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:9px;text-decoration:none;color:var(--muted)}
-.nav a.on{background:var(--fill);color:var(--ink);font-weight:500}
-.main{flex:1;width:100%;max-width:1320px;margin:0 auto;padding:24px}
-.foot{display:flex;gap:16px;flex-wrap:wrap;padding:18px 24px 90px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
-.foot a{margin-left:auto}
-.whatif{display:flex;align-items:center;gap:16px;padding:12px 16px}
-.whatif input[type=range]{flex:1;accent-color:var(--dark)}
-.whatif .val{font-size:20px;font-weight:600;min-width:92px}
-.runway{position:relative;height:10px;border-radius:5px;background:var(--fill)}
-.runway .fillr{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--fill2)}
-.runway .mk{position:absolute;top:-4px;width:2px;height:18px;background:var(--dark)}
-.runway .mk.soft{background:var(--faint)}
-.runway .dot{position:absolute;top:-4px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fff;border:3px solid var(--ink)}
-.runway .ghost{position:absolute;top:-4px;width:18px;height:18px;margin-left:-9px;border-radius:50%;border:2px dashed var(--ink);background:none}
-.runway.blown .dot{background:var(--ink)}
-table{border-collapse:collapse;width:100%}
-th{font-weight:500;color:var(--muted);font-size:12px;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr:last-child td{border-bottom:0}
-tr.click{cursor:pointer}tr.click:hover td{background:#f1f1f1}
-tr.sel td{background:#e8e8e8}
-td.r,th.r{text-align:right}
-.fx{display:flex;gap:4px;flex-wrap:wrap}
-.fade{opacity:.45}
-.drawer{position:fixed;top:60px;right:0;bottom:0;width:min(560px,100%);background:var(--bg);border-left:1px solid var(--line);overflow:auto;z-index:4;box-shadow:-12px 0 32px rgba(0,0,0,.08);animation:slide .22s cubic-bezier(.23,1,.32,1)}
-@keyframes slide{from{transform:translateX(24px);opacity:0}}
-@media (prefers-reduced-motion:reduce){.drawer{animation:none}}
-.lane{display:grid;grid-template-columns:220px 1fr 260px;gap:20px;align-items:center;padding:16px;cursor:pointer}
-.lane:hover{background:#f3f3f3}
-.lane+.lane{border-top:1px solid var(--line)}
-.scale{display:grid;grid-template-columns:220px 1fr 260px;gap:20px;padding:0 16px 6px;font-size:11px;color:var(--muted)}
-.ticks{display:flex;justify-content:space-between}
-.group h2{display:flex;align-items:center;gap:8px;margin:0 0 10px}
-.item{display:grid;grid-template-columns:1fr 160px 30px;gap:16px;align-items:center;padding:14px 16px;cursor:pointer}
-.item+.item{border-top:1px solid var(--line)}
-.item:hover{background:#f3f3f3}
-.big{font-size:22px;font-weight:600}
-.split{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}
-.mini{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;gap:8px;border:1px solid transparent}
-.mini.on{background:var(--surface);border-color:var(--line)}
-.figs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-.figs>div{background:var(--surface);padding:10px 12px}
-.figs b{display:block;font-size:16px;font-weight:600;margin-top:2px}
-.new{position:relative}
-.new::after{content:"NEW";position:absolute;top:10px;right:12px;font-size:10px;letter-spacing:.04em;border:1px dashed var(--muted);border-radius:4px;padding:1px 5px;color:var(--muted)}
-.prog{height:6px;border-radius:3px;background:var(--fill);overflow:hidden}.prog i{display:block;height:100%;background:var(--dark)}
-.drop{border:2px dashed var(--fill2);border-radius:var(--r);padding:36px;text-align:center;background:var(--surface)}
-.week{display:grid;grid-template-columns:140px 1fr 110px;gap:16px;padding:14px 16px;align-items:start}
-.week+.week{border-top:1px solid var(--line)}
-details summary{cursor:pointer;list-style:none}details summary::-webkit-details-marker{display:none}
-.banner{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--r);background:var(--fill)}
-.tabbar{display:none}
-@media (max-width:760px){
- .top{padding:0 16px}.nav{display:none}
- .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;height:64px;background:var(--surface);border-top:1px solid var(--line);z-index:6;justify-content:space-around;align-items:center}
- .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;text-decoration:none;color:var(--muted)}
- .tabbar a.on{color:var(--ink);font-weight:600}
- .main{padding:16px}
- .hide-s{display:none!important}
- .lane,.scale{grid-template-columns:1fr}.scale>div:first-child,.scale>div:last-child{display:none}
- .split{grid-template-columns:1fr}.split>.list{display:none}
- .figs{grid-template-columns:repeat(2,1fr)}
- .grid2{grid-template-columns:1fr}
- .item{grid-template-columns:1fr 110px}.item>:last-child{display:none}
- .week{grid-template-columns:1fr}
- .whatif{flex-wrap:wrap}.whatif input[type=range]{flex-basis:100%;order:3}
- .drawer{top:0;z-index:7}
- .desk tr:first-child{display:none}
- .desk tr{display:grid;grid-template-columns:24px 1fr auto;gap:6px 10px;padding:12px;border-bottom:1px solid var(--line)}
- .desk tr:last-child{border-bottom:0}
- .desk td{padding:0;border:0}
- .desk td.cu,.desk td.fxc{grid-column:2/-1;text-align:left}
- .desk td.cu::before{content:"Cushion ";color:var(--muted);font-size:12px}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--px-font-sans);font-size:var(--text-body);line-height:var(--leading-body)}
+h1,h2,h3,p{margin:0}
+[hidden]{display:none!important}
+.bar{position:sticky;top:0;z-index:var(--z-sticky);display:flex;align-items:center;gap:var(--px-space-4);padding:var(--px-space-3) var(--gutter);background:var(--background);border-block-end:1px solid var(--border)}
+.wordmark{display:flex;align-items:center;gap:var(--px-space-2);font-weight:650;color:var(--foreground);text-decoration:none}
+.wordmark img{inline-size:24px;block-size:24px;border-radius:var(--px-radius-sm)}
+.bar .px-nav{background:none;border:0;box-shadow:none;padding:0}
+.bar-end{margin-inline-start:auto;display:flex;align-items:center;gap:var(--px-space-2)}
+main{display:block;padding:var(--px-space-6) var(--gutter) var(--px-space-16);max-inline-size:1440px;margin-inline:auto}
+main:focus{outline:none}
+.foot{display:flex;flex-wrap:wrap;gap:var(--px-space-4);padding:var(--px-space-6) var(--gutter) var(--px-space-24);border-block-start:1px solid var(--border);color:var(--muted-foreground);font-size:var(--px-text-sm)}
+.foot a{color:var(--link)}
+.foot .end{margin-inline-start:auto}
+.stack{display:grid;gap:var(--stack-gap)}
+.row{display:flex;align-items:center;gap:var(--px-space-2);flex-wrap:wrap}
+.muted{color:var(--muted-foreground)}
+.small{font-size:var(--px-text-sm)}
+.desk{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--card-gap);align-items:start}
+.desk.open{grid-template-columns:minmax(0,1fr) 460px}
+.whatif{display:grid;grid-template-columns:auto minmax(160px,1fr) auto auto;align-items:center;gap:var(--px-space-4);padding:var(--px-space-3) var(--cell-px)}
+.whatif .x{font-size:var(--px-text-xl);font-weight:650;min-inline-size:7ch;white-space:nowrap}
+.whatif .px-slider{min-inline-size:0}
+.acct-table{overflow-x:auto}
+.acct-table tr[data-id]{cursor:pointer}
+.acct-table tr[aria-selected="true"] td{background:var(--accent)}
+.acct-name{font-weight:600}
+.acct-sub{font-size:var(--px-text-sm);color:var(--muted-foreground)}
+.room{display:grid;gap:6px;min-inline-size:140px}
+.room .px-meter{inline-size:100%}
+.fx{display:flex;flex-wrap:wrap;gap:4px;margin-block-start:6px}
+.panel{padding:var(--px-space-4) var(--cell-px);display:grid;gap:var(--stack-gap)}
+.panel-top{display:flex;align-items:center;gap:var(--px-space-2)}
+.panel-top h2{font-size:var(--px-text-xl);font-weight:650;letter-spacing:var(--px-tracking-tight);outline:none}
+.panel-top h2[contenteditable="plaintext-only"]{box-shadow:var(--focus-ring);border-radius:var(--px-radius-sm);padding-inline:4px}
+.next-line{font-size:var(--px-text-md);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--px-space-2)}
+.stats .px-stat{padding:var(--px-space-3)}
+.stats .px-stat-value{font-size:var(--px-text-lg);white-space:nowrap}
+.tabpad{padding-block-start:var(--px-space-4);display:grid;gap:var(--stack-gap)}
+.path{display:grid;gap:var(--px-space-2)}
+.path-head{display:flex;align-items:center;justify-content:space-between;gap:var(--px-space-2)}
+.path ul{margin:0;padding-inline-start:18px;color:var(--muted-foreground);font-size:var(--px-text-sm)}
+.inline-form{display:grid;grid-template-columns:1fr 1fr auto;gap:var(--px-space-2);align-items:end}
+.px-chart-plot{block-size:180px}
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--px-space-4);margin-block-end:var(--stack-gap)}
+.page-head h1{font-size:var(--px-text-2xl);font-weight:650;letter-spacing:var(--px-tracking-tight)}
+.page-head p{color:var(--muted-foreground);margin-block-start:4px}
+.narrow{max-inline-size:880px;margin-inline:auto}
+.week{display:grid;grid-template-columns:160px 1fr auto;gap:var(--px-space-4);padding:var(--px-space-3) var(--cell-px);border-block-end:1px solid var(--border)}
+.week:last-child{border-block-end:0}
+.event{display:flex;gap:var(--px-space-3);align-items:baseline}
+.event time{inline-size:52px;flex:none;color:var(--muted-foreground);font-size:var(--px-text-sm)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--px-space-3)}
+.tabbar,.fab{display:none}
+.left-out td:not(:first-child){color:var(--muted-foreground)}
+@media (max-width:1279px){.desk.open{grid-template-columns:minmax(0,1fr) 400px}}
+@media (max-width:1023px){
+ .desk.open{grid-template-columns:minmax(0,1fr)}
+ .panel{position:fixed;inset:0;overflow:auto;overscroll-behavior:contain;z-index:var(--z-overlay);border-radius:0;padding-block-end:var(--px-space-24)}
+ .col-best{display:none}
 }
-.proto-picker{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:2147483647;display:flex;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(10,10,10,.82);-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4);box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 8px 24px rgba(0,0,0,.24),0 2px 6px rgba(0,0,0,.12);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;line-height:1;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
-.proto-picker-highlight{position:absolute;top:4px;left:0;height:28px;border-radius:999px;background:rgba(255,255,255,.12);will-change:transform}
-.proto-picker[data-ready] .proto-picker-highlight{transition:transform 250ms cubic-bezier(.23,1,.32,1),width 250ms cubic-bezier(.23,1,.32,1)}
-@media (prefers-reduced-motion:reduce){.proto-picker[data-ready] .proto-picker-highlight{transition:none}}
-.proto-picker-item{position:relative;display:flex;align-items:center;height:28px;padding:0 12px;border:0;border-radius:999px;background:transparent;color:rgba(255,255,255,.55);font:inherit;cursor:pointer;transition:color 150ms ease-out}
-.proto-picker-item:hover{color:rgba(255,255,255,.85)}
-.proto-picker-item:active{transform:scale(.97)}
-.proto-picker-item:focus-visible{outline:2px solid rgba(255,255,255,.4);outline-offset:2px}
-.proto-picker-item[data-active]{color:#fff}
-.proto-picker[data-position="top"]{bottom:auto;top:24px}
-@media (max-width:760px){.proto-picker{bottom:76px}}
+@media (max-width:767px){.col-profit,.col-balance{display:none}.whatif{grid-template-columns:1fr auto}.whatif .px-slider{grid-column:1/-1;grid-row:2}.grid2,.fields{grid-template-columns:1fr}.week{grid-template-columns:1fr}}
+@media (max-width:639px){
+ .bar .px-nav,.bar .add-top{display:none}
+ .tabbar{display:flex;position:fixed;inset-inline:0;bottom:0;z-index:var(--z-sticky);justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom));background:var(--card);border-block-start:1px solid var(--border)}
+ .tabbar a{display:grid;justify-items:center;gap:2px;min-block-size:var(--control-h-lg);min-inline-size:64px;font-size:var(--px-text-xs);color:var(--muted-foreground);text-decoration:none}
+ .tabbar a[aria-current="page"]{color:var(--foreground);font-weight:600}
+ .fab{display:inline-flex;position:fixed;inset-inline-end:var(--gutter);bottom:calc(76px + env(safe-area-inset-bottom));z-index:var(--z-sticky);box-shadow:var(--shadow-lg)}
+ .stats{grid-template-columns:1fr 1fr}
+ .inline-form{grid-template-columns:1fr 1fr}.inline-form .px-btn{grid-column:1/-1}
+}
 </style>
 </head>
 <body>
-<div id="stage"></div>
-<nav class="proto-picker" aria-label="Prototype variants">
- <span class="proto-picker-highlight" aria-hidden="true"></span>
- <button class="proto-picker-item" data-active aria-current="true">Desk</button>
- <button class="proto-picker-item">Runway</button>
- <button class="proto-picker-item">Checklist</button>
-</nav>
-<script>
-const I={
- list:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
- cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
- up:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>',
- down:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
- tool:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
- plus:'<path d="M12 5v14M5 12h14"/>',
- x:'<path d="M18 6 6 18M6 6l12 12"/>',
- back:'<path d="M15 18l-6-6 6-6"/>',
- chev:'<path d="M9 18l6-6-6-6"/>',
- more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
- check:'<path d="M20 6 9 17l-5-5"/>',
- alert:'<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',
- cash:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/>',
- file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>',
- edit:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
- link:'<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>'
-};
-const ic=n=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
-const money=(n,s)=>{const v=Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:Math.round(n*100)%100?2:0,maximumFractionDigits:2});return (n<0?'−':s&&n>0?'+':'')+'$'+v};
-const DATES=['Sep 28','Sep 25','Sep 24','Sep 23','Sep 22','Sep 21','Sep 18','Sep 17','Sep 16'];
-const RAW=[
- {id:'tpt',name:'TPT 50K PRO',firm:'Take Profit Trader',plan:'Test · $50,000',stage:'PRO',kind:'funded',lock:'start',off:0,linked:'TPT50K-1',src:'Tradovate Fills · fees on 8 sides',
-  pnl:[640,-215,312.5,455,-120,388,218,-46,210],payoutAt:50001,
-  next:'Payout ready via PRO withdrawal',nextAmt:'about $1,474 to you',group:'ready',
-  paths:[{name:'PRO withdrawal',split:'80%',status:'Ready',profit:1842.5,start:'Sep 16',win:null,withdraw:1842.5,you:1474,blockers:[]},
-   {name:'PRO+ (90% split)',split:'90%',status:'Opens Oct 16',profit:1842.5,start:'Sep 16',win:null,withdraw:1842.5,you:1658,blockers:['Opens 2026-10-16, 30 calendar days after the first trade']}],
-  rules:{dd:'$2,000 end-of-day trailing, stops at the starting balance',target:'None in PRO',dll:'None',cons:'None in PRO',notes:2}},
- {id:'mffu',name:'MFFU Rapid 50K',firm:'MyFundedFutures',plan:'Rapid · $50,000',stage:'Funded',kind:'funded',lock:'start100',off:0,linked:'MFFU50K-2',src:'Tradovate Fills + Cash History',
-  pnl:[410.75,-180,236,-95.5,318,226],payoutAt:52100,cons:{pct:50,basis:'profit'},
-  next:'Payout in 4 trading days via Standard payout',nextAmt:'about $1,066 to you',group:'track',
-  paths:[{name:'Standard payout',split:'90%',status:'In 4 trading days',profit:915.25,start:'Sep 21',win:[3,5,150],withdraw:1184,you:1066,blockers:['3 of 5 winning days of $150+','Balance must reach $52,100 ($1,184.75 to go)']},
-   {name:'Buffer withdrawal',split:'90%',status:'Opens Oct 14',profit:915.25,start:'Sep 21',win:[3,10,100],withdraw:0,you:0,blockers:['Opens 2026-10-14','Closed: open only while the balance is under $52,100']}],
-  rules:{dd:'$2,000 end-of-day trailing, locks at $50,100',target:'None when funded',dll:'None',cons:'50% of total profit',notes:3}},
- {id:'ts',name:'Topstep 50K Combine',firm:'Topstep',plan:'Trading Combine · $50,000',stage:'Evaluation',kind:'eval',lock:'start',off:4,linked:'',src:'TopstepX Trades',
-  pnl:[1050,-310,420,612,408],target:53000,minDays:2,cons:{pct:55,basis:'target'},
-  next:'Pass in 2 trading days',nextAmt:'$820 still needed',group:'track',
-  rules:{dd:'$2,000 end-of-day trailing, stops at the starting balance',target:'$3,000 · 2 trading days',dll:'None (optional one not modelled)',cons:'Best day ≤ 55% of the $3,000 target',notes:3}},
- {id:'tfy',name:'Tradeify Growth 50K',firm:'Tradeify',plan:'Growth · $50,000',stage:'Evaluation',kind:'eval',lock:'never',off:0,linked:'',src:'Typed',
-  pnl:[380,-1250,210,-140,-85,295],target:53000,minDays:1,dll:{amt:1250},
-  next:'Pass in 13 trading days',nextAmt:'$3,590 still needed',group:'risk',
-  rules:{dd:'$2,000 end-of-day trailing, never locks',target:'$3,000 · 1 trading day',dll:'$1,250, stops you for the day',cons:'None in the evaluation',notes:2}},
- {id:'lucid',name:'Lucid Pro 50K',firm:'Lucid Trading',plan:'LucidPro · $50,000',stage:'Funded',kind:'funded',lock:'start100',off:2,linked:'LT-88214',src:'Tradovate Performance',
-  pnl:[-1258,-940,-310,520],payoutAt:52100,blown:{date:'Sep 24',why:'drawdown'},
-  next:'Blown on Sep 24 (drawdown)',nextAmt:'',group:'blown',paths:[],
-  rules:{dd:'$2,000 end-of-day trailing, locks at $50,100',target:'None when funded',dll:'$1,200, stops you for the day',cons:'40% of profit this cycle',notes:2}}
+<a class="px-skip-link" href="#main">Skip to content</a>
+<header class="bar">
+ <a class="wordmark" href="#accounts"><img src="../../apps/web/public/icon.png" alt="">propfirm-calc</a>
+ <nav class="px-nav" aria-label="Primary" id="nav"></nav>
+ <div class="bar-end">
+  <button class="px-btn" data-variant="ghost" data-size="icon" id="theme" aria-label="Switch to dark mode"><px-icon name="dark"></px-icon></button>
+  <button class="px-btn add-top" data-variant="primary" data-add><px-icon name="add"></px-icon>Add account</button>
+ </div>
+</header>
+<main id="main" tabindex="-1"></main>
+<footer class="foot"><span>Firm rules checked up to Sep 29, 2026</span><span>Your data stays in this browser</span><a href="https://github.com/shootingallday/propfirm-calc">GitHub</a><a class="end" href="#features">Feature map</a></footer>
+<nav class="tabbar" aria-label="Primary" id="tabbar"></nav>
+<button class="px-btn fab" data-variant="primary" data-size="lg" data-add><px-icon name="add"></px-icon>Add account</button>
+
+<dialog class="px-overlay" data-overlay="dialog" closedby="any" id="add-dialog" aria-labelledby="add-title"></dialog>
+<dialog class="px-overlay" data-overlay="dialog" role="alertdialog" id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-desc"></dialog>
+
+<script type="module">
+import "./px/icons.js";
+import { money, pnl, toneOf } from "./px/format.js";
+import { mountTabs, mountAccordion } from "./px/navigation.js";
+import { mountSlider, mountDrop } from "./px/forms.js";
+import { mountMenu } from "./px/menu.js";
+import { openOverlay } from "./px/overlay.js";
+import { toast } from "./px/toast.js";
+import { renderChart } from "./px/chart.js";
+import { switchTheme } from "./px/theme-switch.js";
+
+const DATES = ["Sep 28","Sep 25","Sep 24","Sep 23","Sep 22","Sep 21","Sep 18","Sep 17","Sep 16"];
+const RAW = [
+ {id:"tpt",name:"TPT 50K PRO",firm:"Take Profit Trader",plan:"Test · $50,000",stage:"PRO",kind:"funded",lock:"start",off:0,linked:"TPT50K-1",src:"Tradovate Fills · fees on 8 sides",
+  pnl:[640,-215,312.5,455,-120,388,218,-46,210],payoutAt:50001,group:"ready",
+  next:"Payout ready via PRO withdrawal",nextAmt:"About $1,474 to you",
+  paths:[{name:"PRO withdrawal",split:"80%",status:"Ready",tone:"gain",profit:1842.5,start:"Sep 16",win:null,withdraw:1842.5,you:1474,blockers:[]},
+   {name:"PRO+",split:"90%",status:"Opens Oct 16",profit:1842.5,start:"Sep 16",win:null,withdraw:1842.5,you:1658,blockers:["Opens 2026-10-16, 30 calendar days after the first trade"]}],
+  rules:{dd:"$2,000 end-of-day trailing, stops at the starting balance",target:"None in PRO",dll:"None",cons:"None in PRO"}},
+ {id:"mffu",name:"MFFU Rapid 50K",firm:"MyFundedFutures",plan:"Rapid · $50,000",stage:"Funded",kind:"funded",lock:"start100",off:0,linked:"MFFU50K-2",src:"Tradovate Fills + Cash History",
+  pnl:[410.75,-180,236,-95.5,318,226],payoutAt:52100,cons:{pct:50,basis:"profit"},group:"track",
+  next:"Payout in 4 trading days",nextAmt:"About $1,066 to you via Standard payout",
+  paths:[{name:"Standard payout",split:"90%",status:"In 4 trading days",profit:915.25,start:"Sep 21",win:[3,5,150],withdraw:1184,you:1066,blockers:["3 of 5 winning days of $150+","Balance must reach $52,100 ($1,184.75 to go)"]},
+   {name:"Buffer withdrawal",split:"90%",status:"Opens Oct 14",profit:915.25,start:"Sep 21",win:[3,10,100],withdraw:0,you:0,blockers:["Opens 2026-10-14","Closed: open only while the balance is under $52,100"]}],
+  rules:{dd:"$2,000 end-of-day trailing, locks at $50,100",target:"None when funded",dll:"None",cons:"50% of total profit"}},
+ {id:"ts",name:"Topstep 50K Combine",firm:"Topstep",plan:"Trading Combine · $50,000",stage:"Evaluation",kind:"eval",lock:"start",off:4,linked:"",src:"TopstepX Trades",
+  pnl:[1050,-310,420,612,408],target:53000,minDays:2,cons:{pct:55,basis:"target"},group:"track",
+  next:"Pass in 2 trading days",nextAmt:"$820 still needed",
+  rules:{dd:"$2,000 end-of-day trailing, stops at the starting balance",target:"$3,000 · 2 trading days",dll:"None (the optional one isn't modelled)",cons:"Best day at most 55% of the $3,000 target"}},
+ {id:"tfy",name:"Tradeify Growth 50K",firm:"Tradeify",plan:"Growth · $50,000",stage:"Evaluation",kind:"eval",lock:"never",off:0,linked:"",src:"Typed",
+  pnl:[380,-1250,210,-140,-85,295],target:53000,minDays:1,dll:{amt:1250},group:"risk",
+  next:"Pass in 13 trading days",nextAmt:"$3,590 still needed",
+  rules:{dd:"$2,000 end-of-day trailing, never locks",target:"$3,000 · 1 trading day",dll:"$1,250, stops you for the day",cons:"None in the evaluation"}},
+ {id:"lucid",name:"Lucid Pro 50K",firm:"Lucid Trading",plan:"LucidPro · $50,000",stage:"Funded",kind:"funded",lock:"start100",off:2,linked:"LT-88214",src:"Tradovate Performance",
+  pnl:[-1258,-940,-310,520],payoutAt:52100,blown:{date:"Sep 24",why:"drawdown"},group:"blown",paths:[],
+  next:"Blown on Sep 24",nextAmt:"Went under the drawdown floor",
+  rules:{dd:"$2,000 end-of-day trailing, locks at $50,100",target:"None when funded",dll:"$1,200, stops you for the day",cons:"40% of profit this cycle"}}
 ];
-const ACC=RAW.map(a=>{const old=[...a.pnl].reverse();let bal=50000,peak=50000,floor=48000;const series=[];
- for(const p of old){bal+=p;peak=Math.max(peak,bal);floor=peak-2000;if(a.lock==='start')floor=Math.min(floor,50000);if(a.lock==='start100')floor=Math.min(floor,50100);series.push([bal,floor]);}
- const wins=a.pnl.filter(p=>p>0);
- return {...a,bal,peak,floor,paid:0,profit:bal-50000,best:Math.max(...a.pnl),days:a.pnl.length,last:DATES[a.off],series,
-  winDays:wins.length,avgWin:wins.reduce((s,p)=>s+p,0)/wins.length,dates:a.pnl.map((_,i)=>DATES[a.off+i]),
-  dllHits:a.dll?a.pnl.map((p,i)=>p<=-a.dll.amt?DATES[a.off+i]:null).filter(Boolean):[]}});
-const S={x:0,inc:new Set(ACC.map(a=>a.id).filter(id=>id!=='lucid')),applied:false};
-const byId=id=>ACC.find(a=>a.id===id);
-function wi(a,x){
- if(a.blown||!S.inc.has(a.id)||!x)return{bal:a.bal,fx:[],d:0};
- let d=x;const fx=[];
- if(a.dll&&d<-a.dll.amt){d=-a.dll.amt;fx.push('Hits the daily loss lock')}
- const bal=a.bal+d,profit=a.profit+d,best=Math.max(a.best,d);
- if(bal<=a.floor)fx.push('Blows the account');
- if(a.cons&&profit>0){const base=v=>a.cons.basis==='target'?3000:v;const ok0=a.best<=a.cons.pct/100*base(a.profit),ok1=best<=a.cons.pct/100*base(profit);if(ok0&&!ok1)fx.push('Breaks consistency');if(!ok0&&ok1)fx.push('Fixes consistency')}
- if(!fx.includes('Blows the account')){
-  if(a.kind==='eval'&&a.bal<a.target&&bal>=a.target)fx.push('Passes the evaluation');
-  if(a.kind==='funded'&&a.bal<a.payoutAt&&bal>=a.payoutAt)fx.push('Unlocks a payout');}
- if(a.kind==='funded'&&a.bal>=a.payoutAt&&bal<a.payoutAt)fx.push('Loses a payout');
- return{bal,fx,d,capped:d!==x};
-}
-const cushion=(a,bal=a.bal)=>Math.max(0,bal-a.floor);
-function runway(a,bal,wide){
- const end=a.kind==='eval'?a.target:Math.max(a.payoutAt,a.peak),lo=a.floor-300,hi=end+300,p=v=>Math.max(0,Math.min(100,(v-lo)/(hi-lo)*100));
- const g=bal!==a.bal?`<span class="ghost" style="left:${p(bal)}%"></span>`:'';
- return `<div class="runway ${a.blown?'blown':''}"><span class="fillr" style="width:${p(a.bal)}%"></span><span class="mk" style="left:${p(a.floor)}%" title="Floor"></span><span class="mk soft" style="left:${p(50000)}%" title="Start"></span><span class="mk" style="left:${p(end)}%"></span><span class="dot" style="left:${p(a.bal)}%"></span>${g}</div>`+
-  (wide?`<div class="row between small muted num" style="margin-top:4px"><span>Floor ${money(a.floor)}</span><span>Start $50,000</span><span>${a.kind==='eval'?'Target '+money(a.target):'Payout at '+money(a.payoutAt)}</span></div>`:'');
-}
-const bestPct=a=>Math.round(a.best/(a.cons.basis==='target'?3000:a.profit)*100);
-const consLine=a=>a.cons?`Consistency ${a.cons.pct}%: best day is ${bestPct(a)}% of ${a.cons.basis==='target'?'the target':'profit'}, within the limit`:'No consistency rule on this stage';
-const fxPills=f=>f.length?`<div class="fx">${f.map(t=>`<span class="pill ${/Blows|Breaks|Loses|lock/.test(t)?'dark':'outline'}">${t}</span>`).join('')}</div>`:'<span class="faint small">No change</span>';
-const summary=()=>{const net=ACC.reduce((s,a)=>s+a.profit,0);return `<span><b>${ACC.length}</b> accounts</span><span><b class="num">${money(net,1)}</b> net</span><span><b>${ACC.filter(a=>a.group==='ready').length}</b> payout ready</span><span><b>${ACC.filter(a=>a.blown).length}</b> blown</span>`};
-const capText=()=>ACC.some(a=>wi(a,S.x).capped)?'Capped at the daily loss limit where the firm stops you for the day':'';
-function whatifBar(){return `<div class="card whatif"><div><div class="small muted">What if tomorrow is</div><div class="val num" id="xv">${money(S.x,1)}</div></div>
- <input type="range" min="-3000" max="3000" step="50" value="${S.x}" id="slider" aria-label="Tomorrow's P&amp;L on every included account">
- <div class="small muted" style="width:180px"><span id="incn">on ${S.inc.size} of ${ACC.length} accounts</span><br><span id="capnote">${capText()}</span></div>
- <button class="btn sm" id="reset">Reset</button></div>`}
-function shell(inner,tab,opts={}){
- const t=[['accounts','Accounts','list'],['calendar','Calendar','cal'],['import','Import','up'],['tools','Tools','tool']];
- return `<div class="app"><header class="top"><div class="brand"><span class="logo"></span>propfirm-calc</div>
- <nav class="nav">${t.map(([h,l,i])=>`<a href="#${h}" class="${tab===h?'on':''}">${ic(i)}${l}</a>`).join('')}</nav>
- <div style="margin-left:auto" class="row">${opts.empty?'<a class="btn sm" href="#accounts">Load demo accounts</a>':'<a class="btn sm primary" href="#add">'+ic('plus')+'Add account</a>'}</div></header>
- <main class="main">${inner}</main>
- <footer class="foot"><span>Firm rules checked up to Sep 29, 2026</span><span>Your data stays in this browser</span><span>GitHub</span><a href="#features">Wireframe feature map →</a></footer>
- <nav class="tabbar">${t.map(([h,l,i])=>`<a href="#${h}" class="${tab===h?'on':''}">${ic(i)}${l}</a>`).join('')}</nav></div>`}
+const ACC = RAW.map(a => {
+ const old = [...a.pnl].reverse(); let bal = 50000, peak = 50000, floor = 48000; const series = [];
+ for (const p of old) { bal += p; peak = Math.max(peak, bal); floor = peak - 2000; if (a.lock === "start") floor = Math.min(floor, 50000); if (a.lock === "start100") floor = Math.min(floor, 50100); series.push([bal, floor]); }
+ const wins = a.pnl.filter(p => p > 0);
+ return {...a, bal, peak, floor, paid:0, profit:bal-50000, best:Math.max(...a.pnl), days:a.pnl.length, last:DATES[a.off], series,
+  winDays:wins.length, avgWin:wins.reduce((s,p)=>s+p,0)/wins.length, dates:a.pnl.map((_,i)=>DATES[a.off+i]),
+  dllHits:a.dll ? a.pnl.map((p,i)=>p<=-a.dll.amt?DATES[a.off+i]:null).filter(Boolean) : []};
+});
+const S = { x:0, inc:new Set(ACC.filter(a=>!a.blown).map(a=>a.id)), applied:false, empty:false, lastRow:null };
+const byId = id => ACC.find(a => a.id === id);
+const $ = (sel, root=document) => root.querySelector(sel);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const signed = (v, cls="") => `<span class="px-num px-signed ${cls}" data-tone="${toneOf(v)}">${pnl(v)}</span>`;
+const num = v => `<span class="px-num">${money(v)}</span>`;
+const cushion = (a, bal=a.bal) => Math.max(0, bal - a.floor);
+const bestPct = a => Math.round(a.best / (a.cons.basis === "target" ? 3000 : a.profit) * 100);
 
-function detail(a,mode){
- const close=mode==='page'?`<a class="btn ghost sm" href="#accounts">${ic('back')}All accounts</a>`:mode==='panel'?`<a class="btn ghost sm" href="#accounts" aria-label="Close">${ic('x')} Close</a>`:'';
- const w=wi(a,S.x);
- const banner=a.blown?`<div class="banner">${ic('alert')}<div><b>Blown on ${a.blown.date}</b><div class="small muted">The balance went under the ${money(a.floor)} floor (drawdown). It now sits at ${money(a.bal)}.</div></div></div>`
-  :a.kind==='eval'&&a.bal>=a.target?`<div class="banner">${ic('check')}<b>Passed.</b> Add the Funded account with its rules filled in? <a class="btn sm primary" href="#add" style="margin-left:auto">Add Funded account</a></div>`:'';
- const figs=[['Balance',money(a.bal)],['Floor',money(a.floor)],['Cushion',a.blown?'—':money(cushion(a))],['Profit',money(a.profit,1)],['Best day',money(a.best)+(a.cons?` · ${bestPct(a)}%`:'')],['Peak balance',money(a.peak)],['Paid out',money(a.paid)],['Trading days',a.days+' · last '+a.last]];
- const s=a.series,vs=s.flat(),mn=Math.min(...vs)-200,mx=Math.max(...vs)+200,W=520,H=120,X=i=>i/(s.length-1)*W,Y=v=>H-(v-mn)/(mx-mn)*H;
- const chart=`<svg viewBox="-4 -4 ${W+8} ${H+8}" style="width:100%;height:130px;margin-top:8px" preserveAspectRatio="none"><polyline points="${s.map((p,i)=>X(i)+','+Y(p[1])).join(' ')}" fill="none" stroke="#9a9a9a" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/><polyline points="${s.map((p,i)=>X(i)+','+Y(p[0])).join(' ')}" fill="none" stroke="#1d1d1d" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>`;
- const evalBox=a.kind==='eval'?`<div class="card pad stack new"><h3>Evaluation progress</h3>
-  <div class="grid2"><div><div class="small muted">Profit still needed</div><div class="big num">${money(Math.max(0,a.target-a.bal))}</div><div class="prog" style="margin-top:6px"><i style="width:${Math.max(0,Math.min(100,a.profit/3000*100))}%"></i></div><div class="small muted" style="margin-top:4px">${money(a.profit)} of the $3,000 target${a.cons?', not raised by consistency':''}</div></div>
-  <div><div class="small muted">Trading days</div><div class="big num">${a.days} <span class="muted" style="font-size:14px">of ${a.minDays} needed</span></div><div class="small muted" style="margin-top:10px">${consLine(a)}</div></div></div>
-  <div class="small"><b>Blocking:</b> profit target not reached (${money(a.target-a.bal)} to go)</div></div>`:'';
- const paths=a.kind==='funded'&&!a.blown?`<div class="card pad stack new"><h3>Payout paths, best first</h3>${a.paths.map((p,i)=>`<div class="stack" style="gap:8px;${i?'border-top:1px solid var(--line);padding-top:12px':''}">
-  <div class="row between wrap"><div class="row"><span class="pill ${p.status==='Ready'?'dark':''}">${i+1}</span><b>${p.name}</b><span class="muted small">${p.split} split</span></div><span class="pill outline">${p.status}</span></div>
-  <div class="row wrap small" style="gap:18px"><span class="muted">Cycle since <b style="color:var(--ink)">${p.start}</b></span><span class="muted">Profit this cycle <b style="color:var(--ink)" class="num">${money(p.profit)}</b></span><span class="muted">Withdraw <b style="color:var(--ink)" class="num">${money(p.withdraw)}</b>, you get <b style="color:var(--ink)" class="num">${money(p.you)}</b></span></div>
-  ${p.win?`<div class="row small"><span class="muted" style="width:150px">Winning days of $${p.win[2]}+</span><div class="prog" style="flex:1"><i style="width:${p.win[0]/p.win[1]*100}%"></i></div><span class="num">${p.win[0]} / ${p.win[1]}</span></div>`:''}
-  ${p.blockers.length?`<ul class="small" style="margin:0;padding-left:18px">${p.blockers.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}</div>`).join('')}</div>`:'';
- const days=`<div class="card pad stack"><div class="row between wrap"><h3>Daily P&amp;L</h3><span class="small muted">Typing a date that exists replaces it</span></div>
-  <div class="row wrap"><input class="in" value="2026-09-29" style="width:140px" aria-label="Date"><input class="in" placeholder="Net P&amp;L" style="width:120px" aria-label="Net P&amp;L"><button class="btn">Save day</button></div>
-  <table><tr><th>Day</th><th class="r">Net P&amp;L</th><th class="hide-s">Source</th><th></th><th></th></tr>${a.pnl.map((p,i)=>`<tr><td>${a.dates[i]}</td><td class="r num">${money(p,1)}</td><td class="small muted hide-s">${a.src}</td><td>${a.dllHits.includes(a.dates[i])?'<span class="pill dark">Daily loss limit hit</span>':''}</td><td class="r"><button class="btn ghost sm" aria-label="Remove day">${ic('x')}</button></td></tr>`).join('')}</table></div>`;
- const payouts=`<div class="card pad stack"><h3>Payouts</h3><div class="row wrap"><input class="in" value="2026-09-29" style="width:140px" aria-label="Date"><input class="in" placeholder="Amount" style="width:110px" aria-label="Amount"><button class="btn">Record payout</button></div>
-  <div class="small muted">No payouts recorded. Recording one starts a new payout cycle.</div></div>`;
- const rules=`<div class="card pad stack"><div class="row between wrap"><h3>Rules</h3><a class="small" href="#">Checked Sep 29, 2026 · ${a.firm} help center</a></div>
-  <div class="grid2 small"><div><div class="muted">Drawdown</div>${a.rules.dd}</div><div><div class="muted">Profit target</div>${a.rules.target}</div><div><div class="muted">Daily loss limit</div>${a.rules.dll}</div><div><div class="muted">Consistency</div>${a.rules.cons}</div></div>
-  ${a.paths&&a.paths.length?`<div class="small"><div class="muted">Payout paths</div>${a.paths.map(p=>`${p.name} · ${p.split} · ${p.win?p.win[1]+' winning days of $'+p.win[2]+'+':'no winning-day rule'}`).join('<br>')}</div>`:''}
-  <details class="small"><summary class="row muted">Firm notes ${ic('chev')}</summary><p>"The limit trails the highest end-of-day balance…" and ${a.rules.notes} more notes quoted from ${a.firm}.</p></details>
-  <div class="small muted">Firms change rules every few months. Check the source before you trade.</div>
-  <details><summary class="btn sm">${ic('edit')}Override this account's rules</summary><div class="grid2" style="margin-top:12px">
-   <label class="field">Drawdown amount<input value="2000"></label><label class="field">Drawdown type<select><option>End-of-day trailing</option><option>Intraday trailing</option><option>Static</option></select></label>
-   <label class="field">Profit target<input value="${a.kind==='eval'?3000:''}"></label><label class="field">Daily loss limit<input value="${a.dll?a.dll.amt:''}"></label>
-   <label class="field">Consistency %<input value="${a.cons?a.cons.pct:''}"></label><label class="field">Fee per contract per side<input value="2.14"></label></div><div class="small muted" style="margin-top:6px">Changes only this account.</div></details></div>`;
- return `<div class="stack" style="gap:14px">
-  <div class="row between">${close}<button class="btn sm" style="margin-left:auto" aria-label="More">${ic('more')}</button></div>
-  <div><div class="row wrap"><h1 contenteditable="plaintext-only" spellcheck="false">${a.name}</h1><span class="pill">${a.stage}</span></div>
-  <div class="row small muted" style="margin-top:4px;gap:6px">${a.firm} · ${a.plan}${a.linked?` · ${ic('link')} linked to ${a.linked}`:''}</div></div>
-  ${banner}
-  <div class="card pad stack"><div class="row between wrap"><div><div class="small muted">Next</div><div style="font-size:17px;font-weight:600">${a.next}</div><div class="muted">${a.nextAmt}</div></div>${S.x&&!a.blown?`<div class="stack" style="gap:4px;align-items:flex-end"><span class="small muted">If tomorrow is ${money(S.x,1)}</span>${fxPills(w.fx)}</div>`:''}</div>
-   ${runway(a,w.bal,1)}<div class="figs">${figs.map(([k,v])=>`<div><span class="small muted">${k}</span><b class="num">${v}</b></div>`).join('')}</div>
-   <div class="small muted">${consLine(a)}</div>
-   <div class="small muted new" style="padding-right:50px">Average winning day <b style="color:var(--ink)">${money(a.avgWin)}</b> from ${a.winDays} winning days · estimates use ${money(a.avgWin)}</div></div>
-  <div class="card pad new"><h3>Balance vs floor</h3><div class="small muted">Solid: end-of-day balance · dashed: floor. Needs the engine to return the floor for each day.</div>${chart}</div>
-  ${evalBox}${paths}${days}${payouts}${rules}
-  <div class="small muted">Days entered without trade times can only be checked at the close.</div>
-  <div class="card pad row between wrap"><div><b>Delete this account</b><div class="small muted">Removes its days and payouts from this browser. Asks first.</div></div><button class="btn">Delete…</button></div></div>`;
+function wi(a, x) {
+ if (a.blown || !S.inc.has(a.id) || !x) return { bal:a.bal, fx:[], d:0 };
+ let d = x; const fx = [];
+ if (a.dll && d < -a.dll.amt) { d = -a.dll.amt; fx.push(["Hits the daily loss lock","warn"]); }
+ const bal = a.bal + d, profit = a.profit + d, best = Math.max(a.best, d);
+ const blows = bal <= a.floor;
+ if (blows) fx.push(["Blows the account","loss"]);
+ if (a.cons && profit > 0) { const base = v => a.cons.basis === "target" ? 3000 : v; const ok0 = a.best <= a.cons.pct/100*base(a.profit), ok1 = best <= a.cons.pct/100*base(profit); if (ok0 && !ok1) fx.push(["Breaks consistency","loss"]); if (!ok0 && ok1) fx.push(["Fixes consistency","gain"]); }
+ if (!blows) { if (a.kind === "eval" && a.bal < a.target && bal >= a.target) fx.push(["Passes the evaluation","gain"]); if (a.kind === "funded" && a.bal < a.payoutAt && bal >= a.payoutAt) fx.push(["Unlocks a payout","gain"]); }
+ if (a.kind === "funded" && a.bal >= a.payoutAt && bal < a.payoutAt) fx.push(["Loses a payout","loss"]);
+ return { bal, fx, d, capped: d !== x };
+}
+const fxTags = fx => fx.length ? `<div class="fx">${fx.map(([t,tone]) => `<span class="px-tag" data-tone="${tone}">${t}</span>`).join("")}</div>` : "";
+const guardState = a => a.blown ? "breached" : cushion(a) < 1250 ? "near" : "armed";
+const meterTone = a => a.blown ? "loss" : cushion(a) < 1250 ? "warn" : "";
+
+const TABS = [["accounts","Accounts","account"],["calendar","Calendar","calendar"],["import","Import","import"],["tools","Tools","settings"]];
+function paintNav(tab) {
+ $("#nav").innerHTML = TABS.map(([h,l,i]) => `<a href="#${h}"${tab===h?' aria-current="page"':''}><px-icon name="${i}"></px-icon>${l}</a>`).join("");
+ $("#tabbar").innerHTML = TABS.map(([h,l,i]) => `<a href="#${h}"${tab===h?' aria-current="page"':''}><px-icon name="${i}"></px-icon>${l}</a>`).join("");
 }
 
-const incBox=a=>`<input type="checkbox" data-inc="${a.id}" ${S.inc.has(a.id)?'checked':''} ${a.blown?'disabled':''} aria-label="Include ${a.name} in what-if">`;
-const dim=a=>S.inc.has(a.id)||a.blown?'':'fade';
-function deskHome(){return `<div class="stack">
- <div class="row between wrap"><h1>Accounts</h1><div class="row small muted wrap" style="gap:16px">${summary()}</div></div>
- ${whatifBar()}<div class="card desk" id="live"></div></div>`}
-function deskLive(){const open=route()[1];return `<table><tr><th style="width:36px"></th><th>Account</th><th class="hide-s" style="width:20%">Floor → target or payout</th><th class="r">Balance</th><th class="r">Cushion</th><th class="r hide-s">Profit</th><th class="r hide-s">Best day</th><th class="hide-s">Next</th>${S.x?'<th>If tomorrow</th>':''}</tr>
- ${ACC.map(a=>{const w=wi(a,S.x);return `<tr class="click ${open===a.id?'sel':''} ${dim(a)}" data-go="account/${a.id}">
- <td>${incBox(a)}</td><td><b>${a.name}</b><div class="small muted">${a.stage} · ${a.plan}</div></td><td class="hide-s">${runway(a,w.bal)}</td>
- <td class="r num">${money(w.bal)}${w.d?`<div class="small muted">${money(w.d,1)}</div>`:''}</td><td class="r num cu">${a.blown?'—':money(cushion(a,w.bal))}</td><td class="r num hide-s">${money(a.profit,1)}</td><td class="r num hide-s">${money(a.best)}</td>
- <td class="hide-s"><div>${a.next}</div><div class="small muted">${a.nextAmt}</div></td>${S.x?`<td class="fxc">${a.blown?'':fxPills(w.fx)}</td>`:''}</tr>`}).join('')}</table>`}
+function accountsPage(openId) {
+ if (S.empty) return `<div class="px-card"><div class="px-state"><span class="px-state-icon"><px-icon name="account"></px-icon></span>
+  <h3>No accounts yet</h3><p>Add each prop firm account you trade, then type your daily P&amp;L or import a CSV. Everything stays in this browser.</p>
+  <div class="px-state-actions"><button class="px-btn" data-variant="primary" data-add>Add an account</button><button class="px-btn" data-variant="secondary" id="load-demo">Load demo accounts</button></div></div></div>`;
+ const net = ACC.reduce((s,a)=>s+a.profit,0);
+ return `<div class="page-head"><div><h1>Accounts</h1><p><span class="px-num">${ACC.length}</span> accounts · ${signed(net)} net · 1 payout ready · 1 blown</p></div>
+  <div class="row"><button class="px-btn px-anchor" data-variant="secondary" popovertarget="acct-more" id="acct-more-btn" aria-label="More account actions"><px-icon name="more"></px-icon></button>
+  <div class="px-menu px-overlay" data-overlay="popover" popover="auto" id="acct-more" role="menu">
+   <a class="px-menu-item" role="menuitem" href="#import"><px-icon name="import"></px-icon>Import a CSV</a>
+   <div class="px-menu-sep"></div>
+   <button class="px-menu-item" role="menuitem" type="button" data-toast="Saved propfirm-calc-accounts.json"><px-icon name="export"></px-icon>Export a backup</button>
+   <button class="px-menu-item" role="menuitem" type="button" data-toast="Loaded propfirm-calc-accounts.json"><px-icon name="import"></px-icon>Load a backup</button>
+  </div></div></div>
+ <div class="desk ${openId?"open":""}">
+  <div class="stack">
+   <section class="px-card whatif" aria-label="What if">
+    <div><div class="px-label" style="margin:0">What if tomorrow is</div><div class="x px-num" id="xv" aria-live="off">${pnl(S.x,{fraction:0})}</div></div>
+    <div class="px-slider" id="slider"><div class="px-slider-track"><i class="px-slider-fill"></i></div><input type="range" min="-3000" max="3000" step="50" value="${S.x}" aria-label="Tomorrow's P&amp;L on every included account"></div>
+    <button class="px-btn px-anchor" data-variant="ghost" data-size="sm" popovertarget="inc-pop" id="inc-btn">${S.inc.size} of ${ACC.length} accounts<px-icon name="chevron-down"></px-icon></button>
+    <button class="px-btn" data-variant="secondary" data-size="sm" id="reset" ${S.x?"":"hidden"}>Reset</button>
+    <div class="px-popover px-overlay" data-overlay="popover" popover="auto" id="inc-pop" aria-label="Accounts in the what-if">
+     <div class="px-popover-title">Include in the what-if</div>
+     <div class="px-choices">${ACC.map(a=>`<label class="px-choice"><input class="px-check" type="checkbox" data-inc="${a.id}" ${S.inc.has(a.id)?"checked":""} ${a.blown?"disabled":""}>${esc(a.name)}${a.blown?"<small>Blown, so nothing changes</small>":""}</label>`).join("")}</div></div>
+    <p class="px-hint" id="capnote" style="grid-column:1/-1;margin:0" ${ACC.some(a=>wi(a,S.x).capped)?"":"hidden"}>Capped at the daily loss limit on accounts whose firm stops you for the day.</p>
+   </section>
+   <div class="px-card acct-table" id="live"></div>
+  </div>
+  ${openId ? `<aside class="px-card panel" id="panel" aria-labelledby="panel-title">${detail(byId(openId))}</aside>` : ""}
+ </div>`;
+}
 
-function runwayHome(){return `<div class="stack">
- <div class="row between wrap"><h1>Accounts</h1><div class="row small muted wrap" style="gap:16px">${summary()}</div></div>
- ${whatifBar()}<div class="card" id="live"></div></div>`}
-function runwayLive(){const MAX=5000,p=v=>Math.max(0,Math.min(100,v/MAX*100));
- return `<div class="scale" style="padding-top:12px"><div>Account</div><div class="ticks"><span>Floor</span><span>+$1,000</span><span>+$2,000</span><span>+$3,000</span><span>+$4,000</span><span>+$5,000</span></div><div>Next</div></div>`+
- ACC.map(a=>{const w=wi(a,S.x),goal=(a.kind==='eval'?a.target:a.payoutAt)-a.floor;
- return `<div class="lane ${dim(a)}" data-go="account/${a.id}">
-  <div class="row">${incBox(a)}<div><b>${a.name}</b><div class="small muted">${a.stage} · ${a.firm}</div></div></div>
-  <div><div class="runway ${a.blown?'blown':''}" style="height:14px;border-radius:7px"><span class="fillr" style="width:${p(cushion(a))}%;border-radius:7px"></span><span class="mk" style="left:${p(goal)}%;height:22px"></span><span class="dot" style="left:${p(cushion(a))}%;top:-2px"></span>${w.bal!==a.bal?`<span class="ghost" style="left:${p(cushion(a,w.bal))}%;top:-2px"></span>`:''}</div>
-  <div class="row between small muted num" style="margin-top:8px"><span>${a.blown?'Under the floor by '+money(a.floor-a.bal):money(cushion(a))+' above the floor'}</span><span>${a.group==='ready'?'payout ready now':(a.kind==='eval'?'target':'payout')+' at +'+money(goal).slice(1)}</span></div></div>
-  <div><div>${a.next}</div><div class="small muted">${a.nextAmt}</div>${S.x&&!a.blown?`<div style="margin-top:6px">${fxPills(w.fx)}</div>`:''}</div></div>`}).join('')}
+function tableHtml(openId) {
+ return `<table class="px-table"><thead><tr><th>Account</th><th>Room above the floor</th><th class="r col-balance">Balance</th><th class="r col-profit">Profit</th><th class="col-best">Next</th></tr></thead><tbody>
+ ${ACC.map(a => { const w = wi(a, S.x), out = !S.inc.has(a.id) && !a.blown, cu = cushion(a, w.bal);
+  return `<tr tabindex="0" data-id="${a.id}" aria-selected="${openId===a.id}" class="${out?"left-out":""}">
+  <td><div class="acct-name">${esc(a.name)}</div><div class="row" style="margin-block-start:4px"><span class="px-tag"${a.blown?' data-tone="loss"':''}>${a.blown?"Blown":a.stage}</span>${out?'<span class="acct-sub">· left out of the what-if</span>':""}</div></td>
+  <td><div class="room"><span class="px-num">${a.blown ? "Under by "+money(a.floor-a.bal,{fraction:0}) : money(cu,{fraction:0})}</span><div class="px-meter" ${meterTone(a)?`data-tone="${meterTone(a)}"`:""}><i style="width:${a.blown?100:Math.max(2,Math.min(100,cu/2000*100))}%;animation:none"></i></div></div></td>
+  <td class="r col-balance">${num(w.bal)}${w.d?`<div class="acct-sub">${signed(w.d)}</div>`:""}</td>
+  <td class="r col-profit">${signed(a.profit)}</td>
+  <td class="col-best"><div>${esc(a.next)}</div><div class="acct-sub">${esc(a.nextAmt)}</div>${S.x && !a.blown && S.inc.has(a.id) ? fxTags(w.fx) : ""}</td></tr>`; }).join("")}
+ </tbody></table>`;
+}
 
-function checkHome(){return `<div class="stack">
- <div><h1>Today</h1><div class="small muted" style="margin-top:4px">Tuesday, Sep 29 · ${ACC.length} accounts · ${money(ACC.reduce((s,a)=>s+a.profit,0),1)} net</div></div>
- ${whatifBar()}<div id="live" class="stack" style="gap:22px"></div></div>`}
-function checkLive(){const G=[['ready','Payout ready','cash'],['risk','Close to the floor','alert'],['track','On track','check'],['blown','Blown','x']];
- return G.map(([g,t,i])=>{const list=ACC.filter(a=>a.group===g);if(!list.length)return'';
- return `<section class="group"><h2>${ic(i)}${t}<span class="pill">${list.length}</span></h2><div class="card">${list.map(a=>{const w=wi(a,S.x);
-  const lead=g==='ready'?[a.nextAmt.replace('about ','').replace(' to you',''),'to you now']:g==='blown'?[a.blown.date,'blown']:g==='risk'?[money(cushion(a)),'above the floor']:a.kind==='eval'?[money(a.target-a.bal),'to pass']:[money(a.payoutAt-a.bal),'to a payout'];
-  return `<div class="item ${dim(a)}" data-go="account/${a.id}"><div class="stack" style="gap:6px"><div class="row wrap">${incBox(a)}<b>${a.name}</b><span class="pill">${a.stage}</span></div>
-  <div class="small muted">${a.next}${a.dllHits.length?' · hit the daily loss limit on '+a.dllHits.join(', '):''}</div>${S.x&&!a.blown?fxPills(w.fx):''}</div>
-  <div style="text-align:right"><div class="big num">${lead[0]}</div><div class="small muted">${lead[1]}</div></div><span class="muted">${ic('chev')}</span></div>`}).join('')}</div></section>`}).join('')}
+function detail(a) {
+ const w = wi(a, S.x);
+ const alert = a.blown
+  ? `<div class="px-alert" data-tone="loss" role="status"><px-icon name="error"></px-icon><div><b>Blown on ${a.blown.date}</b><p>The balance closed at ${money(a.bal)}, under the ${money(a.floor)} floor.</p></div></div>`
+  : a.kind === "eval" && a.bal >= a.target ? `<div class="px-alert" data-tone="gain" role="status"><px-icon name="success"></px-icon><div><b>Passed</b><p>Add the Funded account with its rules filled in.</p></div><button class="px-btn" data-variant="secondary" data-size="sm" data-add>Add Funded account</button></div>` : "";
+ const used = Math.max(0, Math.min(2000, 2000 - cushion(a)));
+ const guard = `<div class="px-guard" data-state="${guardState(a)}" role="status"><div class="px-guard-head"><px-icon name="guarded"></px-icon>Drawdown floor ${money(a.floor)}<span class="px-guard-used px-num">${money(used,{fraction:0})} of $2,000 used</span></div>
+  <div class="px-meter" ${meterTone(a)?`data-tone="${meterTone(a)}"`:""}><i style="width:${a.blown?100:used/2000*100}%"></i></div>
+  <small>${a.blown ? "Breached" : money(cushion(a),{fraction:0}) + " of room left" + (a.lock==="never" ? ", and it never locks" : "")}</small></div>`;
+ const stats = `<div class="stats"><div class="px-card px-stat"><div class="px-stat-label">Balance</div><div class="px-stat-value px-num">${money(a.bal)}</div></div>
+  <div class="px-card px-stat"><div class="px-stat-label">Profit</div><div class="px-stat-value">${signed(a.profit)}</div></div>
+  <div class="px-card px-stat"><div class="px-stat-label">Best day</div><div class="px-stat-value px-num">${money(a.best)}</div>${a.cons?`<div class="px-stat-sub">${bestPct(a)}% of ${a.cons.basis==="target"?"target":"profit"} · limit ${a.cons.pct}%</div>`:""}</div></div>`;
+ const pathCard = (p, i) => `<div class="path"><div class="path-head"><b>${esc(p.name)} <span class="muted small">· ${p.split} split</span></b><span class="px-tag"${p.tone?` data-tone="${p.tone}"`:""}>${esc(p.status)}</span></div>
+  <div class="small muted">Withdraw <b class="px-num" style="color:var(--foreground)">${money(p.withdraw)}</b>, you get <b class="px-num" style="color:var(--foreground)">${money(p.you)}</b> · profit this cycle ${money(p.profit)} since ${p.start}</div>
+  ${p.win?`<div class="px-progress-row small"><span class="muted">Winning days of $${p.win[2]}+ · ${p.win[0]} of ${p.win[1]}</span></div><div class="px-meter"><i style="width:${p.win[0]/p.win[1]*100}%"></i></div>`:""}
+  ${p.blockers.length?`<ul>${p.blockers.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`:""}</div>`;
+ const overview = a.kind === "funded" && !a.blown
+  ? `<section class="stack" aria-labelledby="pp-${a.id}"><h3 id="pp-${a.id}">Best payout path</h3>${pathCard(a.paths[0],0)}
+     ${a.paths.length>1?`<div class="px-accordion" id="more-paths"><div><h3><button class="px-accordion-trigger" id="mp-t" aria-controls="mp-p" aria-expanded="false">${a.paths.length-1} more ${a.paths.length===2?"path":"paths"}<px-icon name="chevron-down"></px-icon></button></h3>
+     <div class="px-accordion-panel" id="mp-p" role="region" aria-labelledby="mp-t" hidden="until-found"><div class="stack">${a.paths.slice(1).map(pathCard).join("")}</div></div></div></div>`:""}</section>`
+  : a.kind === "eval" ? `<section class="stack" aria-labelledby="ev-${a.id}"><h3 id="ev-${a.id}">Evaluation</h3>
+     <div class="path-head small"><span class="muted">${money(a.profit)} of the $3,000 target</span><span class="px-num">${money(Math.max(0,a.target-a.bal))} to go</span></div>
+     <div class="px-meter"><i style="width:${Math.max(0,Math.min(100,a.profit/3000*100))}%"></i></div>
+     <dl class="px-dl"><dt>Trading days</dt><dd class="px-num">${a.days} · ${a.minDays} needed</dd><dt>Consistency</dt><dd>${a.cons?`${bestPct(a)}% of the ${a.cons.pct}% limit, target not raised`:"No rule in the evaluation"}</dd><dt>Blocking</dt><dd>Profit target not reached</dd></dl></section>` : "";
+ const chart = `<section class="stack" aria-labelledby="ch-${a.id}"><div class="path-head"><h3 id="ch-${a.id}">Balance and floor</h3><span class="px-tag">Needs an engine change</span></div><div class="px-chart" id="chart"><div class="px-chart-plot"></div></div></section>`;
+ const more = `<div class="px-accordion" id="more-numbers"><div><h3><button class="px-accordion-trigger" id="mn-t" aria-controls="mn-p" aria-expanded="false">More numbers<px-icon name="chevron-down"></px-icon></button></h3>
+  <div class="px-accordion-panel" id="mn-p" role="region" aria-labelledby="mn-t" hidden="until-found"><div><dl class="px-dl">
+  <dt>Peak balance</dt><dd class="px-num">${money(a.peak)}</dd><dt>Total paid out</dt><dd class="px-num">${money(a.paid)}</dd>
+  <dt>Trading days</dt><dd class="px-num">${a.days}</dd><dt>Last day entered</dt><dd>${a.last}</dd>
+  <dt>Average winning day</dt><dd class="px-num">${money(a.avgWin)} <span class="muted small">from ${a.winDays}</span></dd><dt>Average used for estimates</dt><dd class="px-num">${money(a.avgWin)}</dd>
+  <dt>Days at the daily loss limit</dt><dd>${a.dllHits.length?a.dllHits.join(", "):"None"}</dd></dl>
+  <p class="px-hint">Days entered without trade times can only be checked at the close.</p></div></div></div></div>`;
+ const days = `<form class="inline-form" id="day-form"><label class="px-field"><span class="px-label">Date</span><input class="px-input" type="date" value="2026-09-29"></label><label class="px-field"><span class="px-label">Net P&amp;L</span><input class="px-input" inputmode="decimal" placeholder="−250.00"></label><button class="px-btn" data-variant="secondary" type="button">Save day</button></form>
+  <p class="px-hint" style="margin:0">A date you already entered is replaced.</p>
+  <table class="px-table"><thead><tr><th>Day</th><th class="r">Net P&amp;L</th><th></th></tr></thead><tbody>${a.pnl.map((p,i)=>`<tr><td>${a.dates[i]}<div class="acct-sub">${esc(a.src)}</div></td><td class="r">${signed(p)}${a.dllHits.includes(a.dates[i])?`<div><span class="px-tag" data-tone="loss">Daily loss limit</span></div>`:""}</td><td class="r"><button class="px-btn" data-variant="ghost" data-size="icon" data-remove="${a.dates[i]}" aria-label="Remove ${a.dates[i]}"><px-icon name="delete"></px-icon></button></td></tr>`).join("")}</tbody></table>`;
+ const payouts = `<form class="inline-form"><label class="px-field"><span class="px-label">Date</span><input class="px-input" type="date" value="2026-09-29"></label><label class="px-field"><span class="px-label">Amount</span><input class="px-input" inputmode="decimal" placeholder="1,000.00"></label><button class="px-btn" data-variant="secondary" type="button">Record payout</button></form>
+  <div class="px-state" data-size="sm"><span class="px-state-icon"><px-icon name="reports"></px-icon></span><h3>No payouts recorded</h3><p>Recording one starts a new payout cycle.</p></div>`;
+ const rules = `<dl class="px-dl"><dt>Drawdown</dt><dd>${a.rules.dd}</dd><dt>Profit target</dt><dd>${a.rules.target}</dd><dt>Daily loss limit</dt><dd>${a.rules.dll}</dd><dt>Consistency</dt><dd>${a.rules.cons}</dd>
+  ${a.paths&&a.paths.length?`<dt>Payout paths</dt><dd>${a.paths.map(p=>`${esc(p.name)}, ${p.split}`).join("<br>")}</dd>`:""}</dl>
+  <p class="small muted">Checked Sep 29, 2026 · <a class="px-link" href="#">${esc(a.firm)} help center</a>. Firms change rules every few months.</p>
+  <div class="px-accordion" id="rules-acc">
+   <div><h3><button class="px-accordion-trigger" id="fn-t" aria-controls="fn-p" aria-expanded="false">Firm notes<px-icon name="chevron-down"></px-icon></button></h3>
+    <div class="px-accordion-panel" id="fn-p" role="region" aria-labelledby="fn-t" hidden="until-found"><div><p class="small">“The limit trails the highest end-of-day balance and stops trailing once it reaches the lock.” ${esc(a.firm)} also says a breach counts the moment the balance touches the floor, including open losses.</p></div></div></div>
+   <div><h3><button class="px-accordion-trigger" id="ov-t" aria-controls="ov-p" aria-expanded="false">Override this account's rules<px-icon name="chevron-down"></px-icon></button></h3>
+    <div class="px-accordion-panel" id="ov-p" role="region" aria-labelledby="ov-t" hidden="until-found"><div class="stack"><div class="fields">
+     <label class="px-field"><span class="px-label">Drawdown</span><input class="px-input" inputmode="decimal" value="2,000"></label>
+     <label class="px-field"><span class="px-label">Drawdown type</span><select class="px-input"><option>End-of-day trailing</option><option>Intraday trailing</option><option>Static</option></select></label>
+     <label class="px-field"><span class="px-label">Profit target</span><input class="px-input" inputmode="decimal" value="${a.kind==="eval"?"3,000":""}" placeholder="None"></label>
+     <label class="px-field"><span class="px-label">Daily loss limit</span><input class="px-input" inputmode="decimal" value="${a.dll?money(a.dll.amt).slice(1):""}" placeholder="None"></label>
+     <label class="px-field"><span class="px-label">Consistency %</span><input class="px-input" inputmode="decimal" value="${a.cons?a.cons.pct:""}" placeholder="None"></label>
+     <label class="px-field"><span class="px-label">Fee per contract per side</span><input class="px-input" inputmode="decimal" value="2.14"></label></div>
+     <p class="px-hint" style="margin:0">Changes only this account.</p></div></div></div></div>`;
+ return `<div class="panel-top"><button class="px-btn" data-variant="ghost" data-size="icon" id="close-panel" aria-label="Close ${esc(a.name)}"><px-icon name="close"></px-icon></button>
+  <h2 id="panel-title" tabindex="-1">${esc(a.name)}</h2>
+  <button class="px-btn px-anchor" data-variant="ghost" data-size="icon" popovertarget="acct-actions" id="acct-actions-btn" aria-label="Actions for ${esc(a.name)}" style="margin-inline-start:auto"><px-icon name="more"></px-icon></button>
+  <div class="px-menu px-overlay" data-overlay="popover" popover="auto" id="acct-actions" role="menu">
+   <button class="px-menu-item" role="menuitem" type="button" id="rename"><px-icon name="edit"></px-icon>Rename</button>
+   <div class="px-menu-sep"></div>
+   <button class="px-menu-item" role="menuitem" type="button" data-tone="loss" id="delete"><px-icon name="delete"></px-icon>Delete account…</button></div></div>
+  <div class="row small muted"><span class="px-tag"${a.blown?' data-tone="loss"':''}>${a.blown?"Blown":a.stage}</span>${esc(a.firm)} · ${esc(a.plan)}${a.linked?` · linked to ${esc(a.linked)}`:""}</div>
+  ${alert}
+  <div${a.blown?" hidden":""}><div class="next-line">${esc(a.next)}</div><div class="small muted">${esc(a.nextAmt)}</div>${S.x && !a.blown && S.inc.has(a.id) ? `<div class="small muted" style="margin-block-start:8px">If tomorrow is ${pnl(S.x,{fraction:0})}${w.fx.length?"":", nothing changes here"}</div>${fxTags(w.fx)}` : ""}</div>
+  ${guard}${stats}
+  <div id="detail-tabs"><div class="px-tabs" role="tablist" aria-label="Account detail">
+   <button class="px-tab" role="tab" id="t-ov" aria-controls="p-ov" aria-selected="true">Overview</button>
+   <button class="px-tab" role="tab" id="t-days" aria-controls="p-days" aria-selected="false">Days <span class="px-badge">${a.days}</span></button>
+   <button class="px-tab" role="tab" id="t-pay" aria-controls="p-pay" aria-selected="false">Payouts</button>
+   <button class="px-tab" role="tab" id="t-rules" aria-controls="p-rules" aria-selected="false">Rules</button></div>
+  <div class="px-tabpanel tabpad" role="tabpanel" id="p-ov" aria-labelledby="t-ov" tabindex="0">${overview}${chart}${more}</div>
+  <div class="px-tabpanel tabpad" role="tabpanel" id="p-days" aria-labelledby="t-days" tabindex="0" hidden>${days}</div>
+  <div class="px-tabpanel tabpad" role="tabpanel" id="p-pay" aria-labelledby="t-pay" tabindex="0" hidden>${payouts}</div>
+  <div class="px-tabpanel tabpad" role="tabpanel" id="p-rules" aria-labelledby="t-rules" tabindex="0" hidden>${rules}</div></div>`;
+}
 
-function emptyHome(){return `<div class="card" style="text-align:center;padding:72px 24px"><div class="logo" style="margin:0 auto 16px;width:48px;height:48px;border-radius:12px;background:var(--fill2)"></div><h2>No accounts yet</h2>
- <p class="muted" style="max-width:420px;margin:8px auto 18px">Add each prop firm account you trade, then type your daily P&amp;L or import a CSV. Everything stays in this browser.</p>
- <div class="row" style="justify-content:center"><a class="btn primary" href="#add">${ic('plus')}Add an account</a></div></div>`}
+const FIRMS = {"Topstep":["Trading Combine · $50,000","$2,000 end-of-day trailing, stops at the starting balance","$3,000 · 2 trading days","None (optional)","Best day at most 55% of the target"],"Tradeify":["Growth · $50,000","$2,000 end-of-day trailing, never locks","$3,000 · 1 trading day","$1,250, stops you for the day","None in the evaluation"],"Lucid Trading":["LucidPro · $50,000","$2,000 end-of-day trailing, locks at start + $100","$3,000 · 1 trading day","$1,200, stops you for the day","None in the evaluation"],"MyFundedFutures":["Rapid · $50,000","$2,000 end-of-day trailing, locks at $50,100","$3,000 · 2 trading days","None","50% of total profit"],"Take Profit Trader":["Test · $50,000","$2,000 end-of-day trailing, stops at the starting balance","$3,000 · 3 trading days","None","50% of total profit"]};
+function addRules(f) { const r = FIRMS[f]; return `<dl class="px-dl"><dt>Drawdown</dt><dd>${r[1]}</dd><dt>Target</dt><dd>${r[2]}</dd><dt>Daily loss limit</dt><dd>${r[3]}</dd><dt>Consistency</dt><dd>${r[4]}</dd></dl>`; }
+function addDialog() {
+ return `<form method="dialog" class="px-panel" data-size="md" id="add-form">
+  <div class="px-panel-head"><h2 class="px-panel-title" id="add-title">Add an account</h2></div>
+  <div class="px-panel-body stack">
+   <div class="fields"><label class="px-field"><span class="px-label">Firm</span><select class="px-input" id="firm">${Object.keys(FIRMS).map(k=>`<option>${k}</option>`).join("")}</select></label>
+   <label class="px-field"><span class="px-label">Stage</span><select class="px-input"><option>Evaluation</option><option>Funded</option></select></label></div>
+   <label class="px-field"><span class="px-label">Fee per contract per side</span><input class="px-input" inputmode="decimal" value="2.14" style="max-inline-size:200px"></label>
+   <label class="px-field"><span class="px-label">Plan</span><select class="px-input" id="plan"><option>${FIRMS.Topstep[0]}</option></select></label>
+   <label class="px-field"><span class="px-label">Name <span class="muted">(optional)</span></span><input class="px-input" placeholder="Topstep Trading Combine 50K"></label>
+   <div class="px-card" style="padding:var(--px-space-3) var(--cell-px)"><div class="path-head small"><b>Rules for this plan</b><a class="px-link" href="#">Checked Sep 29, 2026</a></div><div id="add-rules">${addRules("Topstep")}</div></div>
+  </div>
+  <div class="px-panel-foot"><button class="px-btn" value="cancel" formnovalidate>Cancel</button><button class="px-btn" data-variant="primary" value="add">Add account</button></div></form>`;
+}
+function deleteDialog(a) {
+ return `<form method="dialog" class="px-panel" data-size="sm" data-tone="loss">
+  <div class="px-panel-head"><h2 class="px-panel-title" id="delete-title">Delete ${esc(a.name)}?</h2></div>
+  <div class="px-panel-body"><p id="delete-desc">Its ${a.days} days and every payout go with it. This can't be undone, so export a backup first if you might want them.</p></div>
+  <div class="px-panel-foot"><button class="px-btn" value="cancel" autofocus>Keep account</button><button class="px-btn" data-variant="danger" value="${a.id}">Delete account</button></div></form>`;
+}
 
-const FIRMS={'Topstep':['Trading Combine · $50,000','$2,000 end-of-day trailing, stops at the starting balance','$3,000 · 2 trading days','None (optional)','Best day ≤ 55% of the target'],'Tradeify':['Growth · $50,000','$2,000 end-of-day trailing, never locks','$3,000 · 1 trading day','$1,250, stops you for the day','None in the evaluation'],'Lucid Trading':['LucidPro · $50,000','$2,000 end-of-day trailing, locks at start + $100','$3,000 · 1 trading day','$1,200, stops you for the day','None in the evaluation'],'MyFundedFutures':['Rapid · $50,000','$2,000 end-of-day trailing, locks at $50,100','$3,000 · 2 trading days','None','50% of total profit'],'Take Profit Trader':['Test · $50,000','$2,000 end-of-day trailing, stops at the starting balance','$3,000 · 3 trading days','None','50% of total profit']};
-function addForm(){const f='Topstep';return `<div class="stack" style="max-width:760px;margin:0 auto"><a class="btn ghost sm" href="#accounts" style="align-self:flex-start">${ic('back')}All accounts</a><h1>Add an account</h1>
- <div class="card pad stack"><div class="grid2"><label class="field">Firm<select id="firm">${Object.keys(FIRMS).map(k=>`<option>${k}</option>`).join('')}</select></label>
- <label class="field">Plan<select id="plan"><option>${FIRMS[f][0]}</option></select></label>
- <label class="field">Stage<select><option>Evaluation</option><option>Funded</option></select></label>
- <label class="field">Name (optional)<input placeholder="Topstep Trading Combine 50K"></label>
- <label class="field">Fee per contract per side<input value="2.14"></label></div></div>
- <div class="card pad stack" id="rules">${addRules(f)}</div>
- <div class="row"><a class="btn primary" href="#account/ts">Add account</a><a class="btn ghost" href="#accounts">Cancel</a></div></div>`}
-function addRules(f){const r=FIRMS[f];return `<div class="row between wrap"><h3>Rules for this plan</h3><a class="small" href="#">Checked Sep 29, 2026 · source</a></div>
- <div class="grid2 small"><div><div class="muted">Drawdown</div>${r[1]}</div><div><div class="muted">Profit target · minimum days</div>${r[2]}</div><div><div class="muted">Daily loss limit</div>${r[3]}</div><div><div class="muted">Consistency</div>${r[4]}</div></div>
- <div class="small"><div class="muted">Payout paths once funded</div>Standard · 90% split · 5 winning days · 40% consistency<br>Daily · 80% split · no winning-day rule</div>
- <div><div class="skel" style="width:92%"></div><div class="skel" style="width:78%"></div><div class="skel" style="width:60%"></div><div class="small muted">Firm notes, quoted from their pages</div></div>
- <div class="small muted">Firms change rules every few months. Check the source before you trade.</div>`}
+function calendarPage(empty) {
+ const head = `<div class="page-head"><div><h1>Payout calendar</h1><p>Best case: every future trading day is your average winning day. Weekends and exchange holidays are skipped.</p></div></div>`;
+ if (empty) return `<div class="narrow">${head}<div class="px-card"><div class="px-state"><span class="px-state-icon"><px-icon name="calendar"></px-icon></span><h3>Nothing lands in the next 60 trading days</h3><p>Not at these averages. Raise an average below, or add more days so one can be measured.</p></div></div>
+  <div class="px-card" style="margin-block-start:var(--card-gap)"><div class="px-state"><span class="px-state-icon"><px-icon name="account"></px-icon></span><h3>Add accounts to see when they can pay out</h3><p>Shown when there are no accounts yet.</p><div class="px-state-actions"><button class="px-btn" data-variant="primary" data-add>Add an account</button></div></div></div></div>`;
+ const weeks = [["Week of Sep 28",2540,[["Sep 29","TPT 50K PRO","About $1,474 to you via PRO withdrawal"],["Sep 30","Topstep 50K Combine","Passes the evaluation"],["Oct 2","MFFU Rapid 50K","About $1,066 to you via Standard payout"]]],["Week of Oct 12",0,[["Oct 15","Tradeify Growth 50K","Passes the evaluation"]]],["Week of Oct 19",1658,[["Oct 19","TPT 50K PRO","About $1,658 to you via PRO+"]]]];
+ return `<div class="narrow">${head}
+  <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-block-end:var(--card-gap)"><div class="px-card px-stat"><div class="px-stat-label">To you in 60 trading days</div><div class="px-stat-value px-num">$4,198</div></div><div class="px-card px-stat"><div class="px-stat-label">Next payout</div><div class="px-stat-value">Sep 29</div><div class="px-stat-sub">TPT 50K PRO</div></div><div class="px-card px-stat"><div class="px-stat-label">Evaluations passing</div><div class="px-stat-value px-num">2</div></div></div>
+  <div class="px-card">${weeks.map(([w,t,ev])=>`<div class="week"><b>${w}</b><div class="stack" style="gap:8px">${ev.map(e=>`<div class="event"><time>${e[0]}</time><span><b>${e[1]}</b><br><span class="small muted">${e[2]}</span></span></div>`).join("")}</div><div class="px-num" style="text-align:end"><b>${t?money(t,{fraction:0}):"—"}</b></div></div>`).join("")}
+  <div class="week"><span class="muted">Other weeks</span><span class="small muted">Nothing else lands at these averages.</span><span></span></div></div>
+  <div class="px-accordion" id="cal-acc" style="margin-block-start:var(--card-gap)">
+   <div><h3><button class="px-accordion-trigger" id="av-t" aria-controls="av-p" aria-expanded="false">Averages used<px-icon name="chevron-down"></px-icon></button></h3>
+    <div class="px-accordion-panel" id="av-p" role="region" aria-labelledby="av-t" hidden="until-found"><div><table class="px-table"><thead><tr><th>Account</th><th class="r">Measured</th><th class="r">Your average</th></tr></thead><tbody>
+    ${ACC.filter(a=>!a.blown).map(a=>`<tr><td>${esc(a.name)}${a.winDays<5?` <span class="px-tag" data-tone="warn">${a.winDays} winning days</span>`:""}</td><td class="r px-num">${money(a.avgWin)}</td><td class="r"><input class="px-input" inputmode="decimal" style="inline-size:110px;display:inline-block" placeholder="${money(a.avgWin)}" aria-label="Your average day for ${esc(a.name)}"></td></tr>`).join("")}</tbody></table>
+    <p class="px-hint">Fewer than 5 winning days makes an average rough. Type your own to override it.</p></div></div></div>
+   <div><h3><button class="px-accordion-trigger" id="nc-t" aria-controls="nc-p" aria-expanded="false">Not on the calendar (1)<px-icon name="chevron-down"></px-icon></button></h3>
+    <div class="px-accordion-panel" id="nc-p" role="region" aria-labelledby="nc-t" hidden="until-found"><div><dl class="px-dl"><dt>Lucid Pro 50K</dt><dd>Blown on Sep 24</dd></dl><p class="px-hint">An account whose average day is $0 or less shows here as “Needs an average day above $0”.</p></div></div></div></div></div>`;
+}
 
-function importScreen(){return `<div class="stack" style="max-width:980px;margin:0 auto"><div><h1>Import</h1><p class="muted" style="margin:6px 0 0">Reads Tradovate Fills, Performance, Account Balance History and Cash History, and TopstepX Orders and Trades. Files never leave this browser.</p></div>
- <div class="drop">${ic('up')}<div style="margin:8px 0"><b>Drop exports here</b> or <button class="btn sm">Choose files</button></div><div class="small muted">Several at once. From TopstepX, export Orders: Trades can drop round trips.</div></div>
- ${S.applied?`<div class="card pad stack"><div class="row">${ic('check')}<h3>Imported</h3></div><div class="small">TPT 50K PRO: added 2 days, replaced 1 (Sep 25), 0 payouts</div><div class="small">MFFU Rapid 50K: added 3 days, replaced 0, 1 payout</div><a class="btn sm" href="#accounts" style="align-self:flex-start">See accounts</a></div>`:`
- <div class="card pad stack"><div class="row">${ic('file')}<b>Fills_2026-09-28.csv</b><span class="pill">Tradovate Fills</span></div>
- <div style="overflow-x:auto"><table><tr><th>Account in file</th><th class="r">Days</th><th class="hide-s">Dates</th><th class="r">Net P&amp;L</th><th class="r hide-s">Payouts</th><th>Goes into</th></tr>
- <tr><td>TPT50K-1</td><td class="r">3</td><td class="hide-s">Sep 24 – Sep 28</td><td class="r num">+$737.50</td><td class="r hide-s">0</td><td><select class="in"><option>TPT 50K PRO (matched before)</option></select></td></tr>
- <tr><td>MFFU50K-2</td><td class="r">3</td><td class="hide-s">Sep 23 – Sep 25</td><td class="r num">+$460.50</td><td class="r hide-s">1</td><td><select class="in"><option>MFFU Rapid 50K (matched before)</option></select></td></tr>
- <tr><td>DEMO-7781</td><td class="r">2</td><td class="hide-s">Sep 17 – Sep 18</td><td class="r num">−$95</td><td class="r hide-s">0</td><td><select class="in"><option>Skip</option></select></td></tr></table></div>
- <div class="row small muted">${ic('alert')} Skipped 2 rows with no fill price.</div></div>
- <div class="card pad row wrap">${ic('file')}<b>Balance.csv</b><span class="small muted">This file was resaved by a spreadsheet app, so its numbers can't be trusted. Export it again from Tradovate.</span></div>
- <div class="row"><button class="btn primary" id="apply">Apply import</button><span class="small muted">6 days into 2 accounts</span></div>`}
- <div class="card pad row between wrap"><div><h3>Backup</h3><div class="small muted">All accounts, days, payouts and overrides as one JSON file.</div></div><div class="row"><button class="btn">${ic('down')}Export all</button><button class="btn">${ic('up')}Load backup</button></div></div></div>`}
+function importPage() {
+ return `<div class="narrow"><div class="page-head"><div><h1>Import</h1><p>Tradovate Fills, Performance, Account Balance History and Cash History, and TopstepX Orders and Trades. Files never leave this browser.</p></div></div>
+ <label class="px-drop" id="drop"><span><b>Drop exports here</b> or browse</span><input type="file" accept=".csv,text/csv" multiple><span class="px-drop-note">Several at once. From TopstepX, export Orders: Trades can drop round trips.</span></label>
+ ${S.applied ? `<div class="px-alert" data-tone="gain" role="status" style="margin-block-start:var(--card-gap)"><px-icon name="success"></px-icon><div><b>Imported</b><p>TPT 50K PRO: added 2 days, replaced 1 (Sep 25). MFFU Rapid 50K: added 3 days and 1 payout.</p></div><a class="px-btn" data-variant="secondary" data-size="sm" href="#accounts">See accounts</a></div>` : `
+ <div class="stack" style="margin-block-start:var(--card-gap)">
+  <div class="px-card"><div class="px-card-title row" style="padding:var(--px-space-3) var(--cell-px) 0"><px-icon name="trades"></px-icon>Fills_2026-09-28.csv<span class="px-tag">Tradovate Fills</span></div>
+   <div style="overflow-x:auto;padding:var(--px-space-2) var(--cell-px) var(--px-space-3)"><table class="px-table"><thead><tr><th>In the file</th><th class="r">Days</th><th class="r col-profit">Net P&amp;L</th><th>Goes into</th></tr></thead><tbody>
+    <tr><td>TPT50K-1<div class="acct-sub">Sep 24 – Sep 28</div></td><td class="r px-num">3</td><td class="r col-profit">${signed(737.5)}</td><td><select class="px-input" aria-label="Goes into, for TPT50K-1"><option>TPT 50K PRO</option><option>Skip</option></select><div class="acct-sub">Matched before</div></td></tr>
+    <tr><td>MFFU50K-2<div class="acct-sub">Sep 23 – Sep 25 · 1 payout</div></td><td class="r px-num">3</td><td class="r col-profit">${signed(460.5)}</td><td><select class="px-input" aria-label="Goes into, for MFFU50K-2"><option>MFFU Rapid 50K</option><option>Skip</option></select><div class="acct-sub">Matched before</div></td></tr>
+    <tr><td>DEMO-7781<div class="acct-sub">Sep 17 – Sep 18</div></td><td class="r px-num">2</td><td class="r col-profit">${signed(-95)}</td><td><select class="px-input" aria-label="Goes into, for DEMO-7781"><option>Skip</option>${ACC.map(a=>`<option>${esc(a.name)}</option>`).join("")}</select></td></tr></tbody></table>
+   <div class="px-accordion" id="warn-acc"><div><h3><button class="px-accordion-trigger" id="wr-t" aria-controls="wr-p" aria-expanded="false">1 warning<px-icon name="chevron-down"></px-icon></button></h3><div class="px-accordion-panel" id="wr-p" role="region" aria-labelledby="wr-t" hidden="until-found"><div><p class="small">Skipped 2 rows with no fill price (rows 41 and 42).</p></div></div></div></div></div></div>
+  <div class="px-alert" data-tone="loss" role="alert"><px-icon name="error"></px-icon><div><b>Balance.csv wasn't read</b><p>A spreadsheet app resaved it, so its numbers can't be trusted. Export it again from Tradovate and drop the new file.</p></div></div>
+  <div class="row"><button class="px-btn" data-variant="primary" id="apply">Import 8 days into 2 accounts</button><span class="small muted">DEMO-7781 is skipped.</span></div></div>`}</div>`;
+}
 
-function calendar(){const wk=[['Week of Sep 28','$2,540',[['Sep 29','TPT 50K PRO','about $1,474 to you via PRO withdrawal'],['Sep 30','Topstep 50K Combine','passes the evaluation'],['Oct 2','MFFU Rapid 50K','about $1,066 to you via Standard payout']]],['Week of Oct 5','$0',[]],['Week of Oct 12','$0',[['Oct 15','Tradeify Growth 50K','passes the evaluation']]],['Week of Oct 19','$1,658',[['Oct 19','TPT 50K PRO','about $1,658 to you via PRO+ (90% split)']]]];
- return `<div class="stack" style="max-width:1080px;margin:0 auto"><div><h1>Payout calendar</h1><p class="muted" style="margin:6px 0 0">Best case: every future trading day is your average winning day. Weekends and exchange holidays are skipped.</p></div>
- <div class="card" style="overflow-x:auto"><table><tr><th>Account</th><th>Measured average winning day</th><th>Your average day</th></tr>${ACC.filter(a=>!a.blown).map(a=>`<tr><td><b>${a.name}</b></td><td class="num">${money(a.avgWin)} <span class="muted small">from ${a.winDays} winning days${a.winDays<5?' · fewer than 5, treat as rough':''}</span></td><td><input class="in" placeholder="${money(a.avgWin)}" style="width:110px" aria-label="Your average day"></td></tr>`).join('')}</table></div>
- <div class="row between"><h2>Next 60 trading days</h2><span class="small muted">$4,198 to you in total</span></div>
- <div class="card">${wk.map(([w,t,ev])=>`<div class="week"><b>${w}</b><div class="stack" style="gap:8px">${ev.length?ev.map(e=>`<div class="row"><span class="pill outline" style="width:62px;justify-content:center">${e[0]}</span><span><b>${e[1]}</b> ${e[2]}</span></div>`).join(''):'<span class="faint small">Nothing lands</span>'}</div><div style="text-align:right" class="num"><b>${t}</b><div class="small muted">this week</div></div></div>`).join('')}
- <div class="week"><span class="muted">8 more weeks</span><span class="small muted">Nothing else lands at these averages.</span><span></span></div></div>
- <div class="card pad stack"><h3>Not on the calendar</h3><div class="row small"><b>Lucid Pro 50K</b><span class="muted">Blown on Sep 24</span></div><div class="row small muted">An account with an average day of $0 or less shows here as "Needs an average day above $0".</div></div></div>`}
-function calendarEmpty(){return `<div class="stack" style="max-width:1080px;margin:0 auto"><h1>Payout calendar</h1><div class="card" style="text-align:center;padding:56px"><h2>Nothing lands in the next 60 trading days</h2><p class="muted" style="margin:8px 0 0">at these averages. Raise an average day above, or add days so one can be measured.</p></div><div class="card" style="text-align:center;padding:40px"><h2>Add accounts to see when they can pay out.</h2><p class="small muted" style="margin:8px 0 0">Shown when there are no accounts.</p></div></div>`}
+function toolsPage() {
+ return `<div class="narrow"><div class="page-head"><div><h1>Tools</h1><p>The same engine as the <code>size</code> and <code>project</code> commands in the CLI.</p></div></div>
+ <div class="grid2"><section class="px-card stack" style="padding:var(--px-space-4) var(--cell-px)" aria-labelledby="ps-h"><h2 id="ps-h" style="font-size:var(--px-text-md)">Position size</h2>
+  <label class="px-field"><span class="px-label">Account</span><select class="px-input" id="t-acct">${ACC.filter(a=>!a.blown).map(a=>`<option>${esc(a.name)} · ${money(cushion(a))} room</option>`).join("")}</select></label>
+  <div class="fields"><label class="px-field"><span class="px-label">Tick value</span><input class="px-input" id="t-tick" inputmode="decimal" value="5"></label><label class="px-field"><span class="px-label">Stop in ticks</span><input class="px-input" id="t-stop" inputmode="numeric" value="20"></label></div>
+  <label class="px-field"><span class="px-label">Risk per trade</span><input class="px-input" id="t-risk" inputmode="decimal" value="500"></label>
+  <div class="px-card px-stat"><div class="px-stat-label">Contracts</div><div class="px-stat-value px-num" id="t-out"></div></div></section>
+ <section class="px-card stack" style="padding:var(--px-space-4) var(--cell-px)" aria-labelledby="dt-h"><h2 id="dt-h" style="font-size:var(--px-text-md)">Days to target</h2>
+  <div class="fields"><label class="px-field"><span class="px-label">Profit so far</span><input class="px-input" id="p-prof" inputmode="decimal" value="2180"></label><label class="px-field"><span class="px-label">Target</span><input class="px-input" id="p-tgt" inputmode="decimal" value="3000"></label>
+  <label class="px-field"><span class="px-label">Average day</span><input class="px-input" id="p-avg" inputmode="decimal" value="412"></label><label class="px-field"><span class="px-label">Best day</span><input class="px-input" id="p-best" inputmode="decimal" value="1050"></label>
+  <label class="px-field"><span class="px-label">Consistency %</span><input class="px-input" id="p-pct" inputmode="decimal" value="55"></label></div>
+  <div class="px-card px-stat"><div class="px-stat-label">Trading days to the target</div><div class="px-stat-value px-num" id="p-out"></div></div></section></div></div>`;
+}
+function toolsCalc() {
+ const q = id => parseFloat($("#"+id)?.value) || 0; if (!$("#t-out")) return;
+ const c = Math.floor(q("t-risk") / (q("t-tick") * q("t-stop") || 1)); $("#t-out").textContent = c + (c === 1 ? " contract" : " contracts");
+ const tgt = Math.max(q("p-tgt"), q("p-best") / (q("p-pct") / 100 || 1)), d = q("p-avg") > 0 ? Math.max(0, Math.ceil((tgt - q("p-prof")) / q("p-avg"))) : "—";
+ $("#p-out").textContent = d + " days" + (tgt > q("p-tgt") ? ` · target raised to ${money(tgt)}` : "");
+}
 
-function tools(){return `<div class="stack" style="max-width:980px;margin:0 auto"><div><h1>Tools</h1><p class="muted" style="margin:6px 0 0">The same engine as the <code>size</code> and <code>project</code> CLI commands.</p></div>
- <div class="grid2"><div class="card pad stack new"><h3>Position size</h3><label class="field">Account<select id="t-acct">${ACC.filter(a=>!a.blown).map(a=>`<option>${a.name} · ${money(cushion(a))} cushion</option>`).join('')}</select></label>
-  <div class="grid2"><label class="field">Tick value<input id="t-tick" value="5"></label><label class="field">Stop (ticks)<input id="t-stop" value="20"></label></div><label class="field">Risk per trade<input id="t-risk" value="500"></label>
-  <div class="card pad" style="background:var(--fill)"><div class="small muted">Contracts</div><div class="big num" id="t-out"></div></div></div>
- <div class="card pad stack new"><h3>Days to target</h3><div class="grid2"><label class="field">Profit so far<input id="p-prof" value="2180"></label><label class="field">Target<input id="p-tgt" value="3000"></label><label class="field">Average day<input id="p-avg" value="412"></label><label class="field">Best day<input id="p-best" value="1050"></label><label class="field">Consistency %<input id="p-pct" value="55"></label></div>
-  <div class="card pad" style="background:var(--fill)"><div class="small muted">Trading days to the target</div><div class="big num" id="p-out"></div></div></div></div></div>`}
-function toolsCalc(){const q=id=>parseFloat(document.getElementById(id)?.value)||0;if(!document.getElementById('t-out'))return;
- const c=Math.floor(q('t-risk')/(q('t-tick')*q('t-stop')||1));document.getElementById('t-out').textContent=c+(c===1?' contract':' contracts');
- const tgt=Math.max(q('p-tgt'),q('p-best')/(q('p-pct')/100||1)),need=tgt-q('p-prof'),d=q('p-avg')>0?Math.max(0,Math.ceil(need/q('p-avg'))):'—';document.getElementById('p-out').textContent=d+' days'+(tgt>q('p-tgt')?' (target raised to '+money(tgt)+')':'');}
+const FEAT = [
+ ["Whole app",[["Logo, name, four tabs","Top bar; bottom tab bar on a phone"],["Load demo accounts, only with no accounts","Empty state on Accounts"],["Footer: rules checked date, data stays in the browser, GitHub","Footer"],["Installs as an app, works offline","Not placed: the browser offers the install"],["Saved in the browser automatically","Not placed: a behaviour. The footer and empty state say it"]]],
+ ["Dashboard",[["Empty state with Add an account","Accounts, no accounts"],["Summary: accounts, net profit, payouts ready, blown","One line under the Accounts title"],["What-if slider, −$3,000 to +$3,000 in $50 steps, reset, cap note","What-if bar above the table. Reset shows once moved; the cap note only when capped"],["What-if checkbox per account","\"4 of 5 accounts\" popover in the what-if bar"],["Name, plan, stage badge","Account column"],["Number line: floor, start, balance, target or peak","Room above the floor meter in the table; the drawdown guard and chart in the panel"],["Balance, cushion, profit, best day with %","Table columns; the panel's stats"],["Consistency line","Best day stat and Evaluation section"],["Next step","Next column; top of the panel"],["Notes in small text","More numbers, in the panel"],["If tomorrow is $X changes","Tags in the Next column and the panel"],["Blown look, left out of the what-if","Blown tag and red meter; muted row with \"left out\""]]],
+ ["Accounts",[["Add account","Top bar button (floating button on a phone), then a dialog"],["Export all, import a backup","Accounts ⋯ menu"],["Add form: firm, plan, stage, name, fee, rules summary","Add account dialog"],["Rules summary with payout paths, notes, checked date","Rules tab; the dialog shows the key rules"],["Edit the name in place","Panel ⋯ menu, Rename"],["Plan, stage badge, linked broker ids","Line under the panel title"],["Delete, asks first","Panel ⋯ menu, then a confirm dialog"],["Passed: add the Funded account","Alert at the top of the panel"],["Override this account's rules","Rules tab, folded"],["Daily P&L entry, table with source, remove","Days tab"],["Payouts entry, list, empty text","Payouts tab"]]],
+ ["Import",[["Intro, drop zone, several files, supported kinds, Orders advice","Import"],["Per file: name, kind, table, Goes into, warnings","File card; warnings folded"],["Errors per file","Alert per file"],["Apply import, log per account","Import button, then an alert with the log"]]],
+ ["Calendar",[["Assumption line","Under the title"],["Averages with the under-5 warning and your own average","Averages used, folded"],["Weeks with totals and events","Weeks card"],["Not on the calendar, with why","Folded section"],["Both empty states","#calendar-empty"]]],
+ ["Worked out by the engine, not shown before",[["Every payout path ranked, with blockers","Best path in Overview, the rest folded"],["Per path: profit this cycle, cycle start, winning days, withdraw before and after the split, when it opens","Same"],["Evaluation: profit needed, days so far vs needed, blockers","Evaluation section in Overview"],["Peak balance, total paid out, trading days, last day","More numbers"],["Days that hit the daily loss limit","Tag in the Days tab; More numbers"],["Average winning day and the one estimates use","More numbers"],["The day the account blew, and why","Alert at the top of the panel"],["Floor day by day (needs an engine change)","Balance and floor chart"]]],
+ ["Package CLI",[["size and project","Tools"],["drawdown, consistency, payout, firms, import, status","Covered by the panel, Rules, Import and Accounts"]]]];
+function featuresPage() {
+ return `<div class="narrow"><div class="page-head"><div><h1>Feature map</h1><p>Every line of docs/features.md and where it sits.</p></div></div><div class="stack">
+ ${FEAT.map(([g,rows])=>`<div class="px-card" style="overflow-x:auto"><table class="px-table"><thead><tr><th style="width:50%">${g}</th><th>Where</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td class="muted">${esc(r[1])}</td></tr>`).join("")}</tbody></table></div>`).join("")}
+ <div class="px-alert" role="status"><px-icon name="info"></px-icon><div><b>Couldn't place</b><p>Installing as an app and working offline (the browser offers it), and automatic saving with no sign-in (a behaviour, not a control).</p></div></div></div></div>`;
+}
 
-const FEAT=[
-['Whole app',[['Header: logo, name, tabs','Top bar on desktop, bottom tab bar on a phone'],['"Load demo accounts", only with no accounts','Top bar in the empty state (#empty)'],['Footer: rules checked date, data stays in the browser, GitHub','Footer'],['Installs as an app, works offline','Not placed: the browser offers the install'],['Saved in the browser automatically','Not placed: a behaviour. The footer and empty state say it']]],
-['Dashboard',[['Empty state with "Add an account"','#empty'],['Summary: accounts, net profit, payouts ready, blown','Line beside the Accounts title. Checklist swaps the counts for groups'],['What-if slider, −$3,000 to +$3,000 in $50 steps, reset, cap note','What-if bar under the title'],['Card: name, plan, stage badge, what-if checkbox','Table row (Desk), lane (Runway), item (Checklist)'],['Number line: floor, start, balance, target or peak','Runway bar in each row; lanes on one shared scale; full size on the account'],['Balance, cushion, profit, best day with %','Row columns; figures on the account'],['Consistency line','Account, under the figures'],['Next step: blown, payout ready, payout in N days, pass in N, passed','Next column, lane, item; top of the account'],['Notes in small text','Account, under the cards'],['"If tomorrow is $X" changes','Pills on each row and on the account'],['Blown look, faded when left out','Filled dot, Blown group; faded rows']]],
-['Accounts',[['List with "+ Add account"','The Accounts home is the list; Add account sits in the top bar'],['Export all and Import file (backup)','Import, Backup card'],['Add form: firm, plan, stage, name, fee, rules summary','#add'],['Rules summary with payout paths, notes, checked date, reminder','#add and the Rules card on each account'],['Name edited in place, plan, stage badge, linked broker ids','Account header'],['Delete, asks first','Account, last card (and the ⋯ menu)'],['Passed: add the Funded account','Banner on the account'],['Override this account\'s rules','Rules card, folded'],['Daily P&L entry, table with source, remove, empty text','Daily P&L card'],['Payouts entry, list, remove, empty text','Payouts card']]],
-['Import',[['Intro, drop zone, several files, supported kinds, Orders advice','Import'],['Per file: name, kind badge, table, "Goes into", warnings','File card'],['Errors per file','Second file card'],['Apply import and the log per account','Apply button; log after applying']]],
-['Calendar',[['Assumption line','Calendar header'],['Averages, under-5 warning, your own average','Table at the top'],['Weeks with totals and events, next 60 trading days','Weeks list'],['Not on the calendar, with why','Bottom card'],['Both empty states','#calendar-empty']]],
-['Worked out by the engine, not shown today (marked NEW)',[['Every payout path ranked, with blockers','Payout paths card (funded account)'],['Per path: profit this cycle, cycle start, winning days, withdraw before and after the split, days until eligible','Same card'],['Evaluation: profit needed, raised target, days so far vs needed, blockers','Evaluation progress card (eval account)'],['Peak balance, total paid out, trading days, last day','Account figures'],['Days that hit the daily loss limit','Badge in Daily P&L; line on the Checklist item'],['Average winning day and the one estimates use','Account, under the figures'],['The day the account blew, and why','Blown banner'],['Floor day by day (engine change needed)','Balance vs floor chart']]],
-['Package CLI',[['size and project','Tools tab (new)'],['drawdown, consistency, payout, firms, import, status','Covered by the account, its rules, Import and Accounts']]]];
-function features(){return `<div class="stack" style="max-width:1080px;margin:0 auto"><h1>Feature map</h1><p class="muted" style="margin:0">Every line of docs/features.md and where it sits. The same in all three variants unless noted.</p>
- ${FEAT.map(([g,rows])=>`<div class="card"><table><tr><th style="width:55%">${g}</th><th>Where</th></tr>${rows.map(r=>`<tr><td>${r[0]}</td><td class="muted">${r[1]}</td></tr>`).join('')}</table></div>`).join('')}
- <div class="card pad"><h3>Couldn't place</h3><p class="small" style="margin:6px 0 0">Installing as an app and working offline: the browser offers the install, so there's nothing to lay out.<br>Saving automatically with no sign-in or server: a behaviour, not a control.</p></div></div>`}
+const route = () => (location.hash.slice(1) || "accounts").split("/");
+function fillTable() {
+ const live = $("#live"); if (!live) return;
+ const open = route()[1]; live.innerHTML = tableHtml(open);
+ $("#capnote")?.toggleAttribute("hidden", !ACC.some(a => wi(a, S.x).capped));
+ $("#inc-btn") && ($("#inc-btn").firstChild.textContent = `${S.inc.size} of ${ACC.length} accounts`);
+}
+function paintSlider(root) {
+ const v = +root.querySelector("input").value, mid = 50, at = (v + 3000) / 60;
+ root.style.setProperty("--px-from", Math.min(mid, at) + "%"); root.style.setProperty("--px-to", Math.max(mid, at) + "%");
+}
+function drawChart(a) {
+ const el = $("#chart"); if (!el) return;
+ const s = a.series, labels = [...a.dates].reverse();
+ renderChart(el, { title:"Balance and floor", kind:"line", labels, format:"money", reveal:false, series:[{ name:"Balance", values:s.map(p=>p[0]) }, { name:"Floor", tone:"loss", values:s.map(p=>p[1]) }] });
+}
+function mount() {
+ const [r, id] = route();
+ const tab = ["calendar","calendar-empty"].includes(r) ? "calendar" : ["import","tools"].includes(r) ? r : r === "features" ? "" : "accounts";
+ paintNav(tab);
+ const main = $("#main");
+ main.innerHTML = r === "calendar" ? calendarPage(false) : r === "calendar-empty" ? calendarPage(true) : r === "import" ? importPage() : r === "tools" ? toolsPage() : r === "features" ? featuresPage() : accountsPage(r === "account" && byId(id) ? id : null);
+ document.title = (tab ? TABS.find(t => t[0] === tab)?.[1] : "Feature map") + " · propfirm-calc";
+ fillTable();
+ const slider = $("#slider"); if (slider) { mountSlider(slider); paintSlider(slider); slider.querySelector("input").addEventListener("input", e => { S.x = +e.target.value; $("#xv").textContent = pnl(S.x,{fraction:0}); $("#reset").hidden = !S.x; paintSlider(slider); fillTable(); const p = $("#panel"); if (p) { p.innerHTML = detail(byId(route()[1])); wirePanel(); } }); }
+ for (const m of document.querySelectorAll("#main .px-menu:not(#panel .px-menu)")) mountMenu(m, { trigger: document.querySelector(`[popovertarget="${m.id}"]`) });
+ for (const acc of document.querySelectorAll("#main .px-accordion:not(#panel .px-accordion)")) mountAccordion(acc);
+ if ($("#drop")) mountDrop($("#drop"), { upload: async () => {} });
+ toolsCalc();
+ wirePanel();
+}
+function wirePanel() {
+ const p = $("#panel"); if (!p) return;
+ mountTabs($("#detail-tabs"));
+ for (const acc of p.querySelectorAll(".px-accordion")) mountAccordion(acc);
+ for (const m of p.querySelectorAll(".px-menu")) mountMenu(m, { trigger: p.querySelector(`[popovertarget="${m.id}"]`) });
+ drawChart(byId(route()[1]));
+}
 
-const route=()=>(location.hash.slice(1)||'accounts').split('/');
-const V=[{home:deskHome,live:deskLive,mode:'panel'},{home:runwayHome,live:runwayLive,mode:'page'},{home:checkHome,live:checkLive,mode:'split'}];
-function page(i){const v=V[i],[r,id]=route();
- if(r==='empty')return shell(emptyHome(),'accounts',{empty:1});
- if(r==='add')return shell(addForm(),'accounts');
- if(r==='import')return shell(importScreen(),'import');
- if(r==='calendar')return shell(calendar(),'calendar');
- if(r==='calendar-empty')return shell(calendarEmpty(),'calendar');
- if(r==='tools')return shell(tools(),'tools');
- if(r==='features')return shell(features(),'');
- if(r==='account'&&byId(id)){const a=byId(id);
-  if(v.mode==='panel')return shell(v.home(),'accounts')+`<aside class="drawer" aria-label="${a.name}"><div class="pad">${detail(a,'panel')}</div></aside>`;
-  if(v.mode==='page')return shell(`<div style="max-width:860px;margin:0 auto">${detail(a,'page')}</div>`,'accounts');
-  return shell(`<div class="split"><div class="list stack" style="gap:4px;position:sticky;top:84px"><a class="btn ghost sm" href="#accounts" style="align-self:flex-start">${ic('back')}Today</a>${ACC.map(b=>`<a class="mini ${b.id===id?'on':''}" href="#account/${b.id}" style="text-decoration:none"><span><b>${b.name}</b><div class="small muted">${b.stage}</div></span><span class="small muted num">${b.blown?'Blown':money(cushion(b))}</span></a>`).join('')}</div><div>${detail(a,'split')}</div></div>`,'accounts');}
- return shell(v.home(),'accounts');}
-function fillLive(){const l=document.getElementById('live');if(l)l.innerHTML=V[current].live();const c=document.getElementById('capnote');if(c)c.textContent=capText();const n=document.getElementById('incn');if(n)n.textContent=`on ${S.inc.size} of ${ACC.length} accounts`;}
+addEventListener("hashchange", () => {
+ const wasPanel = !!$("#panel");
+ mount();
+ const [r, id] = route();
+ if (r === "account") $("#panel-title")?.focus({ preventScroll: true });
+ else if (wasPanel && S.lastRow) document.querySelector(`tr[data-id="${S.lastRow}"]`)?.focus();
+ else { $("#main").focus({ preventScroll: true }); scrollTo(0, 0); }
+});
+addEventListener("resize", () => drawChart(byId(route()[1]) || ACC[0]));
+document.addEventListener("click", e => {
+ const t = e.target;
+ if (t.closest("[data-add]")) { const d = $("#add-dialog"); d.innerHTML = addDialog(); openOverlay(d); return; }
+ if (t.closest("#close-panel")) { location.hash = "accounts"; return; }
+ if (t.closest("#reset")) { S.x = 0; mount(); $("#slider input")?.focus(); return; }
+ if (t.closest("#apply")) { S.applied = true; mount(); return; }
+ if (t.closest("#load-demo")) { S.empty = false; mount(); return; }
+ const toastBtn = t.closest("[data-toast]"); if (toastBtn) { toast.success(toastBtn.dataset.toast); return; }
+ if (t.closest("#rename")) { const h = $("#panel-title"); h.contentEditable = "plaintext-only"; setTimeout(() => { h.focus(); getSelection().selectAllChildren(h); getSelection().collapseToEnd(); }, 0); return; }
+ if (t.closest("#delete")) { const d = $("#delete-dialog"); d.innerHTML = deleteDialog(byId(route()[1])); openOverlay(d); return; }
+ const rm = t.closest("[data-remove]"); if (rm) { const row = rm.closest("tr"); row.hidden = true; toast(`Removed ${rm.dataset.remove}`, { action: { label: "Undo", onClick: () => { row.hidden = false; } } }); return; }
+ if (t.closest("input,button,select,a,label")) return;
+ const tr = t.closest("tr[data-id]"); if (tr) { S.lastRow = tr.dataset.id; location.hash = "account/" + tr.dataset.id; }
+});
+document.addEventListener("keydown", e => {
+ const tr = e.target.closest?.("tr[data-id]");
+ if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); S.lastRow = tr.dataset.id; location.hash = "account/" + tr.dataset.id; return; }
+ if (tr && (e.key === "ArrowDown" || e.key === "ArrowUp")) { e.preventDefault(); (e.key === "ArrowDown" ? tr.nextElementSibling : tr.previousElementSibling)?.focus(); return; }
+ if (e.key === "Escape" && route()[0] === "account" && !document.querySelector("dialog[open], :popover-open")) { location.hash = "accounts"; }
+ if (e.key === "Enter" && e.target.id === "panel-title" && e.target.isContentEditable) { e.preventDefault(); e.target.contentEditable = "false"; toast.success("Renamed to " + e.target.textContent); }
+});
+document.addEventListener("input", e => toolsCalc());
+document.addEventListener("change", e => {
+ if (e.target.dataset.inc) { S.inc.has(e.target.dataset.inc) ? S.inc.delete(e.target.dataset.inc) : S.inc.add(e.target.dataset.inc); fillTable(); }
+ if (e.target.id === "firm") { $("#add-rules").innerHTML = addRules(e.target.value); $("#plan").innerHTML = `<option>${FIRMS[e.target.value][0]}</option>`; }
+});
+$("#add-dialog").addEventListener("close", e => { if (e.target.returnValue === "add") { toast.success("Added Topstep 50K Combine"); S.lastRow = "ts"; location.hash = "account/ts"; } });
+$("#delete-dialog").addEventListener("close", e => { const v = e.target.returnValue; if (v && v !== "cancel") { toast("Deleted " + byId(v).name); location.hash = "accounts"; } });
+$("#theme").addEventListener("click", e => { const dark = !document.documentElement.classList.contains("dark"); switchTheme(dark, document.documentElement, { from: e.currentTarget }); e.currentTarget.innerHTML = `<px-icon name="${dark?"light":"dark"}"></px-icon>`; e.currentTarget.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode"); });
 
-const stage=document.getElementById('stage');
-const picker=document.querySelector('.proto-picker');
-const highlight=picker.querySelector('.proto-picker-highlight');
-const items=[...picker.querySelectorAll('.proto-picker-item:not(.proto-picker-replay)')];
-let current=0;
-function moveHighlight(){const el=items[current];highlight.style.width=el.offsetWidth+'px';highlight.style.transform=`translateX(${el.offsetLeft}px)`;}
-function mount(i){stage.innerHTML=page(i);fillLive();toolsCalc();}
-function setActive(i){if(i<0||i>=V.length)return;current=i;items.forEach((el,j)=>{el.toggleAttribute('data-active',j===i);if(j===i)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current');});moveHighlight();const url=new URL(location);url.searchParams.set('v',i+1);history.replaceState(null,'',url);mount(i);}
-items.forEach((el,i)=>el.addEventListener('click',()=>setActive(i)));
-window.addEventListener('resize',moveHighlight);
-window.addEventListener('hashchange',()=>{mount(current);if(!document.querySelector('.drawer'))scrollTo(0,0)});
-document.addEventListener('keydown',e=>{
- if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.isContentEditable)return;
- if(e.metaKey||e.ctrlKey||e.altKey)return;
- if(e.key==='Escape'&&route()[0]==='account'){location.hash='accounts';return}
- const num=parseInt(e.key,10);
- if(num>=1&&num<=V.length)setActive(num-1);
- else if(e.key==='ArrowRight')setActive((current+1)%V.length);
- else if(e.key==='ArrowLeft')setActive((current-1+V.length)%V.length);});
-stage.addEventListener('input',e=>{if(e.target.id==='slider'){S.x=+e.target.value;document.getElementById('xv').textContent=money(S.x,1);fillLive();}else toolsCalc();});
-stage.addEventListener('change',e=>{if(e.target.dataset.inc){const id=e.target.dataset.inc;S.inc.has(id)?S.inc.delete(id):S.inc.add(id);fillLive();}
- if(e.target.id==='firm'){document.getElementById('rules').innerHTML=addRules(e.target.value);document.getElementById('plan').innerHTML=`<option>${FIRMS[e.target.value][0]}</option>`;}});
-stage.addEventListener('click',e=>{
- if(e.target.id==='reset'){S.x=0;mount(current);return}
- if(e.target.id==='apply'){S.applied=true;mount(current);return}
- if(e.target.closest('input,button,select,a,label,summary'))return;
- const go=e.target.closest('[data-go]');if(go)location.hash=go.dataset.go;});
-const q=new URLSearchParams(location.search);if(q.get('x'))S.x=+q.get('x');if(q.get('applied'))S.applied=true;
-setActive((parseInt(q.get('v'),10)||1)-1);
-requestAnimationFrame(()=>requestAnimationFrame(()=>picker.setAttribute('data-ready','')));
+const q = new URLSearchParams(location.search);
+if (q.get("x")) S.x = +q.get("x");
+if (q.get("applied")) S.applied = true;
+if (q.get("empty")) S.empty = true;
+if (q.get("theme") === "dark") { document.documentElement.classList.add("dark"); $("#theme").innerHTML = `<px-icon name="light"></px-icon>`; $("#theme").setAttribute("aria-label","Switch to light mode"); }
+mount();
 </script>
 </body>
 </html>
