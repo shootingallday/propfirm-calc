@@ -1,228 +1,93 @@
 # propfirm-calc
 
 [![CI](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml/badge.svg)](https://github.com/shootingallday/propfirm-calc/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
-[![Python versions](https://img.shields.io/pypi/pyversions/propfirm-calc.svg)](https://pypi.org/project/propfirm-calc/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/shootingallday/propfirm-calc/blob/main/LICENSE)
 
-Tiny, dependency-free Python math for **funded-trader (prop firm) futures accounts**.
+All your prop firm futures accounts in one place, across firms. Pick your accounts from the firm
+list, type or import your daily P&L, and see each account's drawdown floor, consistency,
+and next payout. Then drag one slider to see what tomorrow does to every account at once.
 
-The calculations every prop-futures trader needs and most journals get subtly
-wrong:
+There's no sign-up and no broker login. Your data stays in your browser.
 
-1. **Trailing drawdown floor** — the equity level at which your account blows,
-   under trailing, end-of-day-trailing, or static drawdown rules.
-2. **The consistency rule** — whether your best day is within the cap, and the
-   *total profit* a big day forces you to reach before it's withdrawable.
-3. **Payout eligibility** — target, minimum winning days, and consistency rolled
-   into one answer with human-readable blockers.
-4. **Position sizing** — the largest position that cannot breach the account,
-   sized against the *drawdown floor* rather than the balance.
-5. **Payout projection** — how many trading days until a payout is actually
-   available, and which rule is holding it up.
+- **What-if slider**: set tomorrow's P&L once and see which account blows, which breaks
+  consistency, and which unlocks a payout.
+- **Payout calendar**: when each account can pay out at your average winning day, and how much
+  lands each week.
+- **Firm rules catalog**: Topstep, Tradeify, Lucid Trading, My Funded Futures and Take Profit
+  Trader, with every stage and size. Each rule has a source link and the date it was checked. You
+  can override any rule on your own account.
+- **CSV import**: Tradovate (Fills, Performance, Account Balance History, Cash History) and
+  TopstepX (Orders, Trades). Fills are paired into trades, and fees the file leaves out come from
+  your per-contract fee.
 
-No dependencies. No bundled firm data — you pass the numbers, so it works for
-**any** firm (Topstep, Apex, Take Profit Trader, My Funded Futures, Lucid, …)
-and never goes stale when a firm changes its rules.
+## Repo layout
 
-## Install
+| Path | What it is |
+| --- | --- |
+| `packages/core` | The `propfirm-calc` npm package: rules engine, firm catalog, CSV import, CLI |
+| `packages/core/catalog` | One JSON file per firm |
+| `packages/core/samples` | Synthetic sample exports for every supported CSV layout |
+| `apps/web` | The web app (Vite + React), installable as a PWA |
 
-```bash
-pip install propfirm-calc
-```
-
-Python 3.9+. Ships type information (`py.typed`) and a `propfirm-calc` CLI.
-
-For coloured tables in the terminal, install the optional UI extra. The library
-itself stays dependency-free either way:
+## Run it
 
 ```bash
-pip install "propfirm-calc[tui]"
+pnpm install
+pnpm dev          # web app on http://localhost:5173
+pnpm test         # engine, catalog and import tests
+pnpm e2e          # builds the app, drives it in a real browser, saves screenshots
 ```
 
-Full documentation: **<https://shootingallday.github.io/propfirm-calc/>**
+## The engine
 
-## Drawdown floor — the one people get wrong
+```ts
+import { createAccount, evaluate, findPlan, FIRMS, importCsv, applyImport, payoutCalendar } from 'propfirm-calc';
 
-The floor depends on the firm's drawdown regime. For trailing accounts it
-follows your high-water mark *up* — until it locks at your starting balance
-(the Topstep/Apex behavior), after which the account can never blow above
-break-even.
+const firm = FIRMS.find((f) => f.id === 'topstep')!;
+const plan = firm.plans[0]!;
+let account = createAccount({ id: '1', label: 'Topstep 50K', firm, plan, stage: 'eval', catalogVersion: '2026-09-03' });
 
-```python
-from propfirm_calc import drawdown_floor, is_blown, cushion
+const csv = importCsv(fileText);
+account = applyImport(account, csv.accounts[0]!, csv.layout).account;
 
-# $50k account, $2k max loss limit, currently up $1k (peak equity $51k).
-drawdown_floor(50_000, 2_000, peak_equity=51_000)        # 49_000  (still trailing)
-
-# Up $3k (peak $53k): the trail has locked at the $50k start.
-drawdown_floor(50_000, 2_000, peak_equity=53_000)        # 50_000  (locked)
-
-# Static plans never trail:
-drawdown_floor(50_000, 2_000, peak_equity=53_000, dd_type="static")   # 48_000
-
-# End-of-day trailing? Same math — just pass your highest *EOD* balance:
-drawdown_floor(50_000, 2_000, peak_equity=51_000, dd_type="eod_trailing")  # 49_000
-
-is_blown(current_equity=48_900, starting_balance=50_000,
-         max_drawdown=2_000, peak_equity=51_000)          # True
-cushion(49_500, 50_000, 2_000, peak_equity=51_000)        # 500.0  ($ before you blow)
+const now = evaluate(account);
+const tomorrow = evaluate(account, { whatIf: -800 });
+now.floor; now.cushion; now.consistency; now.evaluation?.daysToPass;
+tomorrow.blown;
 ```
 
-Some firms lock the trail somewhere other than the start, or never lock at all:
-
-```python
-drawdown_floor(50_000, 2_000, peak_equity=53_000, lock_at=50_100)        # 50_100
-drawdown_floor(50_000, 2_000, peak_equity=60_000, lock_at=float("inf"))  # 58_000
-```
-
-## Consistency rule
-
-```python
-from propfirm_calc import consistency_ok, best_day_pct, required_profit
-
-best_day_pct(2_000, total_profit=5_000)        # 40.0
-consistency_ok(2_000, 5_000, consistency_pct=50)   # True  (40% <= 50%)
-consistency_ok(3_000, 5_000, consistency_pct=50)   # False (60% > 50%)
-
-# A $1,500 day under a 50% rule can't be withdrawn until total profit hits $3,000:
-required_profit(1_500, consistency_pct=50)     # 3_000.0
-```
-
-## Payout eligibility
-
-Pass only the constraints your firm imposes — anything omitted is skipped.
-
-```python
-from propfirm_calc import payout_eligibility
-
-r = payout_eligibility(
-    current_profit=4_000,
-    profit_target=3_000,
-    winning_days=4,
-    min_winning_days=5,
-    best_day_profit=3_000,
-    consistency_pct=50,
-)
-r.eligible            # False
-r.blockers            # ('4 of 5 required winning days',
-                      #  'Best day 75% over the 50% consistency limit')
-r.consistency_required_profit   # 6_000.0
-```
-
-## Position sizing — against the floor, not the balance
-
-On a trailing account the floor moves up underneath you, so sizing off the
-balance quietly over-risks. `max_contracts_from_cushion` sizes against the real
-distance to a breach.
-
-```python
-from propfirm_calc import max_contracts, max_contracts_from_cushion, pnl
-
-# Plain risk budget: $500 risk, 20-tick stop on NQ ($5/tick) = $100/contract.
-max_contracts(500, stop_ticks=20, tick_value=5.0)      # 5
-
-# $50k account at $50,500 with a $51k peak: the floor is $49k, cushion $1,500.
-# Risk a quarter of it on a 20-tick NQ stop:
-max_contracts_from_cushion(
-    current_equity=50_500, starting_balance=50_000,
-    max_drawdown=2_000, peak_equity=51_000,
-    stop_ticks=20, tick_value=5.0, risk_pct=25,
-)                                                       # 3
-
-pnl(ticks=20, tick_value=5.0, contracts=3)              # 300.0
-```
-
-Bring your own contract specs. Common tick values: NQ `5.00`, ES `12.50`,
-MNQ `0.50`, MES `1.25`, CL `10.00`, GC `10.00`.
-
-## Payout projection — when, not just whether
-
-```python
-from propfirm_calc import payout_projection
-
-# $2k profit, averaging $500/day, $3k target — but a $3k best day under a
-# 50% consistency rule needs $6k total, so consistency binds, not the target.
-p = payout_projection(
-    current_profit=2_000,
-    avg_daily_profit=500,
-    profit_target=3_000,
-    best_day_profit=3_000,
-    consistency_pct=50,
-)
-p.trading_days         # 8.0
-p.binding_constraint   # 'consistency'
-p.days_to_target       # 2.0
-p.projected_profit     # 6_000.0
-```
-
-Projections assume every future trading day is a winning day worth
-`avg_daily_profit` — an optimistic floor on the timeline, not a forecast.
+Money is `decimal.js` throughout, so nothing drifts by a cent.
 
 ## CLI
 
-Every calculation is available without writing Python. Add `--json` to any
-subcommand for scripting; unreachable or undefined values serialize as `null`.
-
-```console
-$ propfirm-calc drawdown --balance 50000 --max-dd 2000 --peak 51000 --equity 50500
-Drawdown floor  $49,000.00
-Cushion         $1,500.00
-Blown           no
-
-$ propfirm-calc size --tick-value 5 --stop-ticks 20 \
-    --equity 50500 --balance 50000 --max-dd 2000 --peak 51000 --risk-pct 25
-Max contracts  3
-Risk at stop   $300.00
-Sized against  drawdown cushion
-
-$ propfirm-calc project --profit 2000 --avg-daily 500 --target 3000 \
-    --best-day 3000 --pct 50
-Trading days to payout  8
-Binding constraint      consistency
-Profit at that point    $6,000.00
-```
-
-`propfirm-calc --help` lists all subcommands: `drawdown`, `consistency`,
-`payout`, `size`, `project`.
-
-The output above is the plain install. With `propfirm-calc[tui]` the same
-commands print a titled table and colour the rows that carry a verdict — a
-breached account, a best day over the consistency cap, the constraint holding
-up a payout. The numbers and the `--json` output are identical.
-
-```console
-$ propfirm-calc payout --profit 4000 --target 3000 --winning-days 4     --min-winning-days 5 --best-day 3000 --pct 50
-Payout eligibility
-╭─────────────────────────┬─────────────────────────────────────────────╮
-│ Eligible                │ no                                          │
-│ Blocker                 │ 4 of 5 required winning days                │
-│ Blocker                 │ Best day 75% over the 50% consistency limit │
-│ Consistency needs total │ $6,000.00                                   │
-╰─────────────────────────┴─────────────────────────────────────────────╯
-```
-
-## Why this exists
-
-Prop-firm rules are simple to state and easy to mis-implement — trailing
-drawdown that should lock but doesn't, a consistency check that ignores the
-"effective target" a big day creates, a payout gate that forgets minimum days,
-position sizing that reads the balance instead of the floor. `propfirm-calc` is
-the small, well-tested core so trading journals, dashboards, and bots don't each
-reinvent (and re-bug) it.
-
-## Development
-
 ```bash
-pip install -e ".[dev]"
-pytest -q
-ruff check .
-ruff format --check .
-mypy
+npx propfirm-calc drawdown --balance 50000 --max-dd 2000 --peak 51000 --equity 50500
+npx propfirm-calc consistency --best-day 1500 --total 3000 --pct 50
+npx propfirm-calc payout --profit 4000 --best-day 3000 --pct 50
+npx propfirm-calc size --tick-value 5 --stop-ticks 20 --risk 500
+npx propfirm-calc project --profit 2000 --avg-daily 500 --target 3000 --best-day 3000 --pct 50
+npx propfirm-calc firms
+npx propfirm-calc import Fills.csv
+npx propfirm-calc status propfirm-calc-accounts.json --what-if -800
 ```
 
-Contributions welcome — see [CONTRIBUTING.md](https://github.com/shootingallday/propfirm-calc/blob/main/CONTRIBUTING.md). Release notes
-live in [CHANGELOG.md](https://github.com/shootingallday/propfirm-calc/blob/main/CHANGELOG.md).
+Every command takes `--json`.
+
+## Firm rules
+
+Rules come from each firm's own pages, never from review sites. Firms change them every few
+months, so every stage records its source and the day it was checked, and the app shows both. If
+a rule is wrong, open a
+["Wrong firm rule" issue](https://github.com/shootingallday/propfirm-calc/issues/new?template=wrong-firm-rule.yml)
+with a link to the firm's page.
+
+`pnpm --filter propfirm-calc catalog:check` compares the catalog against the research it was
+built from and lists every number that has changed.
+
+## Deploy
+
+It's a static site. Vercel picks up `vercel.json`. On any other static host, run
+`pnpm --filter web build` and serve `apps/web/dist`.
 
 ## License
 

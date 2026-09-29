@@ -1,0 +1,1352 @@
+{
+  "id": "tradeify",
+  "name": "Tradeify",
+  "website": "https://tradeify.co/",
+  "rulesUrl": "https://help.tradeify.co/en/",
+  "checkedAt": "2026-09-10",
+  "plans": [
+    {
+      "id": "tradeify/growth/25000",
+      "firm": "tradeify",
+      "program": "Growth",
+      "size": 25000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Growth Evaluation",
+          "profitTarget": "1500",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495915-growth-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/25000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). No consistency rule in the evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Growth Sim Funded",
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "600",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "payoutPaths": [
+            {
+              "name": "Growth payout",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "100"
+              },
+              "consistency": {
+                "pct": "35",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "26500"
+              },
+              "minRequest": "250",
+              "cap": "1000",
+              "split": 90,
+              "notes": "The cap rises with each payout: 1000, 1000, 1000, 1000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495897-rules-trailing-max-drawdowns",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/25000/pack-1/stages/funded"
+          },
+          "notes": "The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/growth/50000",
+      "firm": "tradeify",
+      "program": "Growth",
+      "size": 50000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Growth Evaluation",
+          "profitTarget": "3000",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "1250",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 4,
+            "micros": 40
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495915-growth-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/50000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). No consistency rule in the evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Growth Sim Funded",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1250",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 4,
+            "micros": 40
+          },
+          "payoutPaths": [
+            {
+              "name": "Growth payout",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "150"
+              },
+              "consistency": {
+                "pct": "35",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "53000"
+              },
+              "minRequest": "500",
+              "cap": "1500",
+              "split": 90,
+              "notes": "The cap rises with each payout: 1500, 2000, 2500, 3000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495897-rules-trailing-max-drawdowns",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/50000/pack-1/stages/funded"
+          },
+          "notes": "The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page)."
+        },
+        {
+          "stage": "live",
+          "name": "Tradeify Elite Live",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "payoutPaths": [
+            {
+              "name": "Elite Live",
+              "split": 80
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12969284-tradeify-elite-program",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/50000/pack-1/stages/live"
+          },
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/growth/100000",
+      "firm": "tradeify",
+      "program": "Growth",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Growth Evaluation",
+          "profitTarget": "6000",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "3500",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "2500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 8,
+            "micros": 80
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495915-growth-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/100000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). No consistency rule in the evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Growth Sim Funded",
+          "drawdown": {
+            "amount": "3500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "2500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 8,
+            "micros": 80
+          },
+          "payoutPaths": [
+            {
+              "name": "Growth payout",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "200"
+              },
+              "consistency": {
+                "pct": "35",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "104500"
+              },
+              "minRequest": "1000",
+              "cap": "2000",
+              "split": 90,
+              "notes": "The cap rises with each payout: 2000, 2500, 3000, 4000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495897-rules-trailing-max-drawdowns",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/100000/pack-1/stages/funded"
+          },
+          "notes": "The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/growth/150000",
+      "firm": "tradeify",
+      "program": "Growth",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Growth Evaluation",
+          "profitTarget": "9000",
+          "minTradingDays": 1,
+          "drawdown": {
+            "amount": "5000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "3750",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 12,
+            "micros": 120
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495915-growth-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/150000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). No consistency rule in the evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Growth Sim Funded",
+          "drawdown": {
+            "amount": "5000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "3750",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 12,
+            "micros": 120
+          },
+          "payoutPaths": [
+            {
+              "name": "Growth payout",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "250"
+              },
+              "consistency": {
+                "pct": "35",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "156500"
+              },
+              "minRequest": "1500",
+              "cap": "2500",
+              "split": 90,
+              "notes": "The cap rises with each payout: 2500, 3000, 4000, 5000 for payouts one, two, three and four onward; the cap here is the first. A winning day must be more than the minimum, not equal to it."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495897-rules-trailing-max-drawdowns",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/growth-evaluation/standard/150000/pack-1/stages/funded"
+          },
+          "notes": "The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-flex/25000",
+      "firm": "tradeify",
+      "program": "Select Flex",
+      "size": 25000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "1500",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Flex",
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Flex",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "100"
+              },
+              "capPctOfProfit": 50,
+              "cap": "1250",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/funded/successors/select-flex"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-flex/50000",
+      "firm": "tradeify",
+      "program": "Select Flex",
+      "size": 50000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "3000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 4,
+            "micros": 40
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Flex",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "contracts": {
+            "minis": 2,
+            "micros": 20
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Flex",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "150"
+              },
+              "capPctOfProfit": 50,
+              "cap": "2500",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/funded/successors/select-flex"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page)."
+        },
+        {
+          "stage": "live",
+          "name": "Tradeify Elite Live",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "payoutPaths": [
+            {
+              "name": "Elite Live",
+              "split": 80
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12969284-tradeify-elite-program",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
+          },
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-flex/100000",
+      "firm": "tradeify",
+      "program": "Select Flex",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "6000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 8,
+            "micros": 80
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Flex",
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "contracts": {
+            "minis": 3,
+            "micros": 30
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Flex",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "200"
+              },
+              "capPctOfProfit": 50,
+              "cap": "3500",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/funded/successors/select-flex"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-flex/150000",
+      "firm": "tradeify",
+      "program": "Select Flex",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "9000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 12,
+            "micros": 120
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Flex",
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "contracts": {
+            "minis": 3,
+            "micros": 30
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Flex",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "250"
+              },
+              "capPctOfProfit": 50,
+              "cap": "4500",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/funded/successors/select-flex"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-flex/300000",
+      "firm": "tradeify",
+      "program": "Select Flex",
+      "size": 300000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "14000",
+          "drawdown": {
+            "amount": "8000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "4000",
+            "effect": "session_lock"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/16497699-300k-select-account",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). The 300K is a limited release: identity check before purchase, at most three held, no resets."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Flex",
+          "drawdown": {
+            "amount": "8000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "4000",
+            "effect": "session_lock"
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Flex",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "750"
+              },
+              "capPctOfProfit": 50,
+              "cap": "10000",
+              "split": 90,
+              "notes": "A payout is up to 50% of total profit, capped per payout."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/16497699-300k-select-account",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/funded/successors/select-flex"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-daily/25000",
+      "firm": "tradeify",
+      "program": "Select Daily",
+      "size": 25000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "1500",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Daily",
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Daily",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "26100"
+              },
+              "cap": "600",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/25000/pack-1/stages/funded/successors/select-daily"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-daily/50000",
+      "firm": "tradeify",
+      "program": "Select Daily",
+      "size": 50000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "3000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 4,
+            "micros": 40
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Daily",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1000",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 2,
+            "micros": 20
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Daily",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "52100"
+              },
+              "cap": "1250",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/funded/successors/select-daily"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page)."
+        },
+        {
+          "stage": "live",
+          "name": "Tradeify Elite Live",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "payoutPaths": [
+            {
+              "name": "Elite Live",
+              "split": 80
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12969284-tradeify-elite-program",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/50000/pack-1/stages/live"
+          },
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-daily/100000",
+      "firm": "tradeify",
+      "program": "Select Daily",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "6000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 8,
+            "micros": 80
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Daily",
+          "drawdown": {
+            "amount": "2500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1250",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 3,
+            "micros": 30
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Daily",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "102600"
+              },
+              "cap": "1750",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/100000/pack-1/stages/funded/successors/select-daily"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-daily/150000",
+      "firm": "tradeify",
+      "program": "Select Daily",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "9000",
+          "minTradingDays": 3,
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 12,
+            "micros": 120
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853921-select-evaluation-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). A 50% consistency add-on bought at checkout raises the limit to 50% and lowers the minimum to 2 trading days; this plan models the standard evaluation."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Daily",
+          "drawdown": {
+            "amount": "3500",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1750",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 3,
+            "micros": 30
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Daily",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "153600"
+              },
+              "cap": "2500",
+              "split": 90,
+              "minRequest": "250",
+              "notes": "One request a day of up to twice the profit made since the last payout, capped. The cap shown is for accounts bought on or after 1 September 2026; earlier accounts keep a different cap."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12853966-select-flex-and-select-daily-payout-policies",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/150000/pack-1/stages/funded/successors/select-daily"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/select-daily/300000",
+      "firm": "tradeify",
+      "program": "Select Daily",
+      "size": 300000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Select Evaluation",
+          "profitTarget": "14000",
+          "drawdown": {
+            "amount": "8000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "dailyLoss": {
+            "amount": "4000",
+            "effect": "session_lock"
+          },
+          "consistency": {
+            "pct": "40",
+            "basis": "total_profit",
+            "effect": "raises_target"
+          },
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/16497699-300k-select-account",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/eval"
+          },
+          "notes": "The limit moves up at the end of the day but a breach counts the moment net liquidation value touches it. Evaluation drawdowns never lock (Tradeify's Trailing Max Drawdowns page). The 300K is a limited release: identity check before purchase, at most three held, no resets."
+        },
+        {
+          "stage": "funded",
+          "name": "Select Daily",
+          "drawdown": {
+            "amount": "6000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "3000",
+            "effect": "session_lock"
+          },
+          "payoutPaths": [
+            {
+              "name": "Select Daily",
+              "buffer": {
+                "kind": "balance_to_request",
+                "amount": "306100"
+              },
+              "cap": "4000",
+              "split": 90,
+              "notes": "One request a day, capped, and half of each payout must come from profit made since the last one."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/16497699-300k-select-account",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/select-evaluation/standard/300000/pack-1/stages/funded/successors/select-daily"
+          },
+          "notes": "Choosing Flex or Daily is permanent and happens once the account is funded; until then the evaluation drawdown applies. The account starts at a reduced contract limit and scales up on the end-of-day balance. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/lightning/25000",
+      "firm": "tradeify",
+      "program": "Lightning Funded",
+      "size": 25000,
+      "stages": [
+        {
+          "stage": "funded",
+          "name": "Lightning Funded",
+          "drawdown": {
+            "amount": "1000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "contracts": {
+            "minis": 1,
+            "micros": 10
+          },
+          "payoutPaths": [
+            {
+              "name": "Lightning payout",
+              "minProfit": "1500",
+              "consistency": {
+                "pct": "20",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "split": 90,
+              "notes": "The first payout needs 1500 of profit and each later one 1000 of new profit. Consistency is 20% for the first payout, 25% for the second and 30% after that."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495938-lightning-funded-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/lightning-funded/standard/25000/pack-1/stages/funded"
+          },
+          "notes": "Funded on purchase, no evaluation and no minimum trading days. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/lightning/50000",
+      "firm": "tradeify",
+      "program": "Lightning Funded",
+      "size": 50000,
+      "stages": [
+        {
+          "stage": "funded",
+          "name": "Lightning Funded",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "1250",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 4,
+            "micros": 40
+          },
+          "payoutPaths": [
+            {
+              "name": "Lightning payout",
+              "minProfit": "3000",
+              "consistency": {
+                "pct": "20",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "split": 90,
+              "notes": "The first payout needs 3000 of profit and each later one 2000 of new profit. Consistency is 20% for the first payout, 25% for the second and 30% after that."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495938-lightning-funded-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/lightning-funded/standard/50000/pack-1/stages/funded"
+          },
+          "notes": "Funded on purchase, no evaluation and no minimum trading days. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page)."
+        },
+        {
+          "stage": "live",
+          "name": "Tradeify Elite Live",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "never"
+          },
+          "payoutPaths": [
+            {
+              "name": "Elite Live",
+              "split": 80
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/12969284-tradeify-elite-program",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/lightning-funded/standard/50000/pack-1/stages/live"
+          },
+          "notes": "Elite Live is by invitation after 3 payouts on one account or 10 in total; it pays 80/20. Tradeify does not say whether or where its drawdown stops trailing, so it is modelled as never locking, the strictest reading."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/lightning/100000",
+      "firm": "tradeify",
+      "program": "Lightning Funded",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "funded",
+          "name": "Lightning Funded",
+          "drawdown": {
+            "amount": "4000",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "2500",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 8,
+            "micros": 80
+          },
+          "payoutPaths": [
+            {
+              "name": "Lightning payout",
+              "minProfit": "6000",
+              "consistency": {
+                "pct": "20",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "split": 90,
+              "notes": "The first payout needs 6000 of profit and each later one 3500 of new profit. Consistency is 20% for the first payout, 25% for the second and 30% after that."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495938-lightning-funded-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/lightning-funded/standard/100000/pack-1/stages/funded"
+          },
+          "notes": "Funded on purchase, no evaluation and no minimum trading days. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    },
+    {
+      "id": "tradeify/lightning/150000",
+      "firm": "tradeify",
+      "program": "Lightning Funded",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "funded",
+          "name": "Lightning Funded",
+          "drawdown": {
+            "amount": "5250",
+            "mode": "eod_trailing",
+            "lockAt": {
+              "aboveStart": "100"
+            },
+            "afterFirstPayout": {
+              "floorAboveStart": "100"
+            }
+          },
+          "dailyLoss": {
+            "amount": "3000",
+            "effect": "session_lock"
+          },
+          "contracts": {
+            "minis": 12,
+            "micros": 120
+          },
+          "payoutPaths": [
+            {
+              "name": "Lightning payout",
+              "minProfit": "9000",
+              "consistency": {
+                "pct": "20",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "split": 90,
+              "notes": "The first payout needs 9000 of profit and each later one 4500 of new profit. Consistency is 20% for the first payout, 25% for the second and 30% after that."
+            }
+          ],
+          "source": {
+            "url": "https://help.tradeify.co/en/articles/10495938-lightning-funded-accounts",
+            "checkedAt": "2026-09-10",
+            "pxKey": "tradeify/lightning-funded/standard/150000/pack-1/stages/funded"
+          },
+          "notes": "Funded on purchase, no evaluation and no minimum trading days. The trailing limit locks at the starting balance plus $100 once the end-of-day balance is $100 past the drawdown, or at once when a payout is requested (Tradeify's Trailing Max Drawdowns page). Elite Live is not modelled at this size because Tradeify publishes its drawdown only for the 50K account."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+import { describe, expect, it } from 'vitest';
+
+import { addPayout, applyDays, applyImport, type Account, type DayEntry } from '../src/account.ts';
+import { payoutCalendar } from '../src/calendar.ts';
+import type { StageRules } from '../src/catalog/types.ts';
+import { evaluate } from '../src/evaluate.ts';
+
+const n = (value: { toNumber(): number }) => value.toNumber();
+
+function rules(overrides: Partial<StageRules> = {}): StageRules {
+  return {
+    stage: 'eval',
+    name: 'Test eval',
+    drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start' },
+    source: { url: 'https://example.com', checkedAt: '2026-09-01' },
+    ...overrides,
+  };
+}
+
+function account(stageRules: StageRules, days: Array<[string, number]> = [], extra: Partial<Account> = {}): Account {
+  return {
+    id: 'a1',
+    label: 'Test 50K',
+    firmId: 'test',
+    planId: 'test/plan/50000',
+    stage: stageRules.stage,
+    rules: stageRules,
+    catalogVersion: '2026-09-01',
+    startingBalance: '50000',
+    feePerSide: '0',
+    days: days.map(([date, pnl]): DayEntry => ({ date, pnl: String(pnl), source: 'manual' })),
+    payouts: [],
+    externalIds: [],
+    included: true,
+    ...extra,
+  };
+}
+
+describe('drawdown walk', () => {
+  it('reads days in date order whatever order they are stored in', () => {
+    const ordered = evaluate(account(rules(), [['2026-09-01', 1500], ['2026-09-02', -3000]]));
+    const shuffled = evaluate(account(rules(), [['2026-09-02', -3000], ['2026-09-01', 1500]]));
+    expect(shuffled.blown).toEqual(ordered.blown);
+    expect(ordered.blown).toEqual({ date: '2026-09-02', reason: 'drawdown' });
+  });
+
+  it('checks each day against the floor set by earlier days only', () => {
+    const status = evaluate(account(rules(), [['2026-09-01', 1000], ['2026-09-02', -2900]]));
+    expect(n(status.floor)).toBe(49_000);
+    expect(status.blown).toEqual({ date: '2026-09-02', reason: 'drawdown' });
+  });
+
+  it('stops trailing at the lock level, or never when told', () => {
+    const days: Array<[string, number]> = [['2026-09-01', 3000], ['2026-09-02', 2000]];
+    expect(n(evaluate(account(rules(), days)).floor)).toBe(50_000);
+    expect(n(evaluate(account(rules({ drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: { aboveStart: '100' } } }), days)).floor)).toBe(50_100);
+    expect(n(evaluate(account(rules({ drawdown: { amount: '2000', mode: 'intraday_trailing', lockAt: 'never' } }), days)).floor)).toBe(53_000);
+  });
+
+  it('keeps a static floor still', () => {
+    const status = evaluate(account(rules({ drawdown: { amount: '2000', mode: 'static', lockAt: 'start' } }), [['2026-09-01', 5000]]));
+    expect(n(status.floor)).toBe(48_000);
+  });
+
+  it('counts touching the floor as a breach and never recovers', () => {
+    const status = evaluate(account(rules({ profitTarget: '3000' }), [['2026-09-01', -2000], ['2026-09-02', 4000]]));
+    expect(status.blown).toEqual({ date: '2026-09-01', reason: 'drawdown' });
+    expect(status.evaluation?.passed).toBe(false);
+  });
+
+  it('only fails the account on a breach-type daily loss', () => {
+    const days: Array<[string, number]> = [['2026-09-01', -1200]];
+    const lock = evaluate(account(rules({ dailyLoss: { amount: '1000', effect: 'session_lock' } }), days));
+    const breach = evaluate(account(rules({ dailyLoss: { amount: '1000', effect: 'breach' } }), days));
+    expect(lock.blown).toBeNull();
+    expect(lock.dailyLoss?.hits).toEqual(['2026-09-01']);
+    expect(breach.blown).toEqual({ date: '2026-09-01', reason: 'daily_loss' });
+  });
+
+  it('charges the account fee on sides the file had no fees for', () => {
+    const acc = account(rules(), [], { feePerSide: '2.5' });
+    acc.days = [{ date: '2026-09-01', pnl: '500', source: 'import:topstepx-orders', sidesWithoutFees: 4 }];
+    expect(n(evaluate(acc).totalProfit)).toBe(490);
+  });
+
+  it('handles an account with no days', () => {
+    const status = evaluate(account(rules({ profitTarget: '3000' })));
+    expect(status.bestDay).toBeNull();
+    expect(n(status.balance)).toBe(50_000);
+    expect(status.evaluation?.passed).toBe(false);
+  });
+});
+
+describe('consistency on an evaluation', () => {
+  const evalRules = rules({
+    profitTarget: '3000',
+    consistency: { pct: '50', basis: 'total_profit', effect: 'raises_target' },
+  });
+
+  it('raises the target instead of failing', () => {
+    const status = evaluate(account(evalRules, [['2026-09-01', 2500], ['2026-09-02', 600]]));
+    expect(n(status.evaluation!.effectiveTarget!)).toBe(5_000);
+    expect(status.evaluation!.passed).toBe(false);
+    expect(status.blown).toBeNull();
+  });
+
+  it('passes once profit covers the raised target', () => {
+    const status = evaluate(account(evalRules, [['2026-09-01', 2500], ['2026-09-02', 1500], ['2026-09-03', 1100]]));
+    expect(status.evaluation!.passed).toBe(true);
+  });
+
+  it('never reads zero or negative profit as consistent', () => {
+    const status = evaluate(account(evalRules, [['2026-09-01', -300]]));
+    expect(status.consistency!.ok).toBe(false);
+  });
+
+  it('cannot be fixed with more profit when the cap is a share of the target', () => {
+    const capped = rules({ profitTarget: '3000', consistency: { pct: '50', basis: 'profit_target', effect: 'blocks_payout' } });
+    const status = evaluate(account(capped, [['2026-09-01', 2000], ['2026-09-02', 1500]]));
+    expect(status.consistency!.requiredTotal).toBeNull();
+    expect(status.evaluation!.passed).toBe(false);
+    expect(status.evaluation!.daysToPass).toBe(Infinity);
+  });
+});
+
+describe('payout paths', () => {
+  const funded = rules({
+    stage: 'funded',
+    name: 'Funded',
+    payoutPaths: [
+      { name: 'Standard', winningDays: { count: 5, minProfit: '150' }, split: 90, capPctOfProfit: 50, cap: '5000' },
+      {
+        name: 'Consistency',
+        minTradingDays: 3,
+        consistency: { pct: '40', basis: 'profit_since_payout', effect: 'blocks_payout', bestDay: 'resets' },
+        split: 90,
+        cap: '3000',
+      },
+    ],
+  });
+
+  it('reports the fastest path first and ranks eligible paths above blocked ones', () => {
+    const status = evaluate(account(funded, [['2026-09-01', 400], ['2026-09-02', 350], ['2026-09-03', 300]]));
+    expect(status.payout!.best.name).toBe('Consistency');
+    expect(status.payout!.best.eligible).toBe(true);
+    const standard = status.payout!.paths.find((path) => path.name === 'Standard')!;
+    expect(standard.eligible).toBe(false);
+    expect(standard.winningDays).toBe(3);
+  });
+
+  it('counts winning days and the consistency window only since the last payout', () => {
+    let acc = account(funded, [
+      ['2026-09-01', 2000],
+      ['2026-09-02', 200],
+      ['2026-09-03', 200],
+      ['2026-09-04', 200],
+      ['2026-09-07', 200],
+    ]);
+    acc = addPayout(acc, '2026-09-07', '1000');
+    acc = applyDays(acc, [
+      { date: '2026-09-08', pnl: '300', source: 'manual' },
+      { date: '2026-09-09', pnl: '100', source: 'manual' },
+    ]).account;
+    const status = evaluate(acc);
+    const standard = status.payout!.paths.find((path) => path.name === 'Standard')!;
+    const consistency = status.payout!.paths.find((path) => path.name === 'Consistency')!;
+    expect(standard.winningDays).toBe(1);
+    expect(n(consistency.consistency!.total)).toBe(400);
+    expect(n(consistency.consistency!.bestDay!.pnl)).toBe(300);
+  });
+
+  it('keeps the old best day when the firm says it carries', () => {
+    const carries = rules({
+      stage: 'funded',
+      payoutPaths: [{ name: 'Only', consistency: { pct: '40', basis: 'profit_since_payout', effect: 'blocks_payout', bestDay: 'carries' }, split: 80 }],
+    });
+    let acc = account(carries, [['2026-09-01', 2000], ['2026-09-02', 500]]);
+    acc = addPayout(acc, '2026-09-02', '1000');
+    acc = applyDays(acc, [{ date: '2026-09-03', pnl: '400', source: 'manual' }]).account;
+    const status = evaluate(acc);
+    expect(n(status.payout!.best.consistency!.bestDay!.pnl)).toBe(2000);
+    expect(status.payout!.best.eligible).toBe(false);
+  });
+
+  it('takes payouts off the balance without lowering the peak', () => {
+    let acc = account(funded, [['2026-09-01', 3000]]);
+    acc = addPayout(acc, '2026-09-01', '1000');
+    const status = evaluate(acc);
+    expect(n(status.balance)).toBe(52_000);
+    expect(n(status.peak)).toBe(53_000);
+    expect(n(status.floor)).toBe(50_000);
+  });
+
+  it('moves the floor to its post-payout level only after a payout', () => {
+    const locking = rules({
+      stage: 'funded',
+      drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', afterFirstPayout: { floorAboveStart: '100' } },
+      payoutPaths: [{ name: 'Only', split: 90 }],
+    });
+    const before = evaluate(account(locking, [['2026-09-01', 1000]]));
+    expect(n(before.floor)).toBe(49_000);
+    const after = evaluate(addPayout(account(locking, [['2026-09-01', 1000]]), '2026-09-01', '500'));
+    expect(n(after.floor)).toBe(50_100);
+  });
+
+  it('never projects a payout on a zero or negative average day', () => {
+    const status = evaluate(account(funded, [['2026-09-01', 200]]), { avgDay: 0 });
+    for (const path of status.payout!.paths) expect(path.daysToEligible).toBe(Infinity);
+  });
+});
+
+describe('what-if and imports', () => {
+  it('does not change the stored account', () => {
+    const acc = account(rules({ profitTarget: '3000' }), [['2026-09-01', 1000]]);
+    const copy = structuredClone(acc);
+    const status = evaluate(acc, { whatIf: -2500, today: '2026-09-01' });
+    expect(status.whatIf).toEqual({ date: '2026-09-02', pnl: expect.anything() });
+    expect(status.blown?.date).toBe('2026-09-02');
+    expect(acc).toEqual(copy);
+  });
+
+  it('replaces the days an import covers and reports them', () => {
+    const acc = account(rules(), [['2026-09-01', 100], ['2026-09-02', 200]]);
+    const result = applyImport(
+      acc,
+      { externalId: 'X1', days: [{ date: '2026-09-02', pnl: '250', sidesWithoutFees: 0 }, { date: '2026-09-03', pnl: '50', sidesWithoutFees: 0 }], payouts: [{ date: '2026-09-03', amount: '100' }] },
+      'tradovate-balance-history',
+    );
+    expect(result.replaced).toEqual(['2026-09-02']);
+    expect(result.added).toEqual(['2026-09-03']);
+    expect(result.account.days.map((day) => day.pnl)).toEqual(['100', '250', '50']);
+    expect(result.account.externalIds).toEqual(['X1']);
+    const again = applyImport(result.account, { externalId: 'X1', days: [], payouts: [{ date: '2026-09-03', amount: '100' }] }, 'tradovate-cash-history');
+    expect(again.payoutsAdded).toBe(0);
+  });
+});
+
+describe('payout calendar', () => {
+  it('schedules repeated payouts by simulating the average day', () => {
+    const funded = rules({ stage: 'funded', payoutPaths: [{ name: 'Weekly', winningDays: { count: 5, minProfit: '150' }, split: 90, capPctOfProfit: 50 }] });
+    const calendar = payoutCalendar([account(funded, [['2026-09-01', 300]])], { today: '2026-09-01', horizonDays: 20, avgDay: { a1: 300 } });
+    const [first, second] = calendar.events;
+    expect([first!.date, n(first!.amount)]).toEqual(['2026-09-07', 675]);
+    expect([second!.date, n(second!.amount)]).toEqual(['2026-09-14', 1012.5]);
+    expect(calendar.weeks[0]!.week).toBe('2026-09-07');
+    expect(calendar.unreachable).toEqual([]);
+  });
+
+  it('lists accounts it cannot schedule instead of inventing dates', () => {
+    const calendar = payoutCalendar([account(rules({ profitTarget: '3000' }), [['2026-09-01', -100]])], { today: '2026-09-01' });
+    expect(calendar.events).toEqual([]);
+    expect(calendar.unreachable[0]!.reason).toContain('average');
+  });
+});
+
+describe('consistency measured against the profit target', () => {
+  it('is fine while the best day stays under its share of the target, whatever the total', () => {
+    const topstepLike = rules({ profitTarget: '3000', consistency: { pct: '50', basis: 'profit_target', effect: 'raises_target' } });
+    const status = evaluate(account(topstepLike, [['2026-09-01', 160], ['2026-09-02', 100]]));
+    expect(status.consistency!.ok).toBe(true);
+    expect(n(status.evaluation!.effectiveTarget!)).toBe(3000);
+  });
+
+  it('raises the target once the best day passes that share', () => {
+    const topstepLike = rules({ profitTarget: '3000', consistency: { pct: '50', basis: 'profit_target', effect: 'raises_target' } });
+    const status = evaluate(account(topstepLike, [['2026-09-01', 2000], ['2026-09-02', 500]]));
+    expect(status.consistency!.ok).toBe(false);
+    expect(n(status.evaluation!.effectiveTarget!)).toBe(4000);
+  });
+});
+
+describe('findings from the engine review', () => {
+  it('never offers a payout that takes the balance under the floor', () => {
+    const lightningLike = rules({
+      stage: 'funded',
+      drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: { aboveStart: '100' } },
+      payoutPaths: [{ name: 'Only', minProfit: '3000', split: 90 }],
+    });
+    const acc = account(lightningLike, [
+      ['2026-09-01', 600],
+      ['2026-09-02', 600],
+      ['2026-09-03', 600],
+      ['2026-09-04', 600],
+      ['2026-09-07', 600],
+    ]);
+    const status = evaluate(acc);
+    expect(n(status.floor)).toBe(50_100);
+    expect(n(status.payout!.best.withdrawable)).toBe(2_900);
+    const after = evaluate(applyDays(addPayout(acc, '2026-09-07', status.payout!.best.withdrawable), [{ date: '2026-09-08', pnl: '50', source: 'manual' }]).account);
+    expect(after.blown).toBeNull();
+  });
+
+  it('keeps room for a floor that jumps up after the first payout', () => {
+    const jumps = rules({
+      stage: 'funded',
+      drawdown: { amount: '2000', mode: 'eod_trailing', lockAt: 'start', afterFirstPayout: { floorAboveStart: '100' } },
+      payoutPaths: [{ name: 'Only', split: 90 }],
+    });
+    const status = evaluate(account(jumps, [['2026-09-01', 1000]]));
+    expect(n(status.payout!.best.withdrawable)).toBe(900);
+  });
+
+  it('counts the consistency shortfall when an evaluation is blocked rather than raised', () => {
+    const blocked = rules({ profitTarget: '3000', consistency: { pct: '40', basis: 'total_profit', effect: 'blocks_payout' } });
+    const status = evaluate(account(blocked, [['2026-09-01', 2000], ['2026-09-02', 1000], ['2026-09-03', 200]]), { avgDay: 200 });
+    expect(status.evaluation!.passed).toBe(false);
+    expect(status.evaluation!.daysToPass).toBe(9);
+  });
+
+  it('stops projecting at the horizon even with a tiny average day', () => {
+    const slow = rules({ profitTarget: '3000' });
+    const started = performance.now();
+    const calendar = payoutCalendar([account(slow, [['2026-09-01', 10]])], { today: '2026-09-01', avgDay: { a1: '0.01' } });
+    expect(performance.now() - started).toBeLessThan(500);
+    expect(calendar.events).toEqual([]);
+  });
+
+  it('says when an intraday trailing floor is only approximate', () => {
+    const intraday = rules({ drawdown: { amount: '2000', mode: 'intraday_trailing', lockAt: 'start' } });
+    expect(evaluate(account(intraday)).notes[0]).toContain('Intraday trailing');
+    expect(evaluate(account(rules())).notes).toEqual([]);
+  });
+});

@@ -6,13 +6,29 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- Rewritten in TypeScript as a pnpm monorepo. The math lives in the `propfirm-calc` npm package
+  (`packages/core`), and money is `decimal.js` throughout. Every case from the Python test
+  suite gives the same answer in the new engine. The Python package, its CLI extras and the
+  MkDocs site are gone.
+
 ### Added
 
-- An optional `tui` extra (`pip install "propfirm-calc[tui]"`). When Rich is
-  importable the CLI prints each command as a titled table and colours the rows
-  that carry a verdict; otherwise it prints the same values as aligned plain
-  text. The library and the default install remain dependency-free, and
-  `--json` output is unchanged by either path.
+- A web app (`apps/web`) that installs as a PWA. Pick accounts from the firm list, enter daily
+  P&L or import a CSV, and see every account together, with a what-if slider and a payout
+  calendar. Data stays in the browser.
+- A firm rules catalog for Topstep, Tradeify, Lucid Trading, My Funded Futures and Take Profit
+  Trader. Each stage has a source link and the date it was checked, and
+  `pnpm --filter propfirm-calc catalog:check` finds numbers that have changed since.
+- Account rules the Python version couldn't express: daily loss limits (breach or session lock),
+  consistency measured against total profit, profit since the last payout, or the profit target,
+  with the best day resetting or carrying over after a payout, multiple payout paths with
+  buffers, caps and splits, and a floor that changes after the first payout.
+- CSV import for Tradovate Fills, Performance, Account Balance History and Cash History, and for
+  TopstepX Orders and Trades. Fills and orders are paired into trades, and a per-account fee per
+  contract per side covers fees the file leaves out.
+- CLI commands `firms`, `import` and `status`.
 
 ## [0.2.0] — 2026-09-06
 
