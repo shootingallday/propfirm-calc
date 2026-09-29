@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>propfirm-calc wireframe</title>
+<style>
+body{margin:0;font-family:sans-serif;font-size:13px;color:#222;background:#fff}
+nav.wf{background:#ddd;border-bottom:1px solid #999;padding:6px 10px;display:flex;flex-wrap:wrap;gap:4px 10px}
+nav.wf a{color:#222}
+.screen{display:none;max-width:1180px;margin:12px auto;padding:0 12px}
+.screen:target,body:not(:has(.screen:target)) #dash{display:block}
+.state{border:1px dashed #666;padding:4px 8px;margin-bottom:8px;background:#f7f7f7}
+.b{border:1px solid #999;background:#eee;padding:8px;margin:6px 0}
+.w{background:#fff}
+.ctl{display:inline-block;border:1px solid #777;background:#fff;padding:2px 8px;margin:2px 2px}
+.new{border:2px dashed #555;background:#f4f4f4}
+.new>.tag,.tag{display:inline-block;border:1px solid #555;padding:0 4px;font-size:11px;margin-bottom:4px;background:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1;min-width:120px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.two{display:grid;grid-template-columns:230px 1fr;gap:10px}
+.fade{opacity:.45}
+.blown{border:3px double #555}
+.line{height:18px;border:1px solid #777;background:#fff;position:relative;margin:4px 0}
+.line span{position:absolute;top:-2px;font-size:10px}
+.slider{height:10px;border:1px solid #777;background:#fff;margin:6px 0}
+table{border-collapse:collapse;width:100%;background:#fff}
+td,th{border:1px solid #aaa;padding:3px 5px;text-align:left;font-weight:normal}
+th{background:#e4e4e4}
+small{color:#555}
+h1{font-size:18px}h2{font-size:14px;margin:4px 0}h3{font-size:13px;margin:4px 0}
+.chart{height:110px;border:1px solid #777;background:#fff;display:flex;align-items:center;justify-content:center}
+header.app,footer.app{border:1px solid #999;background:#e8e8e8;padding:8px;display:flex;gap:8px;align-items:center}
+footer.app{margin-top:10px}
+</style>
+</head>
+<body>
+<nav class="wf"><b>Wireframe</b>
+<a href="#dash">Dashboard</a><a href="#dash-whatif">Dashboard: what-if moved</a><a href="#dash-empty">Dashboard: empty</a>
+<a href="#acct">Accounts: funded account</a><a href="#acct-eval">Accounts: eval account</a><a href="#acct-add">Accounts: add form</a>
+<a href="#import">Import: files picked</a><a href="#import-done">Import: applied</a>
+<a href="#calendar">Calendar</a><a href="#calendar-empty">Calendar: empty</a>
+<a href="#tools">Tools (new)</a><a href="#features">Feature map</a>
+</nav>
+
+<section class="screen" id="dash">
+<div class="state">Dashboard, accounts loaded, slider at $0. Dashed boxes marked NEW are engine data no screen shows today.</div>
+<header class="app" data-tab="Dashboard"></header>
+<div class="row">
+ <div class="b">Accounts<br><b>N</b></div>
+ <div class="b">Net profit (all accounts, +/-)<br><b>$X</b></div>
+ <div class="b">Payouts ready<br><b>N</b></div>
+ <div class="b">Blown<br><b>N</b></div>
+</div>
+<div class="b">What if tomorrow is <b>$0</b> on every included account? <span class="ctl">reset</span>
+ <div class="slider"></div><small>-$3,000 &nbsp;…&nbsp; +$3,000, $50 steps</small></div>
+<div class="grid" data-cards="normal"></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="dash-whatif">
+<div class="state">Dashboard, slider moved to -$1,500. One card left out (faded), one card blown.</div>
+<header class="app" data-tab="Dashboard"></header>
+<div class="row">
+ <div class="b">Accounts<br><b>N</b></div><div class="b">Net profit<br><b>$X</b></div><div class="b">Payouts ready<br><b>N</b></div><div class="b">Blown<br><b>N</b></div>
+</div>
+<div class="b">What if tomorrow is <b>-$1,500</b> on every included account? <span class="ctl">reset</span>
+ <div class="slider"></div><small>Note: capped at the daily loss limit on accounts whose firm stops you for the day</small></div>
+<div class="grid" data-cards="whatif"></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="dash-empty">
+<div class="state">Dashboard, no accounts. "Load demo accounts" appears in the header only here.</div>
+<header class="app" data-tab="Dashboard" data-demo></header>
+<div class="b" style="text-align:center;padding:40px">No accounts yet<br><small>One line of help</small><br><span class="ctl">Add an account</span> <small>→ Accounts</small></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="acct">
+<div class="state">Accounts, a funded account chosen. Override section shown unfolded.</div>
+<header class="app" data-tab="Accounts"></header>
+<div class="two">
+ <aside class="list"></aside>
+ <main>
+  <div class="b w"><div class="row"><div><b>Account name</b> <small>(edit in place)</small><br><small>plan id</small> <span class="ctl">Funded</span> <small>linked to &lt;broker ids&gt;</small></div><div style="flex:0"><span class="ctl">Delete</span></div></div></div>
+  <div class="b new"><span class="tag">NEW</span><h3>Account status</h3>
+   <div class="row"><div class="b w">Balance</div><div class="b w">Floor</div><div class="b w">Cushion</div><div class="b w">Peak balance</div><div class="b w">Total paid out</div></div>
+   <div class="row"><div class="b w">Trading days</div><div class="b w">Last day entered</div><div class="b w">Avg winning day</div><div class="b w">Avg day used for estimates</div></div>
+  </div>
+  <div class="b new"><span class="tag">NEW, engine change needed</span><h3>Balance vs floor, day by day</h3><div class="chart">chart: balance line and floor line per day (engine returns only today's floor)</div></div>
+  <div class="b new"><span class="tag">NEW</span><h3>Payout paths, ranked</h3>
+   <table><tr><th>#</th><th>Path</th><th>Profit this cycle</th><th>Cycle start</th><th>Winning days</th><th>Withdraw (before split)</th><th>To you (after)</th><th>Eligible in</th><th>Blockers</th></tr>
+   <tr><td>1</td><td>Path A</td><td>$X</td><td>date</td><td>3 / 5</td><td>$X</td><td>$X</td><td>N days</td><td>"3 of 5 winning days of $150+"</td></tr>
+   <tr><td>2</td><td>Path B</td><td>$X</td><td>date</td><td>n / n</td><td>$X</td><td>$X</td><td>N days</td><td>"Balance must reach $X ($X to go)" · "Opens &lt;date&gt;"</td></tr>
+   <tr><td>3</td><td>Path C</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>—</td><td>"Closed: open only while the balance is under $X"</td></tr></table>
+  </div>
+  <div class="b"><h3>Override this account's rules ▾</h3>
+   <div class="row"><div class="ctl">Drawdown amount</div><div class="ctl">Drawdown type ▾</div><div class="ctl">Profit target</div><div class="ctl">Daily loss limit</div><div class="ctl">Consistency %</div><div class="ctl">Fee</div></div><small>Changes only this account</small></div>
+  <div class="row">
+   <div class="b"><h3>Daily P&amp;L</h3><span class="ctl">date</span><span class="ctl">amount</span><span class="ctl">Save day</span>
+    <table><tr><th>Day</th><th>Net P&amp;L</th><th>Source</th><th class="new">Daily loss hit <span class="tag">NEW</span></th><th></th></tr>
+    <tr><td>date</td><td>$X</td><td>typed</td><td></td><td>remove</td></tr>
+    <tr><td>date</td><td>-$X</td><td>Tradovate Fills · fees on N sides</td><td>hit</td><td>remove</td></tr>
+    <tr><td>date</td><td>$X</td><td>TopstepX Orders</td><td></td><td>remove</td></tr></table></div>
+   <div class="b" style="flex:.6"><h3>Payouts</h3><span class="ctl">date</span><span class="ctl">amount</span><span class="ctl">Record payout</span>
+    <table><tr><th>Date</th><th>Amount</th><th></th></tr><tr><td>date</td><td>$X</td><td>remove</td></tr></table></div>
+  </div>
+  <div class="b rules"></div>
+ </main>
+</div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="acct-eval">
+<div class="state">Accounts, an evaluation account that just passed. Also shows: blown banner (alternate), delete confirm, empty tables, override folded.</div>
+<header class="app" data-tab="Accounts"></header>
+<div class="two">
+ <aside class="list"></aside>
+ <main>
+  <div class="b w"><div class="row"><div><b>Account name</b><br><small>plan id</small> <span class="ctl">Evaluation</span></div><div style="flex:0 0 auto">Delete this account? <span class="ctl">Yes</span><span class="ctl">No</span></div></div></div>
+  <div class="b">Passed. Add the Funded account with its rules filled in? <span class="ctl">Add Funded account</span></div>
+  <div class="b new"><span class="tag">NEW</span> Alternate banner when blown: Blown on &lt;date&gt;, why (drawdown / daily loss limit)</div>
+  <div class="b new"><span class="tag">NEW</span><h3>Evaluation progress</h3>
+   <div class="row"><div class="b w">Profit still needed</div><div class="b w">Target (after consistency raises it)</div><div class="b w">Trading days n / needed</div></div>
+   <div class="b w">Blockers, one per line</div></div>
+  <div class="b"><h3>Override this account's rules ▸</h3></div>
+  <div class="row">
+   <div class="b"><h3>Daily P&amp;L</h3><span class="ctl">date</span><span class="ctl">amount</span><span class="ctl">Save day</span><div class="b w">No days yet. Type them here or import a CSV.</div></div>
+   <div class="b" style="flex:.6"><h3>Payouts</h3><span class="ctl">date</span><span class="ctl">amount</span><span class="ctl">Record payout</span><div class="b w">No payouts recorded. Recording one starts a new payout cycle.</div></div>
+  </div>
+  <div class="b rules"></div>
+ </main>
+</div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="acct-add">
+<div class="state">Accounts, "+ Add account" chosen. After "Add account" the new account opens.</div>
+<header class="app" data-tab="Accounts"></header>
+<div class="two">
+ <aside class="list"></aside>
+ <main>
+  <div class="b"><h2>Add an account</h2>
+   <div class="row"><div class="ctl">Firm ▾ (Topstep, Tradeify, Lucid Trading, MyFundedFutures, Take Profit Trader)</div></div>
+   <div class="row"><div class="ctl">Plan ▾ (e.g. Rapid · $50,000)</div><div class="ctl">Stage ▾ (Evaluation / Funded / Live)</div></div>
+   <div class="row"><div class="ctl">Name (optional, default "Topstep Trading Combine 50K")</div><div class="ctl">Fee per contract per side</div></div>
+   <div class="b rules"></div>
+   <span class="ctl">Add account</span></div>
+ </main>
+</div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="import">
+<div class="state">Import, two files picked: one read, one rejected.</div>
+<header class="app" data-tab="Import"></header>
+<div class="b">One line: what it reads (Tradovate Fills, Performance, Account Balance History, Cash History; TopstepX Orders, Trades — Orders recommended, Trades can drop round trips). Files never leave the browser.</div>
+<div class="b w" style="text-align:center;padding:26px">Drop files here or <span class="ctl">Choose files</span> <small>(several at once)</small></div>
+<div class="b"><b>Fills.csv</b> <span class="ctl">Tradovate Fills</span>
+ <table><tr><th>Account id in file</th><th>Days</th><th>Date range</th><th>Net P&amp;L</th><th>Payouts</th><th>Goes into</th></tr>
+ <tr><td>id</td><td>N</td><td>date – date</td><td>$X</td><td>N</td><td><span class="ctl">My account ▾ (matched before)</span></td></tr>
+ <tr><td>id</td><td>N</td><td>date – date</td><td>$X</td><td>N</td><td><span class="ctl">Skip ▾</span></td></tr></table>
+ <small>Warnings: skipped N rows (…)</small></div>
+<div class="b"><b>Other.csv</b> <div class="b w">Error: wrong kind of export / file too big / resaved file it can't trust</div></div>
+<span class="ctl">Apply import</span>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="import-done">
+<div class="state">Import, after "Apply import".</div>
+<header class="app" data-tab="Import"></header>
+<div class="b">One line: what it reads; files never leave the browser.</div>
+<div class="b w" style="text-align:center;padding:26px">Drop files here or <span class="ctl">Choose files</span></div>
+<div class="b"><h3>Import log</h3>
+ <div class="b w">Account A: added N days, replaced N (dates), N payouts</div>
+ <div class="b w">Account B: added N days, replaced N (dates), N payouts</div></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="calendar">
+<div class="state">Calendar, accounts with averages.</div>
+<header class="app" data-tab="Calendar"></header>
+<div class="b">One line: assumes every future trading day is the same winning day (best case); skips weekends and exchange holidays.</div>
+<table><tr><th>Account</th><th>Measured average winning day</th><th>Your average day</th></tr>
+<tr><td>Account A</td><td>$X from N winning days</td><td><span class="ctl">$ ____</span></td></tr>
+<tr><td>Account B</td><td>$X from 3 winning days <small>(warning: under 5)</small></td><td><span class="ctl">$ ____</span></td></tr></table>
+<h3>Next 60 trading days</h3>
+<div class="b"><div class="row"><b>Week of &lt;date&gt;</b><div style="text-align:right">Week total $X</div></div>
+ <div class="b w">&lt;date&gt; Account A: passes the evaluation</div><div class="b w">&lt;date&gt; Account B: about $X to you via &lt;path&gt;</div></div>
+<div class="b"><div class="row"><b>Week of &lt;date&gt;</b><div style="text-align:right">Week total $X</div></div>
+ <div class="b w">&lt;date&gt; Account C: about $X to you via &lt;path&gt;</div></div>
+<div class="b">… more weeks</div>
+<div class="b"><h3>Not on the calendar</h3><div class="b w">Account D: Needs an average day above $0</div></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="calendar-empty">
+<div class="state">Calendar, two empty states.</div>
+<header class="app" data-tab="Calendar"></header>
+<div class="b"><small>With accounts, nothing lands:</small><div class="b w">Nothing lands in the next 60 trading days at these averages.</div></div>
+<div class="b"><small>No accounts:</small><div class="b w">Add accounts to see when they can pay out.</div></div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="tools">
+<div class="state">Tools, a proposed fifth tab for the two CLI commands with no screen. Both run in the same engine.</div>
+<header class="app" data-tab="Tools"></header>
+<div class="row">
+ <div class="b new"><span class="tag">NEW</span><h3>Position size</h3>
+  <div class="ctl">Account ▾ (uses its cushion) or risk $</div><div class="ctl">Tick value</div><div class="ctl">Stop ticks</div>
+  <div class="b w">Contracts: N</div></div>
+ <div class="b new"><span class="tag">NEW</span><h3>Days to target</h3>
+  <div class="ctl">Account ▾ or profit so far</div><div class="ctl">Average day</div><div class="ctl">Target</div><div class="ctl">Best day</div><div class="ctl">Consistency %</div>
+  <div class="b w">About N trading days</div></div>
+</div>
+<footer class="app"></footer>
+</section>
+
+<section class="screen" id="features">
+<div class="state">Every line of docs/features.md and where it sits.</div>
+<table>
+<tr><th>Feature</th><th>Where</th></tr>
+<tr><th colspan="2">Whole app</th></tr>
+<tr><td>Logo, name, four tabs</td><td>Header, every screen</td></tr>
+<tr><td>"Load demo accounts" link, only with no accounts</td><td>Header, Dashboard: empty</td></tr>
+<tr><td>Footer: rules checked date, data stays in browser, GitHub</td><td>Footer, every screen</td></tr>
+<tr><td>Installs as an app, works offline</td><td>Not placed (see below)</td></tr>
+<tr><td>Saved in the browser automatically</td><td>Not placed (see below); footer says data stays in the browser</td></tr>
+<tr><th colspan="2">Dashboard</th></tr>
+<tr><td>Empty state with "Add an account"</td><td>Dashboard: empty</td></tr>
+<tr><td>Summary strip: accounts, net profit, payouts ready, blown</td><td>Dashboard, top row</td></tr>
+<tr><td>What-if slider, range, steps, reset, daily-loss cap note</td><td>Dashboard, under summary; note in Dashboard: what-if moved</td></tr>
+<tr><td>Card: name, plan and size, stage badge, what-if checkbox</td><td>Dashboard card, top</td></tr>
+<tr><td>Card: number line (floor, start, balance dot, target/peak; red when blown)</td><td>Dashboard card</td></tr>
+<tr><td>Card: balance, cushion, profit, best day (% of profit)</td><td>Dashboard card, 4 figures</td></tr>
+<tr><td>Card: consistency line</td><td>Dashboard card</td></tr>
+<tr><td>Card: next step (blown / payout ready / payout in N days / pass in N / passed)</td><td>Dashboard card</td></tr>
+<tr><td>Card: notes in small text</td><td>Dashboard card, bottom</td></tr>
+<tr><td>Card: "If tomorrow is $X: …" with all possible changes</td><td>Dashboard: what-if moved</td></tr>
+<tr><td>Card looks different when blown, faded when left out</td><td>Dashboard: what-if moved</td></tr>
+<tr><th colspan="2">Accounts</th></tr>
+<tr><td>Two columns, "+ Add account", list with name and stage</td><td>Accounts, left column</td></tr>
+<tr><td>Export all, Import file, "Loaded &lt;file&gt;" or error</td><td>Accounts, bottom of left column</td></tr>
+<tr><td>Add form: firm, plan, stage, name, fee, rules summary, Add account</td><td>Accounts: add form</td></tr>
+<tr><td>Rules summary: drawdown, target, min days, daily loss, consistency, payout paths, firm notes, checked date and source, rules-change reminder</td><td>Add form and bottom of each account</td></tr>
+<tr><td>Name edit, plan id, stage badge, linked broker ids, delete with confirm</td><td>Account header (confirm in Accounts: eval account)</td></tr>
+<tr><td>"Passed. Add the Funded account…" button</td><td>Accounts: eval account</td></tr>
+<tr><td>Override rules (folded)</td><td>Account; open in funded, folded in eval</td></tr>
+<tr><td>Daily P&amp;L: entry, table with source and fee sides, remove, empty text</td><td>Account, lower left</td></tr>
+<tr><td>Payouts: entry, list, remove, empty text</td><td>Account, lower right</td></tr>
+<tr><th colspan="2">Import</th></tr>
+<tr><td>Intro line, drop zone, several files</td><td>Import</td></tr>
+<tr><td>Supported files and the Orders-over-Trades advice</td><td>Import intro line</td></tr>
+<tr><td>Per file: name, kind badge, table, "Goes into", warnings</td><td>Import: files picked</td></tr>
+<tr><td>Errors per file</td><td>Import: files picked, second file</td></tr>
+<tr><td>Apply import, log per account</td><td>Import: files picked / applied</td></tr>
+<tr><th colspan="2">Calendar</th></tr>
+<tr><td>Assumption line</td><td>Calendar, top</td></tr>
+<tr><td>Per-account average table with under-5 warning and own-average box</td><td>Calendar</td></tr>
+<tr><td>Weeks with totals and events</td><td>Calendar</td></tr>
+<tr><td>"Not on the calendar" with why</td><td>Calendar, bottom</td></tr>
+<tr><td>Both empty states</td><td>Calendar: empty</td></tr>
+<tr><th colspan="2">Engine, not shown today (NEW boxes)</th></tr>
+<tr><td>Every payout path ranked with blockers</td><td>Account (funded): Payout paths, ranked</td></tr>
+<tr><td>Per path: profit this cycle, cycle start, winning days, withdraw before/after split, days until eligible</td><td>Same table, columns</td></tr>
+<tr><td>Evaluation: profit still needed, raised target, days so far vs needed, blockers</td><td>Account (eval): Evaluation progress</td></tr>
+<tr><td>Peak balance, total paid out, trading days, last day entered</td><td>Account (funded): Account status</td></tr>
+<tr><td>Every day that hit the daily loss limit</td><td>Daily P&amp;L table, "Daily loss hit" column</td></tr>
+<tr><td>Average winning day and the average day used</td><td>Account status</td></tr>
+<tr><td>Day the account blew, and why</td><td>Account (eval): blown banner</td></tr>
+<tr><td>Floor day by day (needs a small engine change)</td><td>Account (funded): balance vs floor chart</td></tr>
+<tr><th colspan="2">Package CLI</th></tr>
+<tr><td>size, project (no screen today)</td><td>Tools (new tab)</td></tr>
+<tr><td>drawdown, consistency, payout, firms, import, status</td><td>Covered by existing screens (card, rules summary, Import, Dashboard)</td></tr>
+</table>
+<div class="b"><h3>Couldn't place</h3>
+<div>Installs as an app (PWA) and works offline: the browser handles install; there's no in-app control to put on a layout.</div>
+<div>Saved in the browser automatically, no sign-in, no server: a behaviour, not a control.</div>
+</div>
+</section>
+
+<script>
+const tabs=['Dashboard','Accounts','Import','Calendar','Tools'];
+document.querySelectorAll('header.app').forEach(h=>{
+ h.innerHTML='<span class="ctl">logo</span><b>propfirm-calc</b>'+tabs.map(t=>'<span class="ctl"'+(t===h.dataset.tab?' style="border-width:2px;font-weight:bold"':'')+'>'+t+(t==='Tools'?' (new)':'')+'</span>').join('')+(h.hasAttribute('data-demo')?'<span style="margin-left:auto" class="ctl">Load demo accounts</span>':'');
+});
+document.querySelectorAll('footer.app').forEach(f=>f.innerHTML='<small>Firm rules checked up to &lt;date&gt;</small><small>· Data stays in this browser</small><small style="margin-left:auto">GitHub</small>');
+document.querySelectorAll('aside.list').forEach(a=>a.innerHTML='<div class="b"><span class="ctl">+ Add account</span>'+['Account A','Account B','Account C'].map((n,i)=>'<div class="b w"'+(i===0?' style="border-width:2px"':'')+'>'+n+'<br><small>stage</small></div>').join('')+'<div class="b w"><span class="ctl">Export all</span><span class="ctl">Import file</span><br><small>Loaded &lt;file&gt; / error</small></div></div>');
+document.querySelectorAll('.rules').forEach(r=>r.innerHTML='<h3>Rules summary</h3><div class="row"><div class="b w">Drawdown: amount, type, where it locks</div><div class="b w">Profit target · min trading days</div><div class="b w">Daily loss limit: fails you / stops you for the day</div><div class="b w">Consistency %, measured against …</div></div><div class="b w">Payout paths: name · split · winning days needed · consistency (one line each)</div><div class="b w">Firm notes (long text with quotes)</div><small>Checked &lt;date&gt; · source link · rules change, check the firm\'s page</small>');
+const card=(o={})=>'<div class="b w'+(o.fade?' fade':'')+(o.blown?' blown':'')+'"><div class="row"><div><b>Account name</b><br><small>plan · size</small></div><div style="flex:0;white-space:nowrap"><span class="ctl">'+(o.stage||'Funded')+'</span><br><span class="ctl">'+(o.fade?'☐':'☑')+' what-if</span></div></div><div class="line"><span style="left:4%">floor</span><span style="left:25%">start</span><span style="left:'+(o.blown?'10':'55')+'%">●'+(o.blown?' (red)':'')+'</span><span style="right:3px">'+(o.stage==='Evaluation'?'target':'peak')+'</span></div><div class="row"><div class="b">Balance</div><div class="b">Cushion</div><div class="b">Profit</div><div class="b">Best day (n%)</div></div><div>Consistency 50%: within the limit</div><div class="b"><b>Next:</b> '+(o.next||'Payout ready via &lt;path&gt;: about $X to you')+'</div>'+(o.wi?'<div class="b">If tomorrow is -$1,500: '+o.wi+'</div>':'')+'<small>Notes: days entered without trade times can only be checked at the close</small></div>';
+const sets={normal:[card(),card({stage:'Evaluation',next:'Pass in N trading days'}),card({next:'Payout in N trading days via &lt;path&gt;'}),card({stage:'Live',next:'Blown on &lt;date&gt; (drawdown)',blown:1}),card({stage:'Evaluation',next:'Passed'})],
+ whatif:[card({wi:'Blows the account',blown:1}),card({stage:'Evaluation',next:'Pass in N trading days',wi:'Hits the daily loss lock · Breaks consistency'}),card({next:'Payout in N trading days via &lt;path&gt;',fade:1}),card({wi:'Loses a payout'}),card({stage:'Evaluation',wi:'Breaks the daily loss limit'}),card({wi:'Unlocks a payout · Fixes consistency'}),card({stage:'Evaluation',next:'Pass in N trading days',wi:'Passes the evaluation'})]};
+document.querySelectorAll('[data-cards]').forEach(g=>g.innerHTML=sets[g.dataset.cards].join(''));
+</script>
+</body>
+</html>
