@@ -152,7 +152,6 @@ describe('payout paths', () => {
     }
     if (path.cap !== undefined) expect(Number(path.cap)).toBeGreaterThan(0);
     if (path.minRequest !== undefined && path.cap !== undefined) expect(Number(path.minRequest)).toBeLessThanOrEqual(Number(path.cap));
-    if (path.pxKey !== undefined) expect(path.pxKey.startsWith(`${plan.firm}/`)).toBe(true);
     if (path.notes !== undefined) expect(path.notes.trim()).not.toBe('');
   });
 });
@@ -170,10 +169,6 @@ describe('sources and dates', () => {
     expect(new URL(stage.source.url).protocol).toBe('https:');
     expect(isIsoDate(stage.source.checkedAt)).toBe(true);
     expect(stage.source.checkedAt <= firm.checkedAt).toBe(true);
-    if (stage.source.pxKey !== undefined) {
-      expect(stage.source.pxKey.startsWith(`${firm.id}/`)).toBe(true);
-      expect(stage.source.pxKey).toContain(`/${plan.size}/`);
-    }
   });
 
   it('versions the catalog by its newest check', () => {

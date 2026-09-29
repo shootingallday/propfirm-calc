@@ -3,7 +3,6 @@ export type Stage = 'eval' | 'funded' | 'live';
 export type Source = {
   url: string;
   checkedAt: string;
-  pxKey?: string;
 };
 
 export type DrawdownRule = {
@@ -46,7 +45,6 @@ export type PayoutPath = {
   closesAtBalance?: string;
   split: number;
   notes?: string;
-  pxKey?: string;
 };
 
 export type StageRules = {

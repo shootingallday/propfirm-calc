@@ -24,12 +24,12 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
     return (
       <div className="narrow">
         {head}
-        <div className="px-card">
+        <div className="ui-card">
           <Empty
             icon="account"
             title="Add accounts to see when they can pay out"
             actions={
-              <button type="button" className="px-btn" data-variant="primary" onClick={onAdd}>
+              <button type="button" className="ui-btn" data-variant="primary" onClick={onAdd}>
                 Add an account
               </button>
             }
@@ -54,10 +54,10 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
           {first ? shortDate(first.date) : '—'}
         </Stat>
         <Stat label="Evaluations passing">
-          <span className="px-num">{passes.length}</span>
+          <span className="ui-num">{passes.length}</span>
         </Stat>
       </div>
-      <div className="px-card" data-testid="calendar-weeks">
+      <div className="ui-card" data-testid="calendar-weeks">
         {calendar.weeks.length === 0 ? (
           <Empty icon="calendar" title="Nothing lands in the next 60 trading days">
             Not at these averages. Raise an average below, or add more days so one can be measured.
@@ -78,16 +78,16 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
                   </div>
                 ))}
               </div>
-              <div className="px-num" style={{ textAlign: 'end' }}>
+              <div className="ui-num" style={{ textAlign: 'end' }}>
                 <b>{week.total.gt(0) ? usd(week.total, 0) : '—'}</b>
               </div>
             </div>
           ))
         )}
       </div>
-      <div className="px-accordion" style={{ marginBlockStart: 'var(--card-gap)' }}>
+      <div className="ui-accordion" style={{ marginBlockStart: 'var(--card-gap)' }}>
         <Fold title="Averages used">
-          <table className="px-table">
+          <table className="ui-table">
             <thead>
               <tr>
                 <th>Account</th>
@@ -106,7 +106,7 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
                       <td>
                         {account.label}{' '}
                         {winners < 5 && (
-                          <span className="px-tag" data-tone="warn">
+                          <span className="ui-tag" data-tone="warn">
                             {winners} winning {winners === 1 ? 'day' : 'days'}
                           </span>
                         )}
@@ -116,7 +116,7 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
                       </td>
                       <td className="r">
                         <input
-                          className="px-input"
+                          className="ui-input"
                           inputMode="decimal"
                           style={{ inlineSize: 110, display: 'inline-block' }}
                           placeholder={measured ? measured.toFixed(0) : '300'}
@@ -131,11 +131,11 @@ export function Calendar({ store, onAdd }: { store: Store; onAdd: () => void }) 
                 })}
             </tbody>
           </table>
-          <p className="px-hint">Fewer than 5 winning days makes an average rough. Type your own to override it.</p>
+          <p className="ui-hint">Fewer than 5 winning days makes an average rough. Type your own to override it.</p>
         </Fold>
         {calendar.unreachable.length > 0 && (
           <Fold title={`Not on the calendar (${calendar.unreachable.length})`}>
-            <dl className="px-dl">
+            <dl className="ui-dl">
               {calendar.unreachable.map((item) => (
                 <div key={item.accountId} style={{ display: 'contents' }}>
                   <dt>{item.label}</dt>

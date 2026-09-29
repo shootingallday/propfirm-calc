@@ -19,12 +19,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - A web app (`apps/web`) that installs as a PWA. Pick accounts from the firm list, enter daily
   P&L or import a CSV, and see every account together, with a what-if slider and a payout
-  calendar. Data stays in the browser. It uses the PX Brand design system: one table of
-  accounts with a side panel for each, a balance and floor chart, and light and dark themes.
+  calendar. Data stays in the browser. It has one table of accounts with a side panel for
+  each, a balance and floor chart, and light and dark themes.
   A first visit opens with five demo accounts, one per firm, and one click clears them.
 - A firm rules catalog for Topstep, Tradeify, Lucid Trading, My Funded Futures and Take Profit
-  Trader. Each stage has a source link and the date it was checked, and
-  `pnpm --filter propfirm-calc catalog:check` finds numbers that have changed since.
+  Trader. Each stage has a source link and the date it was checked.
 - Account rules the Python version couldn't express: daily loss limits (breach or session lock),
   consistency measured against total profit, profit since the last payout, or the profit target,
   with the best day resetting or carrying over after a payout, multiple payout paths with

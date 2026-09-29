@@ -15,7 +15,7 @@ let status = null;
 function announce(...parts) {
   if (!status) {
     status = document.createElement("span");
-    status.className = "px-sr-only";
+    status.className = "ui-sr-only";
     status.setAttribute("role", "status");
     document.body.append(status);
   }
@@ -32,13 +32,13 @@ export function mountCheckAll(master) {
     const on = all.filter((box) => box.checked).length;
     master.checked = on > 0 && on === all.length;
     master.indeterminate = on > 0 && on < all.length;
-    emit(master, "px:change", { checked: on, of: all.length });
+    emit(master, "ui:change", { checked: on, of: all.length });
   };
 
   master.addEventListener("change", () => {
     for (const box of boxes()) box.checked = master.checked;
     master.indeterminate = false;
-    emit(master, "px:change", { checked: master.checked ? boxes().length : 0, of: boxes().length });
+    emit(master, "ui:change", { checked: master.checked ? boxes().length : 0, of: boxes().length });
   });
   for (const box of boxes()) box.addEventListener("change", sync);
   sync();
@@ -90,15 +90,15 @@ function invoke(trigger, popover, place, keys) {
   popover.addEventListener("toggle", (event) => trigger.setAttribute("aria-expanded", String(event.newState === "open")));
 }
 
-/** Wire one `.px-select` trigger to the `.px-listbox` its `popovertarget` names. The platform
+/** Wire one `.ui-select` trigger to the `.ui-listbox` its `popovertarget` names. The platform
     owns the top layer, light dismiss, Escape, and focus restore; this owns the opening and adds
     the listbox keyboard model the popover attribute does not carry. Selection is announced as
-    `px:change`. */
+    `ui:change`. */
 export function mountSelect(trigger, options = {}) {
   const list = document.getElementById(trigger.getAttribute("popovertarget"));
   const text = trigger.querySelector("span");
   const match = typeAhead();
-  const all = () => [...list.querySelectorAll(".px-option")];
+  const all = () => [...list.querySelectorAll(".ui-option")];
   const reachable = () => all().filter((option) => option.getAttribute("aria-disabled") !== "true");
   const selected = () => all().find((option) => option.getAttribute("aria-selected") === "true");
 
@@ -108,7 +108,7 @@ export function mountSelect(trigger, options = {}) {
     delete trigger.dataset.placeholder;
     list.hidePopover();
     trigger.focus();
-    emit(trigger, "px:change", { value: option.dataset.value, label: text.textContent });
+    emit(trigger, "ui:change", { value: option.dataset.value, label: text.textContent });
     options.onChange?.(option.dataset.value);
   };
 
@@ -124,7 +124,7 @@ export function mountSelect(trigger, options = {}) {
     }
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      if (document.activeElement.classList.contains("px-option")) choose(document.activeElement);
+      if (document.activeElement.classList.contains("ui-option")) choose(document.activeElement);
       return;
     }
     if (event.key === "Tab") {
@@ -139,7 +139,7 @@ export function mountSelect(trigger, options = {}) {
   });
 
   list.addEventListener("click", (event) => {
-    const option = event.target.closest(".px-option");
+    const option = event.target.closest(".ui-option");
     if (option && option.getAttribute("aria-disabled") !== "true") choose(option);
   });
 
@@ -149,7 +149,7 @@ export function mountSelect(trigger, options = {}) {
 /** Wire one combobox: a text input that filters a listbox. `items` is the static set and `load`
     is the asynchronous one — a `load` is debounced and its result replaces the list, so a slow
     broker lookup never overwrites a later keystroke's answer. `multiple` turns the same control
-    into the token input: chosen values become `.px-token` chips ahead of the caret, Backspace on
+    into the token input: chosen values become `.ui-token` chips ahead of the caret, Backspace on
     an empty input takes the last one back, and the input never leaves the end of the run.
 
     A press on the input opens the list and a second press closes it, so the list is opened and
@@ -157,7 +157,7 @@ export function mountSelect(trigger, options = {}) {
     reaches the input, so the press reads the state it is toggling from at `pointerdown`.
 
     The caret has to stay in the input for typing, so the active option is named through
-    aria-activedescendant rather than focused, which is why `.px-option` carries a `data-active`
+    aria-activedescendant rather than focused, which is why `.ui-option` carries a `data-active`
     highlight as well as a focus one. A label taken on or off is announced under the language of
     the control it is drawn in, and this module's word for what happened under the document's;
     a chip's remove button is named the same way, from the element the label is drawn on.
@@ -175,7 +175,7 @@ export function mountCombobox(root, options = {}) {
   let generation = 0;
   let held = false;
 
-  const reachable = () => [...list.querySelectorAll(".px-option")];
+  const reachable = () => [...list.querySelectorAll(".ui-option")];
 
   const highlight = (option) => {
     active = option ?? null;
@@ -183,12 +183,12 @@ export function mountCombobox(root, options = {}) {
     if (!active) return input.removeAttribute("aria-activedescendant");
     active.dataset.active = "";
     active.scrollIntoView({ block: "nearest" });
-    input.setAttribute("aria-activedescendant", identify(active, "px-option"));
+    input.setAttribute("aria-activedescendant", identify(active, "ui-option"));
   };
 
   const note = (message) => {
     const line = document.createElement("div");
-    line.className = "px-listbox-empty";
+    line.className = "ui-listbox-empty";
     line.textContent = message;
     list.replaceChildren(line);
     highlight(null);
@@ -207,14 +207,14 @@ export function mountCombobox(root, options = {}) {
         host.setAttribute("role", "group");
         host.setAttribute("aria-label", group);
         const label = document.createElement("div");
-        label.className = "px-menu-label";
+        label.className = "ui-menu-label";
         label.setAttribute("aria-hidden", "true");
         label.textContent = group;
         host.append(label);
         list.append(host);
       }
       const option = document.createElement("div");
-      option.className = "px-option";
+      option.className = "ui-option";
       option.setAttribute("role", "option");
       option.setAttribute("aria-selected", String(chosen.has(item.value)));
       option.dataset.value = item.value;
@@ -245,14 +245,14 @@ export function mountCombobox(root, options = {}) {
 
   const chip = (value, label) => {
     const tag = document.createElement("span");
-    tag.className = "px-tag px-token";
+    tag.className = "ui-tag ui-token";
     const name = document.createElement("span");
     name.textContent = label;
     const remove = document.createElement("button");
     remove.type = "button";
-    remove.className = "px-token-remove";
+    remove.className = "ui-token-remove";
     nameFrom(remove, "Remove", name);
-    remove.innerHTML = '<px-icon name="close"></px-icon>';
+    remove.innerHTML = '<ui-icon name="close"></ui-icon>';
     remove.addEventListener("click", () => drop(value));
     tag.append(name, remove);
     input.before(tag);
@@ -267,9 +267,9 @@ export function mountCombobox(root, options = {}) {
   const drop = (value) => {
     const label = chosen.get(value);
     chosen.delete(value);
-    [...root.querySelectorAll(".px-token")].find((tag) => tag.textContent.startsWith(label))?.remove();
+    [...root.querySelectorAll(".ui-token")].find((tag) => tag.textContent.startsWith(label))?.remove();
     resume(label, langOf(root), " removed");
-    emit(root, "px:change", { value: [...chosen.keys()] });
+    emit(root, "ui:change", { value: [...chosen.keys()] });
     options.onChange?.([...chosen.keys()]);
   };
 
@@ -288,7 +288,7 @@ export function mountCombobox(root, options = {}) {
       input.value = label;
       list.hidePopover();
     }
-    emit(root, "px:change", { value: options.multiple ? [...chosen.keys()] : value });
+    emit(root, "ui:change", { value: options.multiple ? [...chosen.keys()] : value });
     options.onChange?.(options.multiple ? [...chosen.keys()] : value);
   };
 
@@ -330,7 +330,7 @@ export function mountCombobox(root, options = {}) {
   });
 
   list.addEventListener("click", (event) => {
-    const option = event.target.closest(".px-option");
+    const option = event.target.closest(".ui-option");
     if (option) choose(option);
   });
   list.addEventListener("toggle", (event) => {
@@ -343,12 +343,12 @@ export function mountCombobox(root, options = {}) {
   return { value: () => (options.multiple ? [...chosen.keys()] : ([...chosen.keys()][0] ?? null)), items: (next) => { items = next; render(next); } };
 }
 
-/** Wire one `.px-slider`. One `input[type="range"]` is a single value and two are a range: the
+/** Wire one `.ui-slider`. One `input[type="range"]` is a single value and two are a range: the
     platform gives each thumb its own arrow keys, page steps, and announced reading, and this
     only keeps the pair from crossing and paints the fill between them. */
 export function mountSlider(root, options = {}) {
   const inputs = [...root.querySelectorAll('input[type="range"]')];
-  const readout = root.parentElement?.querySelector(".px-slider-value");
+  const readout = root.parentElement?.querySelector(".ui-slider-value");
   const format = options.format ?? ((value) => value.toLocaleString(readLocale().locale));
   const ratio = (input) => ((input.valueAsNumber - Number(input.min)) / (Number(input.max) - Number(input.min))) * 100;
 
@@ -358,15 +358,15 @@ export function mountSlider(root, options = {}) {
       inputs[1].value = String(Math.max(inputs[0].valueAsNumber, inputs[1].valueAsNumber));
     }
     const stops = inputs.map(ratio);
-    root.style.setProperty("--px-from", `${inputs.length > 1 ? stops[0] : 0}%`);
-    root.style.setProperty("--px-to", `${stops.at(-1)}%`);
+    root.style.setProperty("--ui-from", `${inputs.length > 1 ? stops[0] : 0}%`);
+    root.style.setProperty("--ui-to", `${stops.at(-1)}%`);
     if (readout) readout.textContent = inputs.map((input) => format(input.valueAsNumber)).join(" – ");
   };
 
   for (const input of inputs) {
     input.addEventListener("input", () => {
       paint();
-      emit(root, "px:change", { value: inputs.map((one) => one.valueAsNumber) });
+      emit(root, "ui:change", { value: inputs.map((one) => one.valueAsNumber) });
       options.onChange?.(inputs.map((one) => one.valueAsNumber));
     });
   }
@@ -374,12 +374,12 @@ export function mountSlider(root, options = {}) {
   return { paint };
 }
 
-/** Wire one `.px-number`. The wheel is bound to the input rather than the group and only fires
+/** Wire one `.ui-number`. The wheel is bound to the input rather than the group and only fires
     while that input holds focus, so scrolling the page past a risk field never changes it; the
     same guard is what lets the listener claim the gesture with preventDefault. */
 export function mountNumber(root, options = {}) {
   const input = root.querySelector("input");
-  const [down, up] = [...root.querySelectorAll(".px-number-step")];
+  const [down, up] = [...root.querySelectorAll(".ui-number-step")];
 
   const settle = () => {
     if (input.value !== "") {
@@ -389,7 +389,7 @@ export function mountNumber(root, options = {}) {
     }
     down.disabled = input.min !== "" && input.valueAsNumber <= Number(input.min);
     up.disabled = input.max !== "" && input.valueAsNumber >= Number(input.max);
-    emit(root, "px:change", { value: input.valueAsNumber });
+    emit(root, "ui:change", { value: input.valueAsNumber });
     options.onChange?.(input.valueAsNumber);
   };
 
@@ -414,17 +414,17 @@ export function mountNumber(root, options = {}) {
   return { settle };
 }
 
-/** Wire one `.px-search`. The debounce is 250ms: long enough that a typed symbol is one query
+/** Wire one `.ui-search`. The debounce is 250ms: long enough that a typed symbol is one query
     rather than four, short enough that the list still feels like it is following the keys. The
     clear button and Escape both fire immediately, because those are decisions and not typing. */
 export function mountSearch(root, options = {}) {
   const input = root.querySelector("input");
-  const clear = root.querySelector(".px-search-clear");
+  const clear = root.querySelector(".ui-search-clear");
   const delay = options.delay ?? SEARCH_DEBOUNCE;
   let timer = 0;
 
   const run = (query) => {
-    emit(root, "px:search", { query });
+    emit(root, "ui:search", { query });
     options.onSearch?.(query);
   };
 
@@ -454,7 +454,7 @@ export function mountSearch(root, options = {}) {
   return { clear: wipe };
 }
 
-/** Wire one `.px-drop`. The picker, the accessible name, and the keyboard come from the file
+/** Wire one `.ui-drop`. The picker, the accessible name, and the keyboard come from the file
     input the label wraps, so this adds the drop target and the five states an upload passes
     through. `upload` returns a promise and is handed a progress callback; without one the zone
     settles on `done` as soon as the files are accepted. A message `upload` throws is the
@@ -462,8 +462,8 @@ export function mountSearch(root, options = {}) {
     does for a toast, while the zone's own state words keep the document's. */
 export function mountDrop(root, options = {}) {
   const input = root.querySelector('input[type="file"]');
-  const note = root.querySelector(".px-drop-note");
-  const bar = root.querySelector(".px-progress > i");
+  const note = root.querySelector(".ui-drop-note");
+  const bar = root.querySelector(".ui-progress > i");
   const idle = note?.textContent ?? "";
   const lang = options.lang ?? null;
 
@@ -496,18 +496,18 @@ export function mountDrop(root, options = {}) {
     const problem = reject(files);
     if (problem) {
       state("rejected", problem);
-      emit(root, "px:reject", { files, reason: problem });
+      emit(root, "ui:reject", { files, reason: problem });
       return;
     }
     state("uploading", `Uploading ${files.length === 1 ? files[0].name : `${files.length} files`}…`);
     try {
       await options.upload?.(files, (fraction) => { if (bar) bar.style.inlineSize = `${Math.round(fraction * 100)}%`; });
       state("done", `${files.length === 1 ? files[0].name : `${files.length} files`} uploaded`);
-      emit(root, "px:change", { files });
+      emit(root, "ui:change", { files });
       options.onChange?.(files);
     } catch (error) {
       state("rejected", error.message, true);
-      emit(root, "px:reject", { files, reason: error.message });
+      emit(root, "ui:reject", { files, reason: error.message });
     }
   };
 
@@ -525,7 +525,7 @@ export function mountDrop(root, options = {}) {
   return { reset: () => state(null) };
 }
 
-/** Wire one `.px-otp`. One input per box, so a reader hears which digit it is on and the caret
+/** Wire one `.ui-otp`. One input per box, so a reader hears which digit it is on and the caret
     can never land inside a value. A paste of the whole code fills every box from wherever it
     lands, which is what a code arriving in a notification actually does. */
 export function mountOtp(root, options = {}) {
@@ -542,10 +542,10 @@ export function mountOtp(root, options = {}) {
 
   const settle = () => {
     const code = value();
-    emit(root, "px:change", { value: code });
+    emit(root, "ui:change", { value: code });
     if (code.length !== boxes.length) return;
     options.onComplete?.(code);
-    emit(root, "px:complete", { value: code });
+    emit(root, "ui:complete", { value: code });
   };
 
   const fill = (from, digits) => {
@@ -588,12 +588,12 @@ export function mountOtp(root, options = {}) {
   return { value, clear: () => { for (const box of boxes) box.value = ""; boxes[0].focus(); } };
 }
 
-/** Wire one `.px-daterange`: a `.px-select` trigger over a popover holding the range calendar
+/** Wire one `.ui-daterange`: a `.ui-select` trigger over a popover holding the range calendar
     and a row of presets. The calendar already carries the keyboard model, the week start, and
     the direction, so this only turns a range into the sentence the trigger reads back and holds
     the choice until Apply, so a half-picked range never filters anything. */
 export function mountDateRange(root, options = {}) {
-  const trigger = root.querySelector(".px-select");
+  const trigger = root.querySelector(".ui-select");
   const list = document.getElementById(trigger.getAttribute("popovertarget"));
   const text = trigger.querySelector("span");
   const host = list.querySelector("[data-calendar]");
@@ -626,12 +626,12 @@ export function mountDateRange(root, options = {}) {
   for (const [label, make] of presets) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "px-btn";
+    button.className = "ui-btn";
     button.dataset.variant = "secondary";
     button.dataset.size = "sm";
     button.textContent = label;
     button.addEventListener("click", () => { show(make()); build(); });
-    list.querySelector(".px-daterange-presets").append(button);
+    list.querySelector(".ui-daterange-presets").append(button);
   }
 
   apply.addEventListener("click", () => {
@@ -639,7 +639,7 @@ export function mountDateRange(root, options = {}) {
     delete trigger.dataset.placeholder;
     list.hidePopover();
     trigger.focus();
-    emit(root, "px:change", { value: draft });
+    emit(root, "ui:change", { value: draft });
     options.onChange?.(draft);
   });
 
@@ -648,11 +648,11 @@ export function mountDateRange(root, options = {}) {
     build();
     text.textContent = say(null);
     trigger.dataset.placeholder = "";
-    emit(root, "px:change", { value: null });
+    emit(root, "ui:change", { value: null });
     options.onChange?.(null);
   });
 
-  invoke(trigger, list, () => host.querySelector('.px-calendar-day[tabindex="0"]')?.focus(), ["ArrowDown"]);
+  invoke(trigger, list, () => host.querySelector('.ui-calendar-day[tabindex="0"]')?.focus(), ["ArrowDown"]);
 
   text.textContent = say(draft);
   if (!draft) trigger.dataset.placeholder = "";
@@ -666,7 +666,7 @@ export function mountDateRange(root, options = {}) {
     for every control, and after that on each change of a control that already failed, so a
     field is never marked wrong while it is still being filled in for the first time.
 
-    Each message lands in the `.px-error` the control names through aria-describedby, which is
+    Each message lands in the `.ui-error` the control names through aria-describedby, which is
     what a reader hears when it reaches the control. The summary is the same sentences over the
     form in a box that takes focus on submit, with a link per line to the control it names —
     a keyboard reaches the first broken field in two keystrokes and never has to hunt. Focus is
@@ -675,26 +675,26 @@ export function mountDateRange(root, options = {}) {
 
     The box sits above the fields, so it keeps its place in the layout whether or not it has
     anything to say: `data-empty` hides it without taking its space back, and its list holds the
-    height of `--px-summary-rows` lines and scrolls past them. A submit therefore leaves the
+    height of `--ui-summary-rows` lines and scrolls past them. A submit therefore leaves the
     button that was pressed exactly where the pointer left it. Put `data-validation` on the form in
     its markup, so each message line is held from the first paint rather than once this mounts. */
 export function mountValidation(form, options = {}) {
-  const summary = form.querySelector(".px-summary");
-  const banner = summary?.closest(".px-alert");
+  const summary = form.querySelector(".ui-summary");
+  const banner = summary?.closest(".ui-alert");
   const list = summary?.querySelector("ol");
   let live = false;
 
-  const described = (control) => (control.getAttribute("aria-describedby") ?? "").split(/\s+/).map((id) => document.getElementById(id)).find((node) => node?.classList.contains("px-error"));
+  const described = (control) => (control.getAttribute("aria-describedby") ?? "").split(/\s+/).map((id) => document.getElementById(id)).find((node) => node?.classList.contains("ui-error"));
   const controls = () => [...form.elements].filter((element) => element.willValidate && !element.disabled && element.type !== "submit" && element.type !== "image");
   const named = (control) => form.querySelector(`label[for="${control.id}"]`)?.textContent.trim() ?? control.name;
 
   const mark = (control) => {
     const message = control.validity.valid ? "" : options.message?.(control) ?? control.dataset.error ?? control.validationMessage;
-    const target = control.closest(".px-number, .px-tokens, .px-otp") ?? control;
+    const target = control.closest(".ui-number, .ui-tokens, .ui-otp") ?? control;
     if (message) target.setAttribute("aria-invalid", "true");
     else target.removeAttribute("aria-invalid");
     const slot = described(control);
-    if (slot) slot.innerHTML = message ? `<px-icon name="error"></px-icon>${escapeHtml(message)}` : "";
+    if (slot) slot.innerHTML = message ? `<ui-icon name="error"></ui-icon>${escapeHtml(message)}` : "";
     return message;
   };
 
@@ -705,7 +705,7 @@ export function mountValidation(form, options = {}) {
       list?.replaceChildren(...broken.map((control) => {
         const line = document.createElement("li");
         const link = document.createElement("a");
-        link.href = `#${identify(control, "px-control")}`;
+        link.href = `#${identify(control, "ui-control")}`;
         link.textContent = `${named(control)}: ${mark(control)}`;
         link.addEventListener("click", (event) => { event.preventDefault(); control.focus(); });
         line.append(link);
@@ -730,7 +730,7 @@ export function mountValidation(form, options = {}) {
     live = false;
     queueMicrotask(() => {
       for (const control of controls()) {
-        (control.closest(".px-number, .px-tokens, .px-otp") ?? control).removeAttribute("aria-invalid");
+        (control.closest(".ui-number, .ui-tokens, .ui-otp") ?? control).removeAttribute("aria-invalid");
         const slot = described(control);
         if (slot) slot.innerHTML = "";
       }
@@ -740,13 +740,13 @@ export function mountValidation(form, options = {}) {
 
   if (banner) {
     banner.toggleAttribute("data-empty", true);
-    banner.style.setProperty("--px-summary-rows", String(Math.min(Math.max(controls().length, 1), SUMMARY_ROWS)));
+    banner.style.setProperty("--ui-summary-rows", String(Math.min(Math.max(controls().length, 1), SUMMARY_ROWS)));
     banner.tabIndex = -1;
   }
   return { review, key: toKey };
 }
 
-/** Wire one `.px-quiz`: a multi-step question flow over a single form. Each step is a
+/** Wire one `.ui-quiz`: a multi-step question flow over a single form. Each step is a
     `fieldset[data-step]` whose controls share the step's name, and only one is in the document's
     tab order at a time. A step carrying `data-when="markets=fx"` appears only once that answer
     holds, so the count reads against the questions this reader will actually be asked rather
@@ -754,17 +754,17 @@ export function mountValidation(form, options = {}) {
     unanswered.
 
     Digits 1 to 9 pick an answer, because a flow someone runs once should still be finishable
-    without leaving the keyboard, and the `.px-kbd` in each answer is the promise that they do.
+    without leaving the keyboard, and the `.ui-kbd` in each answer is the promise that they do.
     `value` seeds the flow from a saved answer set, so an interrupted run resumes where it
-    stopped; each step emits `px:step` with the answers so far for whoever is saving them. */
+    stopped; each step emits `ui:step` with the answers so far for whoever is saving them. */
 export function mountQuestionnaire(form, options = {}) {
   const steps = [...form.querySelectorAll("fieldset[data-step]")];
-  const counter = form.querySelector(".px-quiz-count");
-  const bar = form.querySelector(".px-progress > i");
+  const counter = form.querySelector(".ui-quiz-count");
+  const bar = form.querySelector(".ui-progress > i");
   const back = form.querySelector('[data-quiz="back"]');
   const next = form.querySelector('[data-quiz="next"]');
   const skip = form.querySelector('[data-quiz="skip"]');
-  const stack = next.querySelector(".px-quiz-next");
+  const stack = next.querySelector(".ui-quiz-next");
   const [onward, finish] = [...stack.children].map((label) => label.textContent.trim());
   const answers = { ...options.value };
 
@@ -836,10 +836,10 @@ export function mountQuestionnaire(form, options = {}) {
     const list = live();
     const at = list.indexOf(step);
     const emitted = kept();
-    emit(form, "px:step", { step: step.dataset.step, value: answers[step.dataset.step], answers: emitted });
+    emit(form, "ui:step", { step: step.dataset.step, value: answers[step.dataset.step], answers: emitted });
     options.onStep?.(step.dataset.step, emitted);
     if (at === list.length - 1) {
-      emit(form, "px:complete", { answers: emitted });
+      emit(form, "ui:complete", { answers: emitted });
       options.onComplete?.(emitted);
       return;
     }
@@ -886,7 +886,7 @@ const ACTION_ICONS = { pending: "loading", succeeded: "success", failed: "error"
 const ACTION_LINGER = 1000;
 
 const dwell = () => {
-  const raw = getComputedStyle(document.documentElement).getPropertyValue("--px-dwell-short").trim();
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--ui-dwell-short").trim();
   const value = Number.parseFloat(raw);
   if (!Number.isFinite(value)) return 4000;
   return raw.endsWith("ms") ? value : value * 1000;
@@ -894,8 +894,8 @@ const dwell = () => {
 
 export function mountAction(button, { onAction, announce: spoken, minPendingMs = 0, resetDelayMs } = {}) {
   if (!spoken?.failed) throw new Error("mountAction needs announce.failed, the sentence that says whether trying again helps");
-  const faces = button.querySelector(".px-action-icon");
-  const stack = button.querySelector(".px-action-label");
+  const faces = button.querySelector(".ui-action-icon");
+  const stack = button.querySelector(".ui-action-label");
   const labels = Object.fromEntries(ACTION_STATES.map((name, index) => [name, stack.children[index].textContent.trim()]));
   faces.setAttribute("aria-hidden", "true");
   for (const name of ACTION_STATES) {
@@ -912,7 +912,7 @@ export function mountAction(button, { onAction, announce: spoken, minPendingMs =
 
   const region = (role) => {
     const node = document.createElement("span");
-    node.className = "px-sr-only";
+    node.className = "ui-sr-only";
     node.setAttribute("role", role);
     node.setAttribute("aria-atomic", "true");
     return node;

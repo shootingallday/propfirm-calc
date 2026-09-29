@@ -34,8 +34,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14116402-rapid-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/25000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $25,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $25,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -70,8 +69,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14116402-rapid-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/25000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000. Breach is intraday: MFFU's intraday drawdown article (help.myfundedfutures.com/en/articles/12802721, read 2026-09-29) says \"if your equity, including open trades, falls below the most recently adjusted drawdown limit, your account will breach the maximum loss limit.\""
         }
@@ -106,8 +104,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13134709-rapid-plan-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/50000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -142,8 +139,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13134709-rapid-plan-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/50000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000. Breach is intraday: MFFU's intraday drawdown article (help.myfundedfutures.com/en/articles/12802721, read 2026-09-29) says \"if your equity, including open trades, falls below the most recently adjusted drawdown limit, your account will breach the maximum loss limit.\""
         }
@@ -178,8 +174,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286542-rapid-plan-100k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/100000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $100,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $100,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -214,8 +209,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286542-rapid-plan-100k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/100000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000. Breach is intraday: MFFU's intraday drawdown article (help.myfundedfutures.com/en/articles/12802721, read 2026-09-29) says \"if your equity, including open trades, falls below the most recently adjusted drawdown limit, your account will breach the maximum loss limit.\""
         }
@@ -250,8 +244,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286582-rapid-plan-150k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/150000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $150,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $150,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -286,8 +279,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/13286582-rapid-plan-150k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid/standard/150000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The drawdown switches to intraday trailing on the funded account and locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Rapid Live is not modelled: MFFU publishes no drawdown for it. The account moves live automatically at $10,000 of net profit in one session, with a live reserve of up to $5,000. Breach is intraday: MFFU's intraday drawdown article (help.myfundedfutures.com/en/articles/12802721, read 2026-09-29) says \"if your equity, including open trades, falls below the most recently adjusted drawdown limit, your account will breach the maximum loss limit.\""
         }
@@ -322,8 +314,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16727601-rapid-eod-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid-eod/standard/25000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $25,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $25,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 30% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -360,8 +351,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16727601-rapid-eod-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid-eod/standard/25000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29), linked from this plan's page, says \"if an open position dips your account balance below the minimum account balance\", the account fails. The floor only moves at the close."
         }
@@ -396,8 +386,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16158363-rapid-eod-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid-eod/standard/50000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 30% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -434,8 +423,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/16158363-rapid-eod-50k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/rapid-eod/standard/50000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit locks once the floor reaches the starting balance plus $100. MFFU's plan data moves the limit to the lock on the first payout. No daily loss limit or consistency rule. MFFU's Rapid EOD plan page lists 4 mini / 40 micro for the 50K; the help article and MFFU's plan data both say 3 / 30, which is used. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29), linked from this plan's page, says \"if an open position dips your account balance below the minimum account balance\", the account fails. The floor only moves at the close."
         }
@@ -470,8 +458,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/50000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $50,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $50,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 3 mini / 30 micro. The free 1Day add-on on the Pro 50K changes the evaluation to a $4,000 target, 1 trading day and no consistency rule; this plan models the standard evaluation. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -517,8 +504,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/50000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit stops trailing at $50,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $50,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"if an open position dips your account balance below the minimum account balance\", the account fails. The floor only moves at the close. Withdrawal inside the buffer: the Pro FAQ says \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The payout policy overview (help.myfundedfutures.com/en/articles/13745661, read 2026-09-29) calls it \"Withdrawal While in Buffer: You can withdraw up to 60% of your profits before fully clearing the buffer.\" MFFU's plan data on myfundedfutures.com sets \"within_buffer_split\": 0.6 next to \"buffer_amount\" and the normal \"requestable_pct\": 1, so the 60% limit applies only while the balance is under the buffer. Once the balance clears the buffer the option closes and only the normal payout of money above the buffer applies. It is one withdrawal, taken as the account's first payout, at the plan's 80/20 split (the overview says Pro traders \"Earn 80% of all profits\"; MFFU names no other split). No trader report confirms or contradicts this on Reddit, X or YouTube (searched 2026-09-29). It is not modelled as a payout path: the catalog cannot close a path once the buffer is reached, so a path would show a larger payout than MFFU allows between the buffer and about 2.5 times the buffer. Below the buffer the calculator therefore shows no payout even though up to 60% of profit can be taken once."
         }
@@ -553,8 +539,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/100000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $100,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $100,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 6 mini / 60 micro. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -600,8 +585,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/100000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit stops trailing at $100,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $100,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"if an open position dips your account balance below the minimum account balance\", the account fails. The floor only moves at the close. Withdrawal inside the buffer: the Pro FAQ says \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The payout policy overview (help.myfundedfutures.com/en/articles/13745661, read 2026-09-29) calls it \"Withdrawal While in Buffer: You can withdraw up to 60% of your profits before fully clearing the buffer.\" MFFU's plan data on myfundedfutures.com sets \"within_buffer_split\": 0.6 next to \"buffer_amount\" and the normal \"requestable_pct\": 1, so the 60% limit applies only while the balance is under the buffer. Once the balance clears the buffer the option closes and only the normal payout of money above the buffer applies. It is one withdrawal, taken as the account's first payout, at the plan's 80/20 split (the overview says Pro traders \"Earn 80% of all profits\"; MFFU names no other split). No trader report confirms or contradicts this on Reddit, X or YouTube (searched 2026-09-29). It is not modelled as a payout path: the catalog cannot close a path once the buffer is reached, so a path would show a larger payout than MFFU allows between the buffer and about 2.5 times the buffer. Below the buffer the calculator therefore shows no payout even though up to 60% of profit can be taken once."
         }
@@ -636,8 +620,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802636-traders-evaluation-simplified",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/150000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No daily loss limit. The limit stops trailing at $150,100, the starting balance plus $100. MFFU's EOD drawdown article (updated 2026-08-24) says \"the Max EOD trailing locks in at $100 plus the initial starting balance\", and MFFU's plan data on myfundedfutures.com (read 2026-09-29) sets a $150,100 lock on this evaluation. MFFU's evaluation-to-funded article (updated 2026-09-04) says the funded drawdown \"will now lock at +$100\", which reads as if only funded accounts lock; it never says the evaluation does not, so the plan data wins. MFFU's consistency article (updated 2026-09-25) says no single day's profit should exceed 50% \"of your total evaluation profits made\", and that going over means you \"simply need to trade additional days\"; its worked example divides the profit target instead. Modelled against total profit, which matches the rule text. Contracts are from MFFU's evaluation parameters article (updated 2026-09-24): 9 mini / 90 micro. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -683,8 +666,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/11802674-pro-plan-sim-funded-and-live-account-highlights",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/pro/standard/150000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit stops trailing at $150,100 (MFFU's plan data on myfundedfutures.com, read 2026-09-29), and after the first payout it moves there and stays: \"After first payout, MLL moves to $150,100 and remains static.\" No daily loss limit or consistency rule. Pro Live is not modelled: it is funded with a small static balance and a daily loss limit, with no published drawdown. Three payouts in a row trigger a review for live. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"if an open position dips your account balance below the minimum account balance\", the account fails. The floor only moves at the close. Withdrawal inside the buffer: the Pro FAQ says \"One-time withdrawal: Allowed before reaching full buffer zone. Up to 60% of profits can be withdrawn, with a minimum of $1,000. Remaining 40% remains for continued trading.\" The payout policy overview (help.myfundedfutures.com/en/articles/13745661, read 2026-09-29) calls it \"Withdrawal While in Buffer: You can withdraw up to 60% of your profits before fully clearing the buffer.\" MFFU's plan data on myfundedfutures.com sets \"within_buffer_split\": 0.6 next to \"buffer_amount\" and the normal \"requestable_pct\": 1, so the 60% limit applies only while the balance is under the buffer. Once the balance clears the buffer the option closes and only the normal payout of money above the buffer applies. It is one withdrawal, taken as the account's first payout, at the plan's 80/20 split (the overview says Pro traders \"Earn 80% of all profits\"; MFFU names no other split). No trader report confirms or contradicts this on Reddit, X or YouTube (searched 2026-09-29). It is not modelled as a payout path: the catalog cannot close a path once the buffer is reached, so a path would show a larger payout than MFFU allows between the buffer and about 2.5 times the buffer. Below the buffer the calculator therefore shows no payout even though up to 60% of profit can be taken once."
         }
@@ -718,8 +700,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/17036130-builder-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/builder/standard/25000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No consistency rule in the evaluation. The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" The Builder 25K without a daily loss limit is now a legacy plan (help article 15862870) and is not modelled. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -767,8 +748,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/17036130-builder-plan-25k-a-comprehensive-look",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/builder/standard/25000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The $600 soft daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25). Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29), linked from this plan's page, says \"if an open position dips your account balance below the minimum account balance\", the account fails. The Builder pages say open equity losses count \"when determining whether your account has breached the rule at the end of the trading day\", which is looser wording, but all positions must be flat by the session close, so open equity can only matter intraday. The floor only moves at the close."
         }
@@ -802,8 +782,7 @@
           },
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14290805-builder-plan-50k-a-comprehensive-guide",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/builder/default/50000/pack-1/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "No consistency rule in the evaluation. The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" A reduced-drawdown add-on lowers the limit to 1500 and the payout buffer to match; this plan models the default. Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29) says \"open equity losses are taken into consideration when calculating whether or not the account failed on this rule. This means that if an open position dips your account balance below the minimum account balance, your evaluation attempt will fail.\" The floor only moves at the close, but equity touching it at any time fails the account."
         },
@@ -851,8 +830,7 @@
           ],
           "source": {
             "url": "https://help.myfundedfutures.com/en/articles/14290805-builder-plan-50k-a-comprehensive-guide",
-            "checkedAt": "2026-09-29",
-            "pxKey": "my-funded-futures/builder/default/50000/pack-1/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The daily loss limit pauses trading for the session. The limit locks once the floor reaches the starting balance plus $100: \"The MLL locks permanently once it reaches $100 above the starting balance.\" After the first payout the limit moves to the lock: \"After your first payout, the Max Loss Limit resets to $100\" (payout policy overview, updated 2026-08-25). Breach is intraday: MFFU's EOD drawdown article (help.myfundedfutures.com/en/articles/8348565, read 2026-09-29), linked from this plan's page, says \"if an open position dips your account balance below the minimum account balance\", the account fails. The Builder pages say open equity losses count \"when determining whether your account has breached the rule at the end of the trading day\", which is looser wording, but all positions must be flat by the session close, so open equity can only matter intraday. The floor only moves at the close."
         }

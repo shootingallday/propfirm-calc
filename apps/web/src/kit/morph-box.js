@@ -39,8 +39,8 @@ export const speeds = (ease) => {
 export function springTiming(el, spring = "smooth") {
   const style = getComputedStyle(el);
   return {
-    duration: px(style.getPropertyValue(`--px-spring-${spring}-duration`)),
-    easing: style.getPropertyValue(`--px-spring-${spring}`).trim() || "linear",
+    duration: px(style.getPropertyValue(`--ui-spring-${spring}-duration`)),
+    easing: style.getPropertyValue(`--ui-spring-${spring}`).trim() || "linear",
   };
 }
 

@@ -181,8 +181,8 @@ function linearEase(curve) {
 function flight(svg) {
   const style = getComputedStyle(svg);
   return {
-    duration: parseFloat(style.getPropertyValue("--px-spring-snappy-duration")) || 0,
-    ease: linearEase(style.getPropertyValue("--px-spring-snappy")),
+    duration: parseFloat(style.getPropertyValue("--ui-spring-snappy-duration")) || 0,
+    ease: linearEase(style.getPropertyValue("--ui-spring-snappy")),
   };
 }
 

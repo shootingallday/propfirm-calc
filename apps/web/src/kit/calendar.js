@@ -41,11 +41,11 @@ export function mountCalendar(root, options = {}) {
   const navDirection = new Intl.RelativeTimeFormat(locale.locale, { numeric: "auto" });
   const navName = (step, date) => (date ? navMonth.format(utc(date)) : navDirection.format(step, "month"));
 
-  root.classList.add("px-calendar");
+  root.classList.add("ui-calendar");
   root.dir = locale.dir;
   root.lang = locale.locale;
   root.setAttribute("role", "group");
-  const titleId = root.id ? `${root.id}-title` : `px-cal-${Math.random().toString(36).slice(2, 8)}`;
+  const titleId = root.id ? `${root.id}-title` : `ui-cal-${Math.random().toString(36).slice(2, 8)}`;
 
   function rangeState(d) {
     if (mode !== "range") return null;
@@ -91,7 +91,7 @@ export function mountCalendar(root, options = {}) {
           const selected = isSelected(d);
           const disabled = isDisabled(d);
           const attrs = [
-            `class="px-calendar-day"`,
+            `class="ui-calendar-day"`,
             `data-date="${key}"`,
             `tabindex="${d.getTime() === focused.getTime() ? 0 : -1}"`,
             `aria-label="${dayLong.format(utc(d))}"`,
@@ -112,14 +112,14 @@ export function mountCalendar(root, options = {}) {
     const prevName = labels.previous ?? navName(-1, prevDisabled ? null : addMonths(first, -1));
     const nextName = labels.next ?? navName(1, nextDisabled ? null : addMonths(first, 1));
     root.innerHTML =
-      `<div class="px-calendar-head">` +
-      `<button type="button" class="px-calendar-nav" data-nav="prev" aria-label="${escapeHtml(prevName)}"${prevDisabled ? " disabled" : ""}>${icon("chevron-start")}</button>` +
-      `<span class="px-calendar-title" id="${escapeHtml(titleId)}" aria-live="polite">${monthFmt.format(utc(first))}</span>` +
-      `<button type="button" class="px-calendar-nav" data-nav="next" aria-label="${escapeHtml(nextName)}"${nextDisabled ? " disabled" : ""}>${icon("chevron-end")}</button></div>` +
-      `<table class="px-calendar-grid" role="grid" aria-labelledby="${escapeHtml(titleId)}"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table>`;
+      `<div class="ui-calendar-head">` +
+      `<button type="button" class="ui-calendar-nav" data-nav="prev" aria-label="${escapeHtml(prevName)}"${prevDisabled ? " disabled" : ""}>${icon("chevron-start")}</button>` +
+      `<span class="ui-calendar-title" id="${escapeHtml(titleId)}" aria-live="polite">${monthFmt.format(utc(first))}</span>` +
+      `<button type="button" class="ui-calendar-nav" data-nav="next" aria-label="${escapeHtml(nextName)}"${nextDisabled ? " disabled" : ""}>${icon("chevron-end")}</button></div>` +
+      `<table class="ui-calendar-grid" role="grid" aria-labelledby="${escapeHtml(titleId)}"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table>`;
     if (wantsFocus) {
       const target = wantsFocus === true ? null : root.querySelector(`[data-nav="${wantsFocus}"]:enabled`);
-      (target ?? root.querySelector('.px-calendar-day[tabindex="0"]'))?.focus();
+      (target ?? root.querySelector('.ui-calendar-day[tabindex="0"]'))?.focus();
       wantsFocus = false;
     }
   }
@@ -160,12 +160,12 @@ export function mountCalendar(root, options = {}) {
       render();
       return;
     }
-    const day = e.target.closest(".px-calendar-day");
+    const day = e.target.closest(".ui-calendar-day");
     if (day) select(fromKey(day.dataset.date));
   });
 
   root.addEventListener("keydown", (e) => {
-    if (!e.target.classList.contains("px-calendar-day")) return;
+    if (!e.target.classList.contains("ui-calendar-day")) return;
     const horizontal = locale.dir === "rtl" ? -1 : 1;
     const weekOffset = (focused.getDay() - locale.weekStartsOn + 7) % 7;
     const yearOrMonth = (sign) =>
@@ -194,7 +194,7 @@ export function mountCalendar(root, options = {}) {
   function fitWeekdays() {
     const probe = document.createElement("span");
     probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
-    root.querySelector(".px-calendar-grid th")?.append(probe);
+    root.querySelector(".ui-calendar-grid th")?.append(probe);
     const widest = Math.max(...Array.from({ length: 7 }, (_, day) => {
       probe.textContent = weekdayNames.short.format(new Date(Date.UTC(2026, 2, 1 + day)));
       return probe.getBoundingClientRect().width;
@@ -220,6 +220,6 @@ export function mountCalendar(root, options = {}) {
     set value(next) { value = next; pending = null; render(); },
     get month() { return month; },
     set month(next) { month = addMonths(next, 0); render(); },
-    destroy() { resized.disconnect(); root.innerHTML = ""; root.classList.remove("px-calendar"); for (const name of ["lang", "dir", "role"]) root.removeAttribute(name); },
+    destroy() { resized.disconnect(); root.innerHTML = ""; root.classList.remove("ui-calendar"); for (const name of ["lang", "dir", "role"]) root.removeAttribute(name); },
   };
 }

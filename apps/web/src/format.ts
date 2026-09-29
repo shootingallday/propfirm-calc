@@ -1,14 +1,14 @@
 import type { Money } from 'propfirm-calc';
 
-import { money as pxMoney, pnl as pxPnl, toneOf } from './px/format.js';
+import { money as uiMoney, pnl as uiPnl, toneOf } from './kit/format.js';
 
 export function usd(value: Money | null | undefined, fraction?: number): string {
   if (!value || !value.isFinite()) return '—';
-  return pxMoney(value.toNumber(), fraction === undefined ? {} : { fraction });
+  return uiMoney(value.toNumber(), fraction === undefined ? {} : { fraction });
 }
 
 export function signed(value: Money, fraction?: number): string {
-  return pxPnl(value.toNumber(), fraction === undefined ? {} : { fraction });
+  return uiPnl(value.toNumber(), fraction === undefined ? {} : { fraction });
 }
 
 export function tone(value: Money): 'gain' | 'loss' | 'flat' {

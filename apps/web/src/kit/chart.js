@@ -5,7 +5,7 @@ const MIN_STEP = 2;
 const rtlOf = (el) => getComputedStyle(el).direction === "rtl";
 const leftAnchor = (f) => (f.rtl ? "end" : "start");
 const rightAnchor = (f) => (f.rtl ? "start" : "end");
-const localeOf = (el) => getComputedStyle(el).getPropertyValue("--px-locale").trim().replace(/^["']|["']$/g, "") || undefined;
+const localeOf = (el) => getComputedStyle(el).getPropertyValue("--ui-locale").trim().replace(/^["']|["']$/g, "") || undefined;
 
 const num = (value, locale, digits = 0) =>
   Math.abs(value).toLocaleString(locale, { minimumFractionDigits: digits, maximumFractionDigits: digits });
@@ -59,7 +59,7 @@ let ruler;
 function widestTick(f, texts) {
   ruler ??= document.createElement("canvas").getContext("2d");
   const style = getComputedStyle(f.el);
-  ruler.font = `500 ${style.getPropertyValue("--px-text-xs").trim() || "12px"} ${style.fontFamily}`;
+  ruler.font = `500 ${style.getPropertyValue("--ui-text-xs").trim() || "12px"} ${style.fontFamily}`;
   return Math.max(0, ...texts.map((text) => ruler.measureText(text).width));
 }
 
@@ -79,10 +79,10 @@ function axes(f, values, format, spec) {
   const rows = spec.axis === false ? [] : ticks(values.min, values.max, spec.tickCount ?? 3);
   gutter(f, widestTick(f, rows.map(format)));
   const grid = rows
-    .map((v) => `<line class="px-chart-grid" x1="${f.x0}" x2="${f.x1}" y1="${scale(v).toFixed(1)}" y2="${scale(v).toFixed(1)}"/>`)
+    .map((v) => `<line class="ui-chart-grid" x1="${f.x0}" x2="${f.x1}" y1="${scale(v).toFixed(1)}" y2="${scale(v).toFixed(1)}"/>`)
     .join("");
   const labels = rows
-    .map((v) => `<text class="px-chart-tick" x="${f.tickX}" y="${(scale(v) + 4).toFixed(1)}" text-anchor="${f.tickAnchor}">${escape(format(v))}</text>`)
+    .map((v) => `<text class="ui-chart-tick" x="${f.tickX}" y="${(scale(v) + 4).toFixed(1)}" text-anchor="${f.tickAnchor}">${escape(format(v))}</text>`)
     .join("");
   return { scale, svg: `<g>${grid}${labels}</g>` };
 }
@@ -95,7 +95,7 @@ export function xTicks(f, labels, positions) {
   return [...new Set(picked)]
     .map((i) => {
       const anchor = i === 0 ? leftAnchor(f) : i === last ? rightAnchor(f) : "middle";
-      return `<text class="px-chart-tick" x="${positions(i).toFixed(1)}" y="${(f.height - 6).toFixed(1)}" text-anchor="${anchor}">${escape(labels[i])}</text>`;
+      return `<text class="ui-chart-tick" x="${positions(i).toFixed(1)}" y="${(f.height - 6).toFixed(1)}" text-anchor="${anchor}">${escape(labels[i])}</text>`;
     })
     .join("");
 }
@@ -111,11 +111,11 @@ export function lineChart(el, spec, f, format) {
   const at = (i) => f.at(count > 1 ? i / (count - 1) : 0.5);
 
   const bands = (spec.bands ?? [])
-    .map((b) => `<rect class="px-chart-band"${mark(b)} x="${Math.min(f.x0, f.x1)}" y="${scale(Math.max(b.from, b.to)).toFixed(1)}" width="${Math.abs(f.x1 - f.x0)}" height="${Math.abs(scale(b.to) - scale(b.from)).toFixed(1)}"/>`)
+    .map((b) => `<rect class="ui-chart-band"${mark(b)} x="${Math.min(f.x0, f.x1)}" y="${scale(Math.max(b.from, b.to)).toFixed(1)}" width="${Math.abs(f.x1 - f.x0)}" height="${Math.abs(scale(b.to) - scale(b.from)).toFixed(1)}"/>`)
     .join("");
   const refs = (spec.refs ?? [])
-    .map((r) => `<line class="px-chart-ref"${mark(r)} x1="${f.x0}" x2="${f.x1}" y1="${scale(r.value).toFixed(1)}" y2="${scale(r.value).toFixed(1)}"/>`
-      + `<text class="px-chart-label"${mark(r)} x="${f.x1}" y="${(scale(r.value) - 6).toFixed(1)}" text-anchor="${rightAnchor(f)}">${escape(r.label)}</text>`)
+    .map((r) => `<line class="ui-chart-ref"${mark(r)} x1="${f.x0}" x2="${f.x1}" y1="${scale(r.value).toFixed(1)}" y2="${scale(r.value).toFixed(1)}"/>`
+      + `<text class="ui-chart-label"${mark(r)} x="${f.x1}" y="${(scale(r.value) - 6).toFixed(1)}" text-anchor="${rightAnchor(f)}">${escape(r.label)}</text>`)
     .join("");
 
   const paths = spec.series
@@ -123,18 +123,18 @@ export function lineChart(el, spec, f, format) {
       const d = "M" + s.values.map((v, i) => `${at(i).toFixed(1)},${scale(v).toFixed(1)}`).join(" L");
       const tone = mark({ tone: s.tone, series: s.series ?? (spec.series.length > 1 ? index + 1 : null) });
       const area = spec.area && spec.series.length === 1
-        ? `<path class="px-chart-area"${tone} d="${d} L${at(count - 1).toFixed(1)},${f.bottom} L${at(0).toFixed(1)},${f.bottom} Z"/>`
+        ? `<path class="ui-chart-area"${tone} d="${d} L${at(count - 1).toFixed(1)},${f.bottom} L${at(0).toFixed(1)},${f.bottom} Z"/>`
         : "";
-      return `${area}<path class="px-chart-line"${tone}${spec.reveal === false ? "" : ' data-reveal=""'} d="${d}"/>`;
+      return `${area}<path class="ui-chart-line"${tone}${spec.reveal === false ? "" : ' data-reveal=""'} d="${d}"/>`;
     })
     .join("");
 
   const points = (spec.points ?? [])
-    .map((p) => `<circle class="px-chart-point"${mark(p)} cx="${at(p.index).toFixed(1)}" cy="${scale(spec.series[p.series ? p.series - 1 : 0].values[p.index]).toFixed(1)}" r="5"/>`)
+    .map((p) => `<circle class="ui-chart-point"${mark(p)} cx="${at(p.index).toFixed(1)}" cy="${scale(spec.series[p.series ? p.series - 1 : 0].values[p.index]).toFixed(1)}" r="5"/>`)
     .join("");
 
-  const cursor = `<g class="px-chart-cursor-group" opacity="0"><line class="px-chart-cursor" y1="${f.top}" y2="${f.bottom}"/>`
-    + spec.series.map((s, i) => `<circle class="px-chart-point"${mark({ tone: s.tone, series: s.series ?? (spec.series.length > 1 ? i + 1 : null) })} r="4"/>`).join("")
+  const cursor = `<g class="ui-chart-cursor-group" opacity="0"><line class="ui-chart-cursor" y1="${f.top}" y2="${f.bottom}"/>`
+    + spec.series.map((s, i) => `<circle class="ui-chart-point"${mark({ tone: s.tone, series: s.series ?? (spec.series.length > 1 ? i + 1 : null) })} r="4"/>`).join("")
     + `</g>`;
 
   return {
@@ -167,13 +167,13 @@ function barChart(el, spec, f, format) {
       const anchor = i === 0 ? leftAnchor(f) : i === n - 1 ? rightAnchor(f) : "middle";
       const labelX = i === 0 ? centre - width / 2 : i === n - 1 ? centre + width / 2 : centre;
       const label = spec.labelExtremes !== false && (i === best || i === worst)
-        ? `<text class="px-chart-label"${mark({ tone })} x="${labelX.toFixed(1)}" y="${(v >= 0 ? y - 6 : y + height + 13).toFixed(1)}" text-anchor="${anchor}">${escape(format(v))}</text>`
+        ? `<text class="ui-chart-label"${mark({ tone })} x="${labelX.toFixed(1)}" y="${(v >= 0 ? y - 6 : y + height + 13).toFixed(1)}" text-anchor="${anchor}">${escape(format(v))}</text>`
         : "";
-      return `<rect class="px-chart-bar"${mark({ tone, series: spec.series[0].series })} data-i="${i}" data-reveal="" style="--baseline:${zero.toFixed(1)}px; --i:${i}" x="${(centre - width / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${width.toFixed(1)}" height="${height.toFixed(1)}" rx="3"/>${label}`;
+      return `<rect class="ui-chart-bar"${mark({ tone, series: spec.series[0].series })} data-i="${i}" data-reveal="" style="--baseline:${zero.toFixed(1)}px; --i:${i}" x="${(centre - width / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${width.toFixed(1)}" height="${height.toFixed(1)}" rx="3"/>${label}`;
     })
     .join("");
 
-  const baseline = `<line class="px-chart-axis" x1="${f.x0}" x2="${f.x1}" y1="${zero.toFixed(1)}" y2="${zero.toFixed(1)}"/>`;
+  const baseline = `<line class="ui-chart-axis" x1="${f.x0}" x2="${f.x1}" y1="${zero.toFixed(1)}" y2="${zero.toFixed(1)}"/>`;
   return {
     svg: grid + baseline + bars + xTicks(f, spec.labels, (i) => f.band(i, n)),
     marks: true,
@@ -195,8 +195,8 @@ function candleChart(el, spec, f, format) {
       const tone = c.c >= c.o ? "gain" : "loss";
       const top = scale(Math.max(c.o, c.c));
       const height = Math.max(1, Math.abs(scale(c.c) - scale(c.o)));
-      return `<g data-i="${i}"><line class="px-chart-line"${mark({ tone })} stroke-width="1" x1="${centre.toFixed(1)}" x2="${centre.toFixed(1)}" y1="${scale(c.h).toFixed(1)}" y2="${scale(c.l).toFixed(1)}"/>`
-        + `<rect class="px-chart-bar"${mark({ tone })} x="${(centre - width / 2).toFixed(1)}" y="${top.toFixed(1)}" width="${width.toFixed(1)}" height="${height.toFixed(1)}" rx="1"/></g>`;
+      return `<g data-i="${i}"><line class="ui-chart-line"${mark({ tone })} stroke-width="1" x1="${centre.toFixed(1)}" x2="${centre.toFixed(1)}" y1="${scale(c.h).toFixed(1)}" y2="${scale(c.l).toFixed(1)}"/>`
+        + `<rect class="ui-chart-bar"${mark({ tone })} x="${(centre - width / 2).toFixed(1)}" y="${top.toFixed(1)}" width="${width.toFixed(1)}" height="${height.toFixed(1)}" rx="1"/></g>`;
     })
     .join("");
   return {
@@ -215,7 +215,7 @@ export function sparkline(values, { tone, width = 88, height = 24, dot = true } 
   const y = (v) => height - 3 - ((v - min) / (max - min || 1)) * (height - 6);
   const d = "M" + values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" L");
   const end = dot ? `<circle cx="${x(values.length - 1).toFixed(1)}" cy="${y(values.at(-1)).toFixed(1)}" r="2"/>` : "";
-  return `<svg class="px-sparkline"${attr("data-tone", tone)} viewBox="0 0 ${width} ${height}" style="--spark-w:${width}px; --spark-h:${height}px" aria-hidden="true" focusable="false"><path d="${d}"/>${end}</svg>`;
+  return `<svg class="ui-sparkline"${attr("data-tone", tone)} viewBox="0 0 ${width} ${height}" style="--spark-w:${width}px; --spark-h:${height}px" aria-hidden="true" focusable="false"><path d="${d}"/>${end}</svg>`;
 }
 
 function summary(spec, format) {
@@ -235,10 +235,10 @@ function table(spec, format) {
     : spec.series.map((s) => [s.name ?? "Value", (_, i) => s.values[i]]);
   const rows = (spec.candles ?? spec.series[0].values)
     .map((row, i) => `<tr><th scope="row">${escape(spec.labels?.[i] ?? i + 1)}</th>`
-      + columns.map(([, pick]) => `<td class="r px-num">${escape(format(pick(row, i)))}</td>`).join("") + `</tr>`)
+      + columns.map(([, pick]) => `<td class="r ui-num">${escape(format(pick(row, i)))}</td>`).join("") + `</tr>`)
     .join("");
-  return `<details class="px-chart-data"><summary>${escape(spec.tableLabel ?? "Data table")}</summary>`
-    + `<table class="px-table"><thead><tr><th scope="col">${escape(spec.xLabel ?? "Point")}</th>`
+  return `<details class="ui-chart-data"><summary>${escape(spec.tableLabel ?? "Data table")}</summary>`
+    + `<table class="ui-table"><thead><tr><th scope="col">${escape(spec.xLabel ?? "Point")}</th>`
     + columns.map(([name]) => `<th scope="col" class="r">${escape(name)}</th>`).join("")
     + `</tr></thead><tbody>${rows}</tbody></table></details>`;
 }
@@ -246,22 +246,22 @@ function table(spec, format) {
 function legend(spec) {
   if (!spec.legend && !(spec.series && spec.series.length > 1)) return "";
   const items = (spec.legend ?? spec.series.map((s, i) => ({ name: s.name, tone: s.tone, series: s.series ?? i + 1 })))
-    .map((item) => `<li><span class="px-chart-swatch"${mark(item)}></span>${escape(item.name)}</li>`)
+    .map((item) => `<li><span class="ui-chart-swatch"${mark(item)}></span>${escape(item.name)}</li>`)
     .join("");
-  return `<ul class="px-chart-legend">${items}</ul>`;
+  return `<ul class="ui-chart-legend">${items}</ul>`;
 }
 
-/** Draw one chart into `el` (a `.px-chart`), and keep it drawn: the same call re-runs on resize
-    and on `px:locale`, which is what a direction change dispatches. */
+/** Draw one chart into `el` (a `.ui-chart`), and keep it drawn: the same call re-runs on resize
+    and on `ui:locale`, which is what a direction change dispatches. */
 export function renderChart(el, spec) {
-  el.classList.add("px-chart");
-  let plot = el.querySelector(".px-chart-plot");
+  el.classList.add("ui-chart");
+  let plot = el.querySelector(".ui-chart-plot");
   if (!plot) {
     plot = document.createElement("div");
-    plot.className = "px-chart-plot";
+    plot.className = "ui-chart-plot";
     el.prepend(plot);
   }
-  el.__pxChart = spec;
+  el.__uiChart = spec;
   if (plot.dataset.state) return;
 
   const format = formatter(spec.format, localeOf(el));
@@ -273,20 +273,20 @@ export function renderChart(el, spec) {
     : lineChart(el, spec, f, format);
 
   plot.innerHTML = `<svg width="${f.width}" height="${f.height}" role="img" aria-label="${escape(summary(spec, format))}">${painted.svg}</svg>`
-    + `<div class="px-chart-tip" role="presentation"></div>`;
+    + `<div class="ui-chart-tip" role="presentation"></div>`;
 
-  for (const line of plot.querySelectorAll(".px-chart-line[data-reveal]")) {
+  for (const line of plot.querySelectorAll(".ui-chart-line[data-reveal]")) {
     line.style.setProperty("--len", line.getTotalLength());
   }
 
-  const after = el.querySelector(".px-chart-data");
+  const after = el.querySelector(".ui-chart-data");
   const dataOpen = after?.open ?? false;
   const dataFocused = after?.querySelector("summary") === document.activeElement;
   const chrome = legend(spec) + (spec.table === false ? "" : table(spec, format));
   if (after) after.remove();
-  el.querySelector(".px-chart-legend")?.remove();
+  el.querySelector(".ui-chart-legend")?.remove();
   el.insertAdjacentHTML("beforeend", chrome);
-  const data = el.querySelector(".px-chart-data");
+  const data = el.querySelector(".ui-chart-data");
   if (data) {
     data.open = dataOpen;
     if (dataFocused) data.querySelector("summary").focus({ preventScroll: true });
@@ -296,8 +296,8 @@ export function renderChart(el, spec) {
 }
 
 function wire(plot, painted, spec, format) {
-  const tip = plot.querySelector(".px-chart-tip");
-  const cursor = plot.querySelector(".px-chart-cursor-group");
+  const tip = plot.querySelector(".ui-chart-tip");
+  const cursor = plot.querySelector(".ui-chart-cursor-group");
   const rtl = rtlOf(plot);
 
   const place = (x, y, html) => {
@@ -345,18 +345,18 @@ function wire(plot, painted, spec, format) {
   plot.addEventListener("pointerleave", hide);
 }
 
-/** Find every `[data-px-chart]`, read the spec from the `<script type="application/json">`
+/** Find every `[data-ui-chart]`, read the spec from the `<script type="application/json">`
     inside it, and keep it drawn. The spec travels in the DOM so a server-rendered page and an
     Electron page mount identically and no bundler is involved. */
 export function mountCharts(root = document) {
-  const charts = [...root.querySelectorAll("[data-px-chart]")];
+  const charts = [...root.querySelectorAll("[data-ui-chart]")];
   for (const el of charts) {
     const source = el.querySelector('script[type="application/json"]');
     if (!source) continue;
     renderChart(el, JSON.parse(source.textContent));
   }
   const redraw = () => {
-    for (const el of charts) if (el.__pxChart) renderChart(el, el.__pxChart);
+    for (const el of charts) if (el.__uiChart) renderChart(el, el.__uiChart);
   };
   let frameId = 0;
   const observer = new ResizeObserver(() => {
@@ -364,6 +364,6 @@ export function mountCharts(root = document) {
     frameId = requestAnimationFrame(redraw);
   });
   for (const el of charts) observer.observe(el);
-  addEventListener("px:locale", redraw);
+  addEventListener("ui:locale", redraw);
   return { redraw, disconnect: () => observer.disconnect() };
 }

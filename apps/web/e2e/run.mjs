@@ -73,7 +73,7 @@ try {
   const panel = page.getByTestId('account-panel');
   check('clicking a row opens its panel', await visible(panel.getByRole('heading', { name: 'MFFU Rapid 50K' })));
   check('panel shows the next step', await visible(panel.getByText('Pass in 1 trading day')));
-  check('panel draws the balance and floor chart', await visible(panel.locator('.px-chart svg')));
+  check('panel draws the balance and floor chart', await visible(panel.locator('.ui-chart svg')));
   await shot('03-panel-overview');
 
   await panel.getByRole('tab', { name: /Days/ }).click();

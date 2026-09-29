@@ -1,22 +1,22 @@
 /** @typedef {0 | 1 | 2 | 3 | 4 | 5 | 6} WeekStart */
-/** @typedef {{ locale: string, timeZone: string, hourCycle: "h12" | "h23", weekStartsOn: WeekStart, dir: "ltr" | "rtl" }} PxLocale */
+/** @typedef {{ locale: string, timeZone: string, hourCycle: "h12" | "h23", weekStartsOn: WeekStart, dir: "ltr" | "rtl" }} Locale */
 
-const fallback = /** @type {PxLocale} */ ({ locale: "en-US", timeZone: "UTC", hourCycle: "h12", weekStartsOn: 0, dir: "ltr" });
+const fallback = /** @type {Locale} */ ({ locale: "en-US", timeZone: "UTC", hourCycle: "h12", weekStartsOn: 0, dir: "ltr" });
 
 const readVar = (style, name, def) => {
   const raw = style.getPropertyValue(name).trim().replace(/^["']|["']$/g, "");
   return raw === "" ? def : raw;
 };
 
-/** @param {HTMLElement | null} [root] @returns {PxLocale} */
+/** @param {HTMLElement | null} [root] @returns {Locale} */
 export function readLocale(root = typeof document === "undefined" ? null : document.documentElement) {
   if (!root) return fallback;
   const style = getComputedStyle(root);
-  const weekStart = Number(readVar(style, "--px-week-start", "0"));
+  const weekStart = Number(readVar(style, "--ui-week-start", "0"));
   return {
-    locale: readVar(style, "--px-locale", fallback.locale),
-    timeZone: readVar(style, "--px-time-zone", fallback.timeZone),
-    hourCycle: readVar(style, "--px-hour-cycle", fallback.hourCycle) === "h23" ? "h23" : "h12",
+    locale: readVar(style, "--ui-locale", fallback.locale),
+    timeZone: readVar(style, "--ui-time-zone", fallback.timeZone),
+    hourCycle: readVar(style, "--ui-hour-cycle", fallback.hourCycle) === "h23" ? "h23" : "h12",
     weekStartsOn: /** @type {WeekStart} */ (weekStart >= 0 && weekStart <= 6 ? weekStart : 0),
     dir: root.dir === "rtl" ? "rtl" : "ltr",
   };
@@ -29,39 +29,39 @@ export function todayIn(timeZone) {
   return new Date(y, m - 1, d);
 }
 
-/** @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {PxLocale} [px] @returns {string} */
-export function formatDate(date, options = { dateStyle: "medium" }, px = readLocale()) {
-  return new Intl.DateTimeFormat(px.locale, { timeZone: px.timeZone, ...options }).format(date);
+/** @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {Locale} [lc] @returns {string} */
+export function formatDate(date, options = { dateStyle: "medium" }, lc = readLocale()) {
+  return new Intl.DateTimeFormat(lc.locale, { timeZone: lc.timeZone, ...options }).format(date);
 }
 
 /** A calendar date is a day rather than an instant: it is built at local midnight, so converting it
  *  into the display time zone lands on the day before wherever that zone is behind the reader. The
- *  day is the Gregorian one a PX calendar draws, written in the page's own language and digits, so
+ *  day is the Gregorian one the calendar draws, written in the page's own language and digits, so
  *  the text agrees with the grid beside it. `parseCalendarDate` reads that text back when the
  *  options name a year and spell the month out, which is the shape a date field writes and the
  *  shape an era can be added to; other shapes still write the right day but need not read back.
- *  @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {PxLocale} [px] @returns {string} */
-export function formatCalendarDate(date, options = { dateStyle: "medium" }, px = readLocale()) {
-  return calendarFormat(date, options, px).format(date);
+ *  @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {Locale} [lc] @returns {string} */
+export function formatCalendarDate(date, options = { dateStyle: "medium" }, lc = readLocale()) {
+  return calendarFormat(date, options, lc).format(date);
 }
 
 /** The span between two calendar days as one phrase: `Intl` drops the month, year and era the ends
  *  share and joins them the way the locale joins a range, which two dates and a dash cannot do. The
- *  shape is the one a PX range field writes, and the calendar and era are `formatCalendarDate`'s, so
+ *  shape is the one a range field writes, and the calendar and era are `formatCalendarDate`'s, so
  *  a range and a single date on the same page name the same day the same way.
- *  @param {Date} from @param {Date} to @param {PxLocale} [px] @returns {string} */
-export function formatCalendarRange(from, to, px = readLocale()) {
-  return calendarFormat(from, { day: "numeric", month: "short", year: "numeric" }, px).formatRange(from, to);
+ *  @param {Date} from @param {Date} to @param {Locale} [lc] @returns {string} */
+export function formatCalendarRange(from, to, lc = readLocale()) {
+  return calendarFormat(from, { day: "numeric", month: "short", year: "numeric" }, lc).formatRange(from, to);
 }
 
-/** @param {Date} date @param {Intl.DateTimeFormatOptions} options @param {PxLocale} px */
-function calendarFormat(date, options, px) {
+/** @param {Date} date @param {Intl.DateTimeFormatOptions} options @param {Locale} lc */
+function calendarFormat(date, options, lc) {
   const gregorian = { calendar: "gregory", ...options };
-  const format = new Intl.DateTimeFormat(px.locale, gregorian);
-  if (gregorian.dateStyle || gregorian.era || !gregorianEra(px.locale).named.length) return format;
+  const format = new Intl.DateTimeFormat(lc.locale, gregorian);
+  if (gregorian.dateStyle || gregorian.era || !gregorianEra(lc.locale).named.length) return format;
   const parts = format.formatToParts(date);
   const spelled = parts.some((part) => part.type === "year") && parts.some((part) => part.type === "month" && /\p{L}/u.test(part.value));
-  return spelled ? new Intl.DateTimeFormat(px.locale, { ...gregorian, era: "short" }) : format;
+  return spelled ? new Intl.DateTimeFormat(lc.locale, { ...gregorian, era: "short" }) : format;
 }
 
 /** @param {number} year @param {number} month @param {number} day */
@@ -217,17 +217,17 @@ function readWritten(text, tag) {
   return readings.size === 1 ? [...readings.values()][0] : undefined;
 }
 
-/** @param {string} text @param {PxLocale} [px] @returns {Date | undefined} */
-export function parseCalendarDate(text, px = readLocale()) {
+/** @param {string} text @param {Locale} [lc] @returns {Date | undefined} */
+export function parseCalendarDate(text, lc = readLocale()) {
   const iso = text.trim().match(/^(\d{4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?$/);
   const standard = iso ? calendarDay(Number(iso[1]), Number(iso[2] ?? 1), Number(iso[3] ?? 1)) : undefined;
-  const local = readWritten(text, px.locale);
+  const local = readWritten(text, lc.locale);
   return standard && local && standard.getTime() !== local.getTime() ? undefined : (standard ?? local);
 }
 
-/** @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {PxLocale} [px] @returns {string} */
-export function formatTime(date, options = { timeStyle: "short" }, px = readLocale()) {
-  return new Intl.DateTimeFormat(px.locale, { timeZone: px.timeZone, hourCycle: px.hourCycle, ...options }).format(date);
+/** @param {Date} date @param {Intl.DateTimeFormatOptions} [options] @param {Locale} [lc] @returns {string} */
+export function formatTime(date, options = { timeStyle: "short" }, lc = readLocale()) {
+  return new Intl.DateTimeFormat(lc.locale, { timeZone: lc.timeZone, hourCycle: lc.hourCycle, ...options }).format(date);
 }
 
 /** @param {Date} date @param {string} timeZone @returns {number} */
@@ -236,14 +236,14 @@ function dayNumber(date, timeZone) {
   return Date.UTC(y, m - 1, d) / 86400000;
 }
 
-/** @param {Date} date @param {Date} [now] @param {PxLocale} [px] @returns {string} */
-export function formatRelativeTime(date, now = new Date(), px = readLocale()) {
-  const format = new Intl.RelativeTimeFormat(px.locale, { numeric: "auto" });
+/** @param {Date} date @param {Date} [now] @param {Locale} [lc] @returns {string} */
+export function formatRelativeTime(date, now = new Date(), lc = readLocale()) {
+  const format = new Intl.RelativeTimeFormat(lc.locale, { numeric: "auto" });
   const seconds = Math.max(0, (now.getTime() - date.getTime()) / 1000);
   if (seconds < 60) return format.format(0, "second");
   if (seconds < 3600) return format.format(-Math.floor(seconds / 60), "minute");
   if (seconds < 86400) return format.format(-Math.floor(seconds / 3600), "hour");
-  const days = Math.max(1, dayNumber(now, px.timeZone) - dayNumber(date, px.timeZone));
+  const days = Math.max(1, dayNumber(now, lc.timeZone) - dayNumber(date, lc.timeZone));
   if (days < 7) return format.format(-days, "day");
   if (days < 30) return format.format(-Math.floor(days / 7), "week");
   if (days < 365) return format.format(-Math.floor(days / 30), "month");
@@ -252,10 +252,10 @@ export function formatRelativeTime(date, now = new Date(), px = readLocale()) {
 
 const relativeUnits = /** @type {const} */ ([["minute", 59], ["hour", 23], ["day", 6], ["week", 4], ["month", 12], ["year", 99]]);
 
-/** @param {PxLocale} [px] @returns {string[]} */
-export function relativeTimeTexts(px = readLocale()) {
-  const format = new Intl.RelativeTimeFormat(px.locale, { numeric: "auto" });
-  const plural = new Intl.PluralRules(px.locale);
+/** @param {Locale} [lc] @returns {string[]} */
+export function relativeTimeTexts(lc = readLocale()) {
+  const format = new Intl.RelativeTimeFormat(lc.locale, { numeric: "auto" });
+  const plural = new Intl.PluralRules(lc.locale);
   const texts = new Set([format.format(0, "second")]);
   for (const [unit, most] of relativeUnits) {
     const forms = new Set();
@@ -269,13 +269,13 @@ export function relativeTimeTexts(px = readLocale()) {
   return [...texts];
 }
 
-/** @param {Date} date @param {Date} [now] @param {PxLocale} [px] @returns {string} */
-export function formatDay(date, now = new Date(), px = readLocale()) {
-  const days = Math.max(0, dayNumber(now, px.timeZone) - dayNumber(date, px.timeZone));
+/** @param {Date} date @param {Date} [now] @param {Locale} [lc] @returns {string} */
+export function formatDay(date, now = new Date(), lc = readLocale()) {
+  const days = Math.max(0, dayNumber(now, lc.timeZone) - dayNumber(date, lc.timeZone));
   if (days <= 1) {
-    const word = new Intl.RelativeTimeFormat(px.locale, { numeric: "auto" }).format(-days, "day");
-    return word.charAt(0).toLocaleUpperCase(px.locale) + word.slice(1);
+    const word = new Intl.RelativeTimeFormat(lc.locale, { numeric: "auto" }).format(-days, "day");
+    return word.charAt(0).toLocaleUpperCase(lc.locale) + word.slice(1);
   }
-  const year = formatDate(date, { year: "numeric" }, px) === formatDate(now, { year: "numeric" }, px) ? undefined : "numeric";
-  return formatDate(date, { weekday: "long", month: "long", day: "numeric", year }, px);
+  const year = formatDate(date, { year: "numeric" }, lc) === formatDate(now, { year: "numeric" }, lc) ? undefined : "numeric";
+  return formatDate(date, { weekday: "long", month: "long", day: "numeric", year }, lc);
 }

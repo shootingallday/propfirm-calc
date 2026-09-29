@@ -33,7 +33,7 @@ already loaded, so you can drag the slider and open each one before adding your 
 | `packages/core/catalog` | One JSON file per firm |
 | `packages/core/samples` | Synthetic sample exports for every supported CSV layout |
 | `apps/web` | The web app (Vite + React), installable as a PWA |
-| `apps/web/src/px` | The PX Brand design kit the app is styled with (see `docs/DESIGN.md`) |
+| `apps/web/src/kit` | The design kit the app is styled with (see `docs/DESIGN.md`) |
 
 ## Run it
 
@@ -86,9 +86,6 @@ months, so every stage records its source and the day it was checked, and the ap
 a rule is wrong, open a
 ["Wrong firm rule" issue](https://github.com/shootingallday/propfirm-calc/issues/new?template=wrong-firm-rule.yml)
 with a link to the firm's page.
-
-`pnpm --filter propfirm-calc catalog:check` compares the catalog against the research it was
-built from and lists every number that has changed.
 
 ## Deploy
 
