@@ -1,0 +1,13 @@
+{
+  "name": "propfirm-calc-workspace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "dev": "pnpm --filter propfirm-calc-web dev",
+    "e2e": "pnpm --filter propfirm-calc-web e2e"
+  },
+  "packageManager": "pnpm@12.5.1"
+}

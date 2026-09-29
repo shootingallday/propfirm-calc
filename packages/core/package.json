@@ -1,0 +1,68 @@
+{
+  "name": "propfirm-calc",
+  "version": "0.3.0",
+  "description": "Drawdown, consistency, payout and import math for prop firm futures accounts, with an open firm-rules catalog.",
+  "license": "MIT",
+  "author": "shootingallday",
+  "homepage": "https://propfirm-calc.jomardippiton2005.workers.dev",
+  "bugs": {
+    "url": "https://github.com/shootingallday/propfirm-calc/issues"
+  },
+  "keywords": [
+    "prop-firm",
+    "futures",
+    "trading",
+    "drawdown",
+    "trailing-drawdown",
+    "consistency-rule",
+    "payout",
+    "topstep",
+    "tradeify",
+    "tradovate",
+    "topstepx",
+    "position-sizing"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shootingallday/propfirm-calc.git",
+    "directory": "packages/core"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "propfirm-calc": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "catalog",
+    "README.md"
+  ],
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "catalog:check": "tsx scripts/check-catalog.ts"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.2"
+  }
+}

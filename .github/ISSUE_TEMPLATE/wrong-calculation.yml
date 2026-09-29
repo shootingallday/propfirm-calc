@@ -13,8 +13,8 @@ body:
     id: call
     attributes:
       label: The call you made
-      description: The exact function call or CLI command.
-      placeholder: drawdown_floor(50_000, 2_000, peak_equity=51_000)
+      description: The exact CLI command or function call, or the account you set up in the app.
+      placeholder: propfirm-calc drawdown --balance 50000 --max-dd 2000 --peak 51000
     validations:
       required: true
 
@@ -22,7 +22,7 @@ body:
     id: got
     attributes:
       label: What it returned
-      placeholder: "49000.0"
+      placeholder: "Floor $49,000.00"
     validations:
       required: true
 

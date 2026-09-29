@@ -1,13 +1,4 @@
-name: Publish to PyPI
-
-# Publishes to PyPI via OIDC "trusted publishing" — no API token stored.
-# One-time setup on pypi.org (Account -> Publishing -> Add a pending publisher):
-#   PyPI Project Name: propfirm-calc
-#   Owner:             shootingallday
-#   Repository name:   propfirm-calc
-#   Workflow name:     release.yml
-#   Environment:       (leave blank)
-# Then publish a GitHub Release (tag vX.Y.Z) to trigger this workflow.
+name: Publish to npm
 
 on:
   release:
@@ -17,12 +8,23 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # required for trusted publishing
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
         with:
-          python-version: "3.x"
-      - run: python -m pip install --upgrade build
-      - run: python -m build
-      - uses: pypa/gh-action-pypi-publish@release/v1
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      - id: published
+        run: echo "done=$(npm view propfirm-calc@$(node -p "require('./packages/core/package.json').version") version >/dev/null 2>&1 && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm install --frozen-lockfile
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm test
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm --filter propfirm-calc build
+      - if: steps.published.outputs.done == 'no'
+        run: pnpm --filter propfirm-calc publish --access public --no-git-checks --provenance

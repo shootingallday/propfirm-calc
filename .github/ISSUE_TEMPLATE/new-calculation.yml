@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: >
-        The library stays dependency-free and firm-agnostic — it bundles no firm
-        rule data. See CONTRIBUTING.md for what's out of scope.
+        Firm rules that are wrong or missing go in the "Wrong firm rule" form
+        instead. See CONTRIBUTING.md for what's out of scope.
 
   - type: textarea
     id: problem

@@ -1,0 +1,10 @@
+{
+  "name": "propfirm-calc",
+  "short_name": "propfirm-calc",
+  "description": "Every prop firm account in one place.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [{ "src": "/icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }]
+}

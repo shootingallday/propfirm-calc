@@ -1,0 +1,512 @@
+/* PX design tokens (Aero) */
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 107.12%;
+  ascent-override: 90.5%;
+  descent-override: 22.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 113.43%;
+  ascent-override: 85.5%;
+  descent-override: 21.3%;
+  line-gap-override: 0%;
+  unicode-range: U+0030-0039;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold");
+  font-weight: 700;
+  size-adjust: 101.53%;
+  ascent-override: 95.5%;
+  descent-override: 23.8%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold");
+  font-weight: 700;
+  size-adjust: 118.61%;
+  ascent-override: 81.7%;
+  descent-override: 20.4%;
+  line-gap-override: 0%;
+  unicode-range: U+0030-0039;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New");
+  font-weight: 400;
+  size-adjust: 99.98%;
+  ascent-override: 102.1%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New Bold");
+  font-weight: 700;
+  size-adjust: 99.98%;
+  ascent-override: 102.1%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* tier 1 · neutral ramp */
+  --px-gray-0: #ffffff;
+  --px-gray-50: #fafafa;
+  --px-gray-100: #f5f5f5;
+  --px-gray-200: #e8e8e8;
+  --px-gray-300: #d2d2d2;
+  --px-gray-400: #a1a1a1;
+  --px-gray-450: #868686;
+  --px-gray-500: #6e6e6e;
+  --px-gray-600: #515151;
+  --px-gray-700: #424242;
+  --px-gray-800: #333333;
+  --px-gray-900: #1d1d1d;
+  --px-gray-925: #161616;
+  --px-gray-950: #000000;
+
+  /* tier 1 · chroma */
+  --px-blue-200: #b9d2ff;
+  --px-blue-300: #87b1fd;
+  --px-blue-400: #5b8def;
+  --px-blue-500: #2e6be6;
+  --px-blue-600: #2358c4;
+  --px-blue-700: #144097;
+  --px-green-200: #3ccaa7;
+  --px-green-400: #0fa37f;
+  --px-green-450: #208b69;
+  --px-green-500: #0e7a4b;
+  --px-green-600: #04654b;
+  --px-red-200: #fe9a9a;
+  --px-red-300: #e4666e;
+  --px-red-400: #e14f55;
+  --px-red-500: #c93e48;
+  --px-red-600: #c21642;
+  --px-red-700: #a20321;
+  --px-amber-300: #d9a21b;
+  --px-amber-350: #c08a20;
+  --px-amber-400: #b7791f;
+  --px-amber-500: #946212;
+  --px-magenta-400: #b03a9e;
+  --px-magenta-500: #9c2f8b;
+
+  /* tier 1 · brand */
+  --px-brand-300: #78fb1d;
+  --px-brand-600: #4c9e13;
+
+  /* tier 1 · type */
+  --px-font-sans: "Inter Variable", "Inter", "Inter Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --px-font-mono: "JetBrains Mono Variable", "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --px-text-xs: 12px;
+  --px-text-sm: 13px;
+  --px-text-base: 14px;
+  --px-text-md: 16px;
+  --px-text-lg: 20px;
+  --px-text-xl: 24px;
+  --px-text-2xl: 32px;
+  --px-text-3xl: 48px;
+  --px-text-hero: clamp(44px, 6.5vw, 76px);
+  --px-stage-text-caption: 24px;
+  --px-stage-text-body: 32px;
+  --px-stage-text-lead: 40px;
+  --px-stage-text-heading: 64px;
+  --px-stage-text-title: 96px;
+  --px-stage-text-stat: 192px;
+  --px-leading-tight: 1.05;
+  --px-leading-snug: 1.3;
+  --px-leading-normal: 1.5;
+  --px-leading-relaxed: 1.6;
+  --px-tracking-tight: -0.02em;
+  --px-tracking-tighter: -0.03em;
+
+  /* tier 1 · space (4px base) */
+  --px-space-1: 4px;
+  --px-space-2: 8px;
+  --px-space-3: 12px;
+  --px-space-4: 16px;
+  --px-space-5: 20px;
+  --px-space-6: 24px;
+  --px-space-8: 32px;
+  --px-space-10: 40px;
+  --px-space-12: 48px;
+  --px-space-16: 64px;
+  --px-space-24: 96px;
+
+  /* tier 1 · radius */
+  --px-radius-sm: 6px;
+  --px-radius-md: 8px;
+  --px-radius-lg: 12px;
+  --px-radius-xl: 16px;
+  --px-radius-full: 9999px;
+
+  /* tier 1 · layering */
+  --px-layer-raised: 10;
+  --px-layer-sticky: 20;
+  --px-layer-overlay: 30;
+
+  /* tier 1 · breakpoints */
+  --px-bp-sm: 640px;
+  --px-bp-md: 768px;
+  --px-bp-lg: 1024px;
+  --px-bp-xl: 1280px;
+
+  /* tier 1 · motion */
+  --px-duration-fast: 120ms;
+  --px-duration-base: 200ms;
+  --px-duration-slow: 320ms;
+  --px-duration-reveal: 500ms;
+  --px-duration-hold: 1500ms;
+
+  /* The one duration reduced motion keeps */
+  --px-duration-fade: 120ms;
+
+  /* The decay of the tint a changed value carries */
+  --px-duration-tint: 900ms;
+
+  /* tier 1 · dwell */
+  --px-dwell-short: 4000ms;
+  --px-dwell-medium: 6000ms;
+  --px-dwell-long: 8000ms;
+  --px-dwell-longest: 10000ms;
+  --px-ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --px-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --px-ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+  --px-ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --px-spring-snappy: linear(0, 0.0203, 0.0715, 0.1417, 0.2221, 0.3065, 0.3902, 0.4703, 0.545, 0.613, 0.674, 0.7279, 0.7749, 0.8154, 0.8499, 0.8791, 0.9035, 0.9238, 0.9405, 0.9541, 0.9651, 0.9739, 0.9809, 0.9863, 0.9906, 0.9938, 0.9962, 0.998, 0.9993, 1.0002, 1.0008, 1.0012, 1.0014, 1.0015, 1.0015, 1.0015, 1.0014, 1.0013, 1.0011, 1.001, 1);
+  --px-spring-snappy-duration: var(--px-duration-base);
+  --px-spring-smooth: linear(0, 0.0229, 0.0788, 0.1532, 0.2361, 0.3208, 0.403, 0.4802, 0.5509, 0.6146, 0.6711, 0.7207, 0.7638, 0.801, 0.8329, 0.8601, 0.8832, 0.9027, 0.9191, 0.9329, 0.9445, 0.9541, 0.9621, 0.9688, 0.9743, 0.9789, 0.9827, 0.9858, 0.9884, 0.9905, 0.9922, 0.9936, 0.9948, 0.9958, 0.9965, 0.9972, 0.9977, 0.9981, 0.9985, 0.9988, 1);
+  --px-spring-smooth-duration: var(--px-duration-slow);
+  --px-spring-fluid: linear(0, 0.0263, 0.0929, 0.1841, 0.2878, 0.3951, 0.4995, 0.5967, 0.6842, 0.7605, 0.8253, 0.8789, 0.9221, 0.9559, 0.9815, 1.0002, 1.0132, 1.0215, 1.0262, 1.0282, 1.0281, 1.0267, 1.0244, 1.0216, 1.0186, 1.0156, 1.0127, 1.0101, 1.0078, 1.0058, 1.0041, 1.0027, 1.0017, 1.0008, 1.0002, 0.9998, 0.9995, 0.9993, 0.9992, 0.9992, 1);
+  --px-spring-fluid-duration: var(--px-duration-slow);
+  --px-spring-fluid-stretch: 5%;
+  --px-spring-fluid-blur: 4px;
+
+  /* tier 1 · scroll-lock compensation */
+  --px-scrollbar-left: 0px;
+  --px-scrollbar-right: 0px;
+
+  /* tier 1 · locale */
+  --px-locale: "en-US";
+  --px-currency: "USD";
+  --px-time-zone: "America/New_York";
+  --px-hour-cycle: "h12";
+  --px-week-start: 0;
+
+  /* tier 2 · surfaces and text (light) */
+  --background: var(--px-gray-100);
+  --foreground: var(--px-gray-900);
+  --card: var(--px-gray-0);
+  --card-foreground: var(--px-gray-900);
+  --popover: var(--px-gray-0);
+  --popover-foreground: var(--px-gray-900);
+  --primary: var(--px-blue-500);
+  --primary-foreground: var(--px-gray-0);
+  --secondary: var(--px-gray-200);
+  --secondary-foreground: var(--px-gray-900);
+  --muted: var(--px-gray-200);
+  --muted-foreground: var(--px-gray-600);
+  --faint-foreground: var(--px-gray-500);
+  --accent: var(--px-gray-200);
+  --accent-foreground: var(--px-gray-900);
+  --destructive: var(--px-red-500);
+  --destructive-foreground: var(--px-gray-0);
+  --link: var(--px-blue-600);
+  --border: var(--px-gray-300);
+  --input: var(--px-gray-300);
+  --ring: var(--px-blue-500);
+
+  /* tier 2 · money and status. The bare role is text (4.5:1); *-fill is marks and meters (3:1). */
+  --gain: var(--px-green-500);
+  --gain-fill: var(--px-green-500);
+  --loss: var(--px-red-500);
+  --loss-fill: var(--px-red-400);
+  --warn: var(--px-amber-500);
+  --warn-fill: var(--px-amber-400);
+  --gain-soft: color-mix(in oklab, var(--gain) 10%, transparent);
+  --loss-soft: color-mix(in oklab, var(--loss) 10%, transparent);
+  --warn-soft: color-mix(in oklab, var(--warn) 12%, transparent);
+  --primary-soft: color-mix(in oklab, var(--primary) 12%, transparent);
+
+  /* tier 2 · media */
+  --skeleton: var(--muted);
+  --skeleton-sheen: color-mix(in oklab, var(--foreground) 8%, var(--muted));
+  --plate: var(--px-gray-0);
+  --media-badge: color-mix(in oklab, var(--px-gray-950) 72%, transparent);
+  --tint-1: var(--px-blue-500);
+  --tint-2: var(--px-green-500);
+  --tint-3: var(--px-amber-500);
+  --tint-4: var(--px-red-500);
+  --tint-foreground: var(--px-gray-0);
+
+  /* tier 2 · brand */
+  --brand-ink: var(--px-gray-900);
+  --brand-accent: var(--px-brand-600);
+  --brand-plate: var(--px-gray-900);
+
+  /* tier 2 · elevation */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 2px 4px rgb(0 0 0 / 0.05), 0 12px 32px rgb(0 0 0 / 0.09);
+  --shadow-lg: 0 8px 16px rgb(0 0 0 / 0.07), 0 24px 64px rgb(0 0 0 / 0.14);
+  --shadow-primary: 0 4px 14px rgb(46 107 230 / 0.35);
+  --shadow-control: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-thumb: 0 1px 2px rgb(0 0 0 / 0.2);
+
+  /* tier 2 · focus. One ring for every control, so the value is written once. */
+  --focus-ring: 0 0 0 1px var(--ring), 0 0 0 4px color-mix(in oklab, var(--ring) 18%, transparent);
+
+  /* tier 2 · chart */
+  --chart-grid: rgb(0 0 0 / 0.06);
+  --chart-axis: var(--faint-foreground);
+  --chart-tick: var(--muted-foreground);
+  --chart-line: var(--muted-foreground);
+  --chart-1: var(--px-blue-500);
+  --chart-2: var(--px-amber-400);
+  --chart-3: var(--px-magenta-500);
+
+  /* tier 2 · sequential ramp */
+  --chart-sequential-1: var(--px-blue-300);
+  --chart-sequential-2: var(--px-blue-400);
+  --chart-sequential-3: var(--px-blue-500);
+  --chart-sequential-4: var(--px-blue-600);
+  --chart-sequential-5: var(--px-blue-700);
+
+  /* tier 2 · diverging ramp */
+  --chart-loss-3: var(--px-red-500);
+  --chart-loss-2: var(--px-red-300);
+  --chart-loss-1: var(--px-red-200);
+  --chart-zero: var(--px-gray-200);
+  --chart-gain-1: var(--px-green-200);
+  --chart-gain-2: var(--px-green-400);
+  --chart-gain-3: var(--px-green-500);
+  --print-paper: var(--px-gray-0);
+  --print-ink: var(--px-gray-900);
+  --print-muted: var(--px-gray-700);
+  --print-rule: var(--px-gray-400);
+  --print-grid: var(--px-gray-300);
+  --print-link: var(--px-blue-700);
+  --print-primary: var(--px-blue-600);
+  --print-gain: var(--px-green-600);
+  --print-loss: var(--px-red-700);
+  --print-gain-fill: var(--px-green-600);
+  --print-loss-fill: var(--px-red-400);
+
+  /* tier 2 · syntax */
+  --syntax-background: var(--px-gray-50);
+  --syntax-foreground: var(--foreground);
+  --syntax-token-comment: var(--muted-foreground);
+  --syntax-token-keyword: var(--px-red-500);
+  --syntax-token-string: var(--px-green-500);
+  --syntax-token-string-expression: var(--px-green-500);
+  --syntax-token-function: var(--px-blue-600);
+  --syntax-token-constant: var(--px-amber-500);
+  --syntax-token-parameter: var(--foreground);
+  --syntax-token-punctuation: var(--faint-foreground);
+  --syntax-token-link: var(--link);
+
+  /* tier 2 · layering */
+  --z-raised: var(--px-layer-raised);
+  --z-sticky: var(--px-layer-sticky);
+  --z-overlay: var(--px-layer-overlay);
+
+  /* tier 2 · overlay */
+  --scrim: rgb(0 0 0 / 0.32);
+  --overlay-rise: var(--px-space-2);
+  --overlay-enter: var(--px-duration-base);
+  --overlay-exit: var(--px-duration-fast);
+  --overlay-ease-enter: var(--px-ease-out);
+  --overlay-ease-exit: var(--px-ease-in-out);
+  --drawer-enter: var(--px-duration-slow);
+  --drawer-exit: var(--px-duration-base);
+
+  /* tier 2 · toast dwell */
+  --toast-duration: var(--px-dwell-short);
+  --toast-duration-warn: var(--px-dwell-medium);
+  --toast-duration-loss: var(--px-dwell-longest);
+  --toast-undo: var(--px-dwell-long);
+
+  /* tier 2 · icons */
+  --icon-size: 16px;
+  --icon-size-sm: 14px;
+  --icon-size-lg: 20px;
+  --icon-size-xl: 24px;
+  --icon-stroke: 1.75;
+
+  /* tier 2 · radius roles */
+  --radius-control: var(--px-radius-md);
+  --radius-card: var(--px-radius-lg);
+  --radius-dialog: var(--px-radius-xl);
+  --radius-pill: var(--px-radius-full);
+
+  /* tier 2 · density (app surfaces are the default) */
+  --text-body: var(--px-text-base);
+  --leading-body: var(--px-leading-normal);
+  --control-h: 36px;
+  --control-h-sm: 30px;
+  --control-h-lg: 44px;
+  --control-h-multiline: 88px;
+  --row-h: 44px;
+  --cell-px: 18px;
+  --card-gap: var(--px-space-4);
+  --stack-gap: var(--px-space-6);
+  --gutter: var(--px-space-8);
+  --measure: 1120px;
+  --read-measure: 62ch;
+  color-scheme: light;
+}
+
+/* Reading surfaces: landing pages, docs, long-form notes. Controls keep their app size. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --px-duration-fast: 0ms;
+    --px-duration-base: 0ms;
+    --px-duration-slow: 0ms;
+    --px-duration-reveal: 0ms;
+
+    /* Overlays keep their cross-fade */
+    --overlay-enter: var(--px-duration-fade);
+    --overlay-exit: var(--px-duration-fade);
+    --drawer-enter: var(--px-duration-fade);
+    --drawer-exit: var(--px-duration-fade);
+  }
+}
+
+@media (pointer: coarse) {
+  :root {
+    --control-h: var(--control-h-lg);
+    --control-h-sm: var(--control-h-lg);
+  }
+}
+
+[data-density="reading"] {
+  --text-body: var(--px-text-md);
+  --leading-body: var(--px-leading-relaxed);
+  --icon-size: 18px;
+  --icon-size-sm: 16px;
+  --icon-size-lg: 22px;
+  --icon-size-xl: 26px;
+  --card-gap: var(--px-space-6);
+  --stack-gap: var(--px-space-8);
+  --gutter: var(--px-space-6);
+}
+
+.dark {
+  --background: var(--px-gray-950);
+  --foreground: var(--px-gray-100);
+  --card: var(--px-gray-900);
+  --card-foreground: var(--px-gray-100);
+  --popover: var(--px-gray-900);
+  --popover-foreground: var(--px-gray-100);
+  --primary: var(--px-blue-500);
+  --primary-foreground: var(--px-gray-0);
+  --secondary: var(--px-gray-800);
+  --secondary-foreground: var(--px-gray-100);
+  --muted: var(--px-gray-800);
+  --muted-foreground: var(--px-gray-400);
+  --faint-foreground: var(--px-gray-450);
+  --accent: var(--px-gray-800);
+  --accent-foreground: var(--px-gray-100);
+  --destructive: var(--px-red-300);
+  --destructive-foreground: var(--px-gray-950);
+  --link: var(--px-blue-400);
+  --border: var(--px-gray-700);
+  --input: var(--px-gray-700);
+  --ring: var(--px-blue-400);
+  --gain: var(--px-green-400);
+  --gain-fill: var(--px-green-400);
+  --loss: var(--px-red-300);
+  --loss-fill: var(--px-red-400);
+  --warn: var(--px-amber-300);
+  --warn-fill: var(--px-amber-300);
+
+  /* Same expressions as :root, so the skeleton follows the dark surface roles. */
+  --skeleton: var(--muted);
+  --skeleton-sheen: color-mix(in oklab, var(--foreground) 8%, var(--muted));
+
+  /* Repeated rather than swapped: these sit on media, not on the page. */
+  --plate: var(--px-gray-0);
+  --media-badge: color-mix(in oklab, var(--px-gray-950) 72%, transparent);
+  --tint-1: var(--px-blue-500);
+  --tint-2: var(--px-green-500);
+  --tint-3: var(--px-amber-500);
+  --tint-4: var(--px-red-500);
+  --tint-foreground: var(--px-gray-0);
+  --brand-ink: var(--px-gray-100);
+  --brand-accent: var(--px-brand-300);
+  --brand-plate: var(--px-gray-900);
+  --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.06), 0 4px 12px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 0 0 1px rgb(255 255 255 / 0.08), 0 12px 32px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.08), 0 24px 64px rgb(0 0 0 / 0.6);
+  --shadow-primary: 0 4px 14px rgb(46 107 230 / 0.45);
+  --shadow-control: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-thumb: 0 1px 2px rgb(0 0 0 / 0.35);
+  --chart-grid: rgb(255 255 255 / 0.06);
+  --chart-axis: var(--faint-foreground);
+  --chart-tick: var(--muted-foreground);
+  --chart-line: var(--muted-foreground);
+  --chart-1: var(--px-blue-400);
+  --chart-2: var(--px-amber-350);
+  --chart-3: var(--px-magenta-400);
+  --chart-sequential-1: var(--px-blue-600);
+  --chart-sequential-2: var(--px-blue-500);
+  --chart-sequential-3: var(--px-blue-400);
+  --chart-sequential-4: var(--px-blue-300);
+  --chart-sequential-5: var(--px-blue-200);
+  --chart-loss-3: var(--px-red-400);
+  --chart-loss-2: var(--px-red-600);
+  --chart-loss-1: var(--px-red-700);
+  --chart-zero: var(--px-gray-925);
+  --chart-gain-1: var(--px-green-600);
+  --chart-gain-2: var(--px-green-450);
+  --chart-gain-3: var(--px-green-400);
+  --print-paper: var(--px-gray-0);
+  --print-ink: var(--px-gray-900);
+  --print-muted: var(--px-gray-700);
+  --print-rule: var(--px-gray-400);
+  --print-grid: var(--px-gray-300);
+  --print-link: var(--px-blue-700);
+  --print-primary: var(--px-blue-600);
+  --print-gain: var(--px-green-600);
+  --print-loss: var(--px-red-700);
+  --print-gain-fill: var(--px-green-600);
+  --print-loss-fill: var(--px-red-400);
+  --scrim: rgb(0 0 0 / 0.6);
+  --syntax-background: var(--px-gray-925);
+  --syntax-token-keyword: var(--px-red-300);
+  --syntax-token-string: var(--px-green-400);
+  --syntax-token-string-expression: var(--px-green-400);
+  --syntax-token-function: var(--px-blue-400);
+  --syntax-token-constant: var(--px-amber-300);
+  color-scheme: dark;
+}
+
+[data-theme-switching], [data-theme-switching] *, [data-theme-switching] ::before, [data-theme-switching] ::after {
+  transition: none !important;
+}
+
+:root:active-view-transition-type(px-theme)::view-transition-old(root) {
+  animation: none;
+}
+
+:root:active-view-transition-type(px-theme)::view-transition-new(root) {
+  animation: px-theme-reveal var(--px-spring-smooth-duration) var(--px-spring-smooth);
+  mix-blend-mode: normal;
+}
+
+@keyframes px-theme-reveal {
+  from { clip-path: circle(0 at var(--px-theme-x) var(--px-theme-y)); }
+  to { clip-path: circle(var(--px-theme-r) at var(--px-theme-x) var(--px-theme-y)); }
+}

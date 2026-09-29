@@ -1,0 +1,252 @@
+{
+  "id": "topstep",
+  "name": "Topstep",
+  "website": "https://www.topstep.com/",
+  "rulesUrl": "https://help.topstep.com/en/",
+  "checkedAt": "2026-09-29",
+  "plans": [
+    {
+      "id": "topstep/trading-combine/50000",
+      "firm": "topstep",
+      "program": "Trading Combine",
+      "size": 50000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Trading Combine",
+          "profitTarget": "3000",
+          "minTradingDays": 2,
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "start"
+          },
+          "consistency": {
+            "pct": "55",
+            "basis": "profit_target",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 5,
+            "micros": 50
+          },
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/50000/pack-1/stages/eval"
+          },
+          "notes": "Covers both fee paths (standard fee with an activation fee, or no activation fee); the rules are the same. The best single day must stay at or below 55% of the profit target, or the target rises to best day ÷ 0.55; losses do not reset the best day. Modelled without the optional daily loss limit. A trader who buys the fixed 1000 daily loss limit at checkout gets a session lock in the Combine and the XFA, or only in the XFA if it is added there. The Maximum Loss Limit only moves up at the end of the day and locks at the starting balance, but it is enforced in real time on realized and unrealized P&L: \"If your Net P&L hits the limit at any point during the day, your account is liquidated immediately\", even if the fill lands back above it (Topstep's Maximum Loss Limit page). The consistency rule is from Topstep's Consistency page."
+        },
+        {
+          "stage": "funded",
+          "name": "Express Funded Account",
+          "drawdown": {
+            "amount": "2000",
+            "mode": "eod_trailing",
+            "lockAt": "start",
+            "afterFirstPayout": {
+              "floorAboveStart": "0"
+            }
+          },
+          "payoutPaths": [
+            {
+              "name": "Standard",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "150"
+              },
+              "minProfit": "0.01",
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "2000",
+              "split": 90
+            },
+            {
+              "name": "Consistency",
+              "minTradingDays": 3,
+              "consistency": {
+                "pct": "40",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "3000",
+              "split": 90,
+              "pxKey": "topstep/trading-combine/standard-fee-xfa-consistency-no-fixed-dll/50000/pack-1/stages/funded"
+            }
+          ],
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284233-topstep-payout-policy",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/50000/pack-1/stages/funded"
+          },
+          "notes": "The trader picks the Standard or Consistency payout path when the XFA is activated and cannot change it. Topstep shows the XFA balance starting at $0; the Maximum Loss Limit locks at $0 once the balance reaches the loss limit amount, and is set to $0 after the first payout. A request is limited to 50% of the balance and the per-size cap, with a $125 minimum, so a payout can never take the balance to the $0 floor: at least half the balance stays as cushion (\"Balance $10,000. Take a $5,000 Payout. Balance $5,000, MLL $0\"). The Maximum Loss Limit is enforced in real time on unrealized P&L, not on the closing balance (Topstep's Maximum Loss Limit page). Standard needs at least $0.01 of profit since the last payout (the first payout is exempt). Limited-time offer with no published end date: Combines bought from 2 June 2026 with the daily loss limit added at checkout get double caps (Standard 4000, Consistency 6000 instead of 2000 and 3000); not modelled. Traders in some countries move to a Pro Account instead of Live, with the XFA loss limit and Standard caps but no published profit split. The Live Funded Account is not modelled: Topstep still publishes no Maximum Loss Limit for it, only a daily loss limit by size, liquidation below a $1,000 balance, and a reserve that releases the balance in steps."
+        }
+      ]
+    },
+    {
+      "id": "topstep/trading-combine/100000",
+      "firm": "topstep",
+      "program": "Trading Combine",
+      "size": 100000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Trading Combine",
+          "profitTarget": "6000",
+          "minTradingDays": 2,
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": "start"
+          },
+          "consistency": {
+            "pct": "55",
+            "basis": "profit_target",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 10,
+            "micros": 100
+          },
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/100000/pack-1/stages/eval"
+          },
+          "notes": "Covers both fee paths (standard fee with an activation fee, or no activation fee); the rules are the same. The best single day must stay at or below 55% of the profit target, or the target rises to best day ÷ 0.55; losses do not reset the best day. Modelled without the optional daily loss limit. A trader who buys the fixed 2000 daily loss limit at checkout gets a session lock in the Combine and the XFA, or only in the XFA if it is added there. The Maximum Loss Limit only moves up at the end of the day and locks at the starting balance, but it is enforced in real time on realized and unrealized P&L: \"If your Net P&L hits the limit at any point during the day, your account is liquidated immediately\", even if the fill lands back above it (Topstep's Maximum Loss Limit page). The consistency rule is from Topstep's Consistency page."
+        },
+        {
+          "stage": "funded",
+          "name": "Express Funded Account",
+          "drawdown": {
+            "amount": "3000",
+            "mode": "eod_trailing",
+            "lockAt": "start",
+            "afterFirstPayout": {
+              "floorAboveStart": "0"
+            }
+          },
+          "payoutPaths": [
+            {
+              "name": "Standard",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "150"
+              },
+              "minProfit": "0.01",
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "3000",
+              "split": 90
+            },
+            {
+              "name": "Consistency",
+              "minTradingDays": 3,
+              "consistency": {
+                "pct": "40",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "4000",
+              "split": 90,
+              "pxKey": "topstep/trading-combine/standard-fee-xfa-consistency-no-fixed-dll/100000/pack-1/stages/funded"
+            }
+          ],
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284233-topstep-payout-policy",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/100000/pack-1/stages/funded"
+          },
+          "notes": "The trader picks the Standard or Consistency payout path when the XFA is activated and cannot change it. Topstep shows the XFA balance starting at $0; the Maximum Loss Limit locks at $0 once the balance reaches the loss limit amount, and is set to $0 after the first payout. A request is limited to 50% of the balance and the per-size cap, with a $125 minimum, so a payout can never take the balance to the $0 floor: at least half the balance stays as cushion (\"Balance $10,000. Take a $5,000 Payout. Balance $5,000, MLL $0\"). The Maximum Loss Limit is enforced in real time on unrealized P&L, not on the closing balance (Topstep's Maximum Loss Limit page). Standard needs at least $0.01 of profit since the last payout (the first payout is exempt). Limited-time offer with no published end date: Combines bought from 2 June 2026 with the daily loss limit added at checkout get double caps (Standard 6000, Consistency 8000 instead of 3000 and 4000); not modelled. Traders in some countries move to a Pro Account instead of Live, with the XFA loss limit and Standard caps but no published profit split. The Live Funded Account is not modelled: Topstep still publishes no Maximum Loss Limit for it, only a daily loss limit by size, liquidation below a $1,000 balance, and a reserve that releases the balance in steps."
+        }
+      ]
+    },
+    {
+      "id": "topstep/trading-combine/150000",
+      "firm": "topstep",
+      "program": "Trading Combine",
+      "size": 150000,
+      "stages": [
+        {
+          "stage": "eval",
+          "name": "Trading Combine",
+          "profitTarget": "9000",
+          "minTradingDays": 2,
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": "start"
+          },
+          "consistency": {
+            "pct": "55",
+            "basis": "profit_target",
+            "effect": "raises_target"
+          },
+          "contracts": {
+            "minis": 15,
+            "micros": 150
+          },
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284204-what-is-the-maximum-loss-limit",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/150000/pack-1/stages/eval"
+          },
+          "notes": "Covers both fee paths (standard fee with an activation fee, or no activation fee); the rules are the same. The best single day must stay at or below 55% of the profit target, or the target rises to best day ÷ 0.55; losses do not reset the best day. Modelled without the optional daily loss limit. A trader who buys the fixed 3000 daily loss limit at checkout gets a session lock in the Combine and the XFA, or only in the XFA if it is added there. The Maximum Loss Limit only moves up at the end of the day and locks at the starting balance, but it is enforced in real time on realized and unrealized P&L: \"If your Net P&L hits the limit at any point during the day, your account is liquidated immediately\", even if the fill lands back above it (Topstep's Maximum Loss Limit page). The consistency rule is from Topstep's Consistency page."
+        },
+        {
+          "stage": "funded",
+          "name": "Express Funded Account",
+          "drawdown": {
+            "amount": "4500",
+            "mode": "eod_trailing",
+            "lockAt": "start",
+            "afterFirstPayout": {
+              "floorAboveStart": "0"
+            }
+          },
+          "payoutPaths": [
+            {
+              "name": "Standard",
+              "winningDays": {
+                "count": 5,
+                "minProfit": "150"
+              },
+              "minProfit": "0.01",
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "5000",
+              "split": 90
+            },
+            {
+              "name": "Consistency",
+              "minTradingDays": 3,
+              "consistency": {
+                "pct": "40",
+                "basis": "profit_since_payout",
+                "effect": "blocks_payout",
+                "bestDay": "resets"
+              },
+              "capPctOfProfit": 50,
+              "minRequest": "125",
+              "cap": "6000",
+              "split": 90,
+              "pxKey": "topstep/trading-combine/standard-fee-xfa-consistency-no-fixed-dll/150000/pack-1/stages/funded"
+            }
+          ],
+          "source": {
+            "url": "https://help.topstep.com/en/articles/8284233-topstep-payout-policy",
+            "checkedAt": "2026-09-29",
+            "pxKey": "topstep/trading-combine/standard-fee-xfa-standard-no-fixed-dll/150000/pack-1/stages/funded"
+          },
+          "notes": "The trader picks the Standard or Consistency payout path when the XFA is activated and cannot change it. Topstep shows the XFA balance starting at $0; the Maximum Loss Limit locks at $0 once the balance reaches the loss limit amount, and is set to $0 after the first payout. A request is limited to 50% of the balance and the per-size cap, with a $125 minimum, so a payout can never take the balance to the $0 floor: at least half the balance stays as cushion (\"Balance $10,000. Take a $5,000 Payout. Balance $5,000, MLL $0\"). The Maximum Loss Limit is enforced in real time on unrealized P&L, not on the closing balance (Topstep's Maximum Loss Limit page). Standard needs at least $0.01 of profit since the last payout (the first payout is exempt). Limited-time offer with no published end date: Combines bought from 2 June 2026 with the daily loss limit added at checkout get double caps (Standard 10000, Consistency 12000 instead of 5000 and 6000); not modelled. Traders in some countries move to a Pro Account instead of Live, with the XFA loss limit and Standard caps but no published profit split. The Live Funded Account is not modelled: Topstep still publishes no Maximum Loss Limit for it, only a daily loss limit by size, liquidation below a $1,000 balance, and a reserve that releases the balance in steps."
+        }
+      ]
+    }
+  ]
+}

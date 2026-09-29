@@ -1,0 +1,30 @@
+name: Wrong firm rule
+description: A firm's rule in the catalog is wrong, out of date, or missing
+labels: ["catalog"]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Firms change their rules often. A link to the firm's own page is what
+        gets this fixed; review and affiliate sites can't be used as a source.
+  - type: input
+    id: plan
+    attributes:
+      label: Firm, plan and stage
+      placeholder: Topstep Trading Combine 50K, eval
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: What the catalog says, and what the firm says
+      placeholder: The catalog says a $2,000 drawdown; the firm's page says $2,500 since September.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Link to the firm's own page
+      placeholder: https://help.topstep.com/...
+    validations:
+      required: true
