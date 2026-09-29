@@ -20,7 +20,7 @@ The tests in this folder are named after these lines.
 9. A row with more or fewer fields than the header. Refuse, naming the line.
 10. A header with no rows. Refuse.
 11. A file that is not one of the six exports. Refuse and list the six by name.
-12. A PX-refused layout that is still refused here: Tradovate Orders (includes orders that never
+12. A layout that must be refused: Tradovate Orders (includes orders that never
     filled) and Tradovate Position History (pairs repeat fills). Refuse with the reason.
 13. Many bad rows. Report every bad line (capped), not just the first.
 
@@ -43,7 +43,7 @@ The tests in this folder are named after these lines.
 22. Sunday evening's session open (Sunday 17:00 CT onward) is Monday's trading day.
 23. Daylight saving: the 17:00 CT roll is at 22:00 UTC in summer and 23:00 UTC in winter. Use the
     IANA zone, never a fixed offset.
-24. Weekends: labelled exactly as PX does, by the New York clock and the 18:00 roll, with no
+24. Weekends: labelled by the New York clock and the 18:00 roll, with no
     special holiday or weekend calendar.
 25. Timestamps with an explicit offset (`09/14/2026 09:24:03 -04:00`), with `Z`
     (`2026-09-14 13:24:03.207Z`), or with no zone at all (Tradovate display columns, which are

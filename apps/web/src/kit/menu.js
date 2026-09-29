@@ -10,9 +10,9 @@ let typed = "";
 let typedAt = 0;
 let pressTimer = 0;
 
-const own = (menu) => [...menu.querySelectorAll('[role^="menuitem"]')].filter((item) => item.closest(".px-menu") === menu && !item.closest("[hidden], [inert]"));
+const own = (menu) => [...menu.querySelectorAll('[role^="menuitem"]')].filter((item) => item.closest(".ui-menu") === menu && !item.closest("[hidden], [inert]"));
 const isRtl = (el) => getComputedStyle(el).direction === "rtl";
-const subMenus = (menu) => [...menu.querySelectorAll(".px-menu-sub")].filter((sub) => sub.closest(".px-menu") === menu).map((sub) => sub.querySelector(".px-menu"));
+const subMenus = (menu) => [...menu.querySelectorAll(".ui-menu-sub")].filter((sub) => sub.closest(".ui-menu") === menu).map((sub) => sub.querySelector(".ui-menu"));
 
 function focusItem(menu, item) {
   if (!item) return;
@@ -50,7 +50,7 @@ function open(menu, where = "first", at) {
   focusItem(menu, where === "last" ? list.at(-1) : list[0]);
 }
 
-const viewsOf = (menu) => menu.querySelector(":scope > .px-menu-views");
+const viewsOf = (menu) => menu.querySelector(":scope > .ui-menu-views");
 const viewOf = (menu, name) => [...viewsOf(menu).children].find((view) => view.dataset.view === name);
 
 function showView(menu, name, forward) {
@@ -141,8 +141,8 @@ function wire(menu) {
 
   menu.addEventListener("beforetoggle", (event) => {
     if (event.newState === "open") { returnTo.set(menu, openerOf.get(menu) ?? document.activeElement); return; }
-    if ("pxHeldFocus" in menu.dataset) return;
-    menu.dataset.pxHeldFocus = menu.contains(document.activeElement) ? "" : "no";
+    if ("uiHeldFocus" in menu.dataset) return;
+    menu.dataset.uiHeldFocus = menu.contains(document.activeElement) ? "" : "no";
   });
 
   menu.addEventListener("toggle", (event) => {
@@ -152,13 +152,13 @@ function wire(menu) {
     resetViews(menu);
     subs.forEach((sub) => sub.matches(":popover-open") && sub.hidePopover());
     const parentOpen = !subOf.has(menu) || subOf.get(menu).matches(":popover-open");
-    if (menu.dataset.pxHeldFocus === "" && parentOpen) returnTo.get(menu)?.focus();
-    delete menu.dataset.pxHeldFocus;
+    if (menu.dataset.uiHeldFocus === "" && parentOpen) returnTo.get(menu)?.focus();
+    delete menu.dataset.uiHeldFocus;
   });
 
   menu.addEventListener("pointerover", (event) => {
     const item = event.target.closest('[role^="menuitem"]');
-    if (!item || item.closest(".px-menu") !== menu) return;
+    if (!item || item.closest(".ui-menu") !== menu) return;
     subs.forEach((sub) => { if (openerOf.get(sub) !== item && sub.matches(":popover-open")) sub.hidePopover(); });
     const sub = subs.find((candidate) => openerOf.get(candidate) === item);
     if (sub && !sub.matches(":popover-open")) open(sub, "none");
@@ -166,7 +166,7 @@ function wire(menu) {
 
   menu.addEventListener("click", (event) => {
     const item = event.target.closest('[role^="menuitem"]');
-    if (!item || item.closest(".px-menu") !== menu) return;
+    if (!item || item.closest(".ui-menu") !== menu) return;
     const sub = subs.find((candidate) => openerOf.get(candidate) === item);
     if (sub) { open(sub); return; }
     if (item.hasAttribute("data-view-to")) { showView(menu, item.dataset.viewTo, true); return; }
@@ -176,7 +176,7 @@ function wire(menu) {
 
   menu.addEventListener("keydown", (event) => {
     const item = document.activeElement.closest?.('[role^="menuitem"]');
-    if (item?.closest(".px-menu") !== menu) return;
+    if (item?.closest(".ui-menu") !== menu) return;
     const forward = isRtl(menu) ? "ArrowLeft" : "ArrowRight";
     const back = isRtl(menu) ? "ArrowRight" : "ArrowLeft";
     const sub = subs.find((candidate) => openerOf.get(candidate) === item);
@@ -197,7 +197,7 @@ function wire(menu) {
   });
 }
 
-/** Mount a `.px-menu` popover. `trigger` is a button that carries popovertarget, which gives the
+/** Mount a `.ui-menu` popover. `trigger` is a button that carries popovertarget, which gives the
     platform the invoker relationship it needs for nesting and focus return; this opens the menu
     on click and on ArrowDown / ArrowUp with focus on a row in the same task, and keeps
     aria-expanded true. `contextFor` opens the same menu at the pointer from a right-click or a

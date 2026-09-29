@@ -27,15 +27,15 @@ const KEYS = {
     advertising it can never disagree about which key they mean. */
 export const modKey = (event) => (MAC ? event.metaKey : event.ctrlKey);
 
-/** Fill every `.px-keys[data-keys="Mod+Shift+K"]` with platform chips, replacing whatever the
+/** Fill every `.ui-keys[data-keys="Mod+Shift+K"]` with platform chips, replacing whatever the
     page authored as its no-script fallback. role="img" plus the spoken names makes the group
     read as one shortcut instead of a run of symbols. */
 export function mountKeys(root = document) {
-  for (const group of root.querySelectorAll(".px-keys[data-keys]")) {
+  for (const group of root.querySelectorAll(".ui-keys[data-keys]")) {
     const parts = group.dataset.keys.split("+").map((key) => KEYS[key.trim().toLowerCase()] ?? [key.trim(), key.trim()]);
     group.replaceChildren(...parts.map(([glyph]) => {
       const chip = document.createElement("kbd");
-      chip.className = "px-kbd";
+      chip.className = "ui-kbd";
       chip.textContent = glyph;
       return chip;
     }));
@@ -88,14 +88,14 @@ export function nameFrom(control, word, name) {
     document.body.append(own);
     words.set(word, own);
   }
-  control.setAttribute("aria-labelledby", `${identify(own, "px-word")} ${identify(name, "px-name")}`);
+  control.setAttribute("aria-labelledby", `${identify(own, "ui-word")} ${identify(name, "ui-name")}`);
 }
 
 let status = null;
 function announce(...parts) {
   if (!status) {
     status = document.createElement("span");
-    status.className = "px-sr-only";
+    status.className = "ui-sr-only";
     status.setAttribute("role", "status");
     document.body.append(status);
   }
@@ -118,7 +118,7 @@ export function mountCopy(root = document) {
     const button = event.target.closest?.("[data-copy], [data-copy-target]");
     if (!button) return;
     clearTimeout(resets.get(button));
-    const glyph = button.querySelector("px-icon[data-morph]");
+    const glyph = button.querySelector("ui-icon[data-morph]");
     try {
       await navigator.clipboard.writeText(textToCopy(button));
       button.dataset.copied = "true";
@@ -141,7 +141,7 @@ let tooltip = null;
 function tooltipNode() {
   if (!tooltip) {
     tooltip = document.createElement("div");
-    tooltip.className = "px-tooltip";
+    tooltip.className = "ui-tooltip";
     tooltip.popover = "hint";
     tooltip.setAttribute("aria-hidden", "true");
     document.body.append(tooltip);
@@ -171,13 +171,13 @@ function showTooltip(anchor, text) {
 
 const clipped = (el) => el.scrollWidth > el.clientWidth + 1;
 
-/** Give every `.px-truncate` its tooltip, but only while its text is genuinely clipped. The
+/** Give every `.ui-truncate` its tooltip, but only while its text is genuinely clipped. The
     tabindex is that state: it is what lets a keyboard reach the tooltip, and removing it when
     the text fits keeps unclipped labels out of the tab order. One tooltip node serves every
     label, so each showing takes the direction and language of the label it is drawing; a label
     that declares neither leaves the node to inherit the document's. */
 export function mountTruncate(root = document) {
-  const nodes = [...root.querySelectorAll(".px-truncate")];
+  const nodes = [...root.querySelectorAll(".ui-truncate")];
   const sync = (el) => (clipped(el) ? el.setAttribute("tabindex", "0") : el.removeAttribute("tabindex"));
   const show = (event) => {
     const el = event.currentTarget;
@@ -234,13 +234,13 @@ const still = () => typeof matchMedia !== "undefined" && matchMedia("(prefers-re
 const runtime = (el) => parseFloat(getComputedStyle(el).transitionDuration) * 1000 || 0;
 const spot = (rect, frame, rtl) => ({ inline: rtl ? frame.right - rect.right : rect.left - frame.left, block: rect.top - frame.top });
 
-/** Wire one `.px-morph`: a value becoming another value in place, carrying the characters the two
+/** Wire one `.ui-morph`: a value becoming another value in place, carrying the characters the two
     share. Both values are cut into pieces and paired by their longest common run, so a shared piece
     keeps its own element and travels to its new place, while what leaves is pinned where it stood
     and lifts away as what arrives rises into its place. The box travels between the two measured
     widths, so the line around it is never handed a new width in one frame.
 
-    The reservation is every value this site can hold: the lines of a `.px-morph-reserve` written in
+    The reservation is every value this site can hold: the lines of a `.ui-morph-reserve` written in
     the markup, which hold the space before any script runs, and any `reserve` values only the script
     knows. The space taken is the widest of them, drawn out of sight in the pieces the value itself
     is drawn in, since a run of boxes and the same run of text do not measure the same to the last
@@ -252,20 +252,20 @@ const spot = (rect, frame, rtl) => ({ inline: rtl ? frame.right - rect.right : r
     equally when the layer's durations are zeroed under them.
 
     It is for one value becoming another, never for a state becoming a different state — a status
-    wants `.px-tag` and its colour, not a smooth swap that hides the change. The pieces are held out
+    wants `.ui-tag` and its colour, not a smooth swap that hides the change. The pieces are held out
     of the accessibility tree and the value is carried once beside them, so a reader is told the new
     value rather than spelled it and the outgoing one is never read. */
 export function mountMorph(root, { reserve } = {}) {
-  const px = readLocale();
-  const authored = root.querySelector(":scope > span:not(.px-morph-reserve)")?.textContent ?? "";
-  const reserved = [...(root.querySelector(":scope > .px-morph-reserve")?.children ?? [])].map((line) => line.textContent).concat(reserve ?? []);
-  root.classList.add("px-morph");
+  const lc = readLocale();
+  const authored = root.querySelector(":scope > span:not(.ui-morph-reserve)")?.textContent ?? "";
+  const reserved = [...(root.querySelector(":scope > .ui-morph-reserve")?.children ?? [])].map((line) => line.textContent).concat(reserve ?? []);
+  root.classList.add("ui-morph");
   const reading = document.createElement("span");
-  reading.className = "px-sr-only";
+  reading.className = "ui-sr-only";
   const box = document.createElement("span");
-  box.className = "px-morph-box";
+  box.className = "ui-morph-box";
   const rail = document.createElement("span");
-  rail.className = "px-morph-rail";
+  rail.className = "ui-morph-rail";
   rail.setAttribute("aria-hidden", "true");
   /* A piece is an inline block, which carries no direction of its own, so a run of them inside a
      page written the other way would be laid out in reverse. `auto` resolves the run from the value
@@ -281,12 +281,12 @@ export function mountMorph(root, { reserve } = {}) {
   const parts = [reading];
   if (reserved.length) {
     const space = document.createElement("span");
-    space.className = "px-morph-reserve";
+    space.className = "ui-morph-reserve";
     space.setAttribute("aria-hidden", "true");
     space.dir = "auto";
     for (const value of reserved) {
       const line = document.createElement("span");
-      line.append(...segmentValue(value, px.locale).map((text) => piece(text, "held")));
+      line.append(...segmentValue(value, lc.locale).map((text) => piece(text, "held")));
       space.append(line);
     }
     parts.push(space);
@@ -319,7 +319,7 @@ export function mountMorph(root, { reserve } = {}) {
     cancelAnimationFrame(releasing);
     for (const node of [...rail.children]) if (node.dataset.morph === "out") node.remove();
     const was = [...rail.children];
-    const cut = segmentValue(text, px.locale);
+    const cut = segmentValue(text, lc.locale);
     const kept = pairSegments(was.map((node) => node.textContent), cut);
     /* A value arriving where there was none is not one value becoming another, so it is simply
        drawn: a count reading its first step has nothing to travel from. */

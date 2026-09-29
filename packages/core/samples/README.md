@@ -1,7 +1,7 @@
 # Sample exports
 
-Every file here is synthetic. No row comes from a real account. The layouts copy real exports
-filed in PX Journals (`docs/research/csv-exports/`): the same headers, quoting, CRLF line
+Every file here is synthetic. No row comes from a real account. The layouts copy real exports:
+the same headers, quoting, CRLF line
 endings, the TopstepX byte-order mark, Tradovate's leading spaces (` Buy`, ` Commission`), and
 the platforms' number and date formats.
 

@@ -32,8 +32,7 @@
           },
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15170265979165-Rule-3-Do-Not-Hit-End-Of-Day-EOD-Maximum-Trailing-Drawdown",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/25000/pack-1/purchased-from-2026-08-17/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
@@ -62,8 +61,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171769361053-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/25000/pack-1/purchased-from-2026-08-17/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit trails realised and unrealised peaks during the day until it reaches the starting balance. No daily loss limit."
         },
@@ -88,8 +86,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/25000/pack-1/purchased-from-2026-08-17/stages/live"
+            "checkedAt": "2026-09-29"
           },
           "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
@@ -122,8 +119,7 @@
           },
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15170265979165-Rule-3-Do-Not-Hit-End-Of-Day-EOD-Maximum-Trailing-Drawdown",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/50000/pack-1/purchased-from-2026-08-17/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
@@ -152,8 +148,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171769361053-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/50000/pack-1/purchased-from-2026-08-17/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit trails realised and unrealised peaks during the day until it reaches the starting balance. No daily loss limit."
         },
@@ -178,8 +173,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/50000/pack-1/purchased-from-2026-08-17/stages/live"
+            "checkedAt": "2026-09-29"
           },
           "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
@@ -212,8 +206,7 @@
           },
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15170265979165-Rule-3-Do-Not-Hit-End-Of-Day-EOD-Maximum-Trailing-Drawdown",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/75000/pack-1/purchased-from-2026-08-17/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
@@ -242,8 +235,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171769361053-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/75000/pack-1/purchased-from-2026-08-17/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit trails realised and unrealised peaks during the day until it reaches the starting balance. No daily loss limit."
         },
@@ -268,8 +260,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/75000/pack-1/purchased-from-2026-08-17/stages/live"
+            "checkedAt": "2026-09-29"
           },
           "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
@@ -302,8 +293,7 @@
           },
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15170265979165-Rule-3-Do-Not-Hit-End-Of-Day-EOD-Maximum-Trailing-Drawdown",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/100000/pack-1/purchased-from-2026-08-17/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
@@ -332,8 +322,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171769361053-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/100000/pack-1/purchased-from-2026-08-17/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit trails realised and unrealised peaks during the day until it reaches the starting balance. No daily loss limit."
         },
@@ -358,8 +347,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/100000/pack-1/purchased-from-2026-08-17/stages/live"
+            "checkedAt": "2026-09-29"
           },
           "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }
@@ -392,8 +380,7 @@
           },
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15170265979165-Rule-3-Do-Not-Hit-End-Of-Day-EOD-Maximum-Trailing-Drawdown",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/150000/pack-1/purchased-from-2026-08-17/stages/eval"
+            "checkedAt": "2026-09-29"
           },
           "notes": "For Tests bought on or after 17 August 2026; earlier Tests need 5 trading days. No daily loss limit. The limit moves only on end-of-day balances and stops trailing at the starting balance, but touching it at any time, including on open losses, liquidates the account. The best day must be strictly below 50% of total net profit; Rule 5 and the dashboard's \"How Am I Doing?\" panel both use total profit, while an older FAQ line says profit target. Breaking it raises the goal to more than twice the best day; it does not fail the Test."
         },
@@ -422,8 +409,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15171769361053-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/150000/pack-1/purchased-from-2026-08-17/stages/funded"
+            "checkedAt": "2026-09-29"
           },
           "notes": "The limit trails realised and unrealised peaks during the day until it reaches the starting balance. No daily loss limit."
         },
@@ -448,8 +434,7 @@
           ],
           "source": {
             "url": "https://takeprofittraderhelp.zendesk.com/hc/en-us/articles/15172006753821-PRO-Account-Rules",
-            "checkedAt": "2026-09-29",
-            "pxKey": "take-profit-trader/1-step-test/standard/150000/pack-1/purchased-from-2026-08-17/stages/live"
+            "checkedAt": "2026-09-29"
           },
           "notes": "PRO+ starts at a $0 balance; the limit trails realised end-of-day profit and stops at $0, but the account fails the moment the balance including open positions reaches it. Promotion is by review, and $5,000 of PRO profit is held on upgrade (PRO+ upgrade article). TPT can move a trader to PRO+ Development with a smaller drawdown, a daily loss limit and fewer contracts, and pauses new purchases for 30 days after $10,000 of net live losses there; that stage is not modelled."
         }

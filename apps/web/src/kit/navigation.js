@@ -1,7 +1,7 @@
 import { mountMenu } from "./menu.js";
 import { openOverlay } from "./overlay.js";
 
-const STATE_KEY = "px-shell-state";
+const STATE_KEY = "ui-shell-state";
 const STEP = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
 
 const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -54,13 +54,13 @@ function travelling(host, className, items) {
 /** Wire one tab set: `root` holds a [role="tablist"] and the panels its tabs name through
     aria-controls. Selection follows focus, and a panel is told once, the first time it is
     shown, so a view whose contents are expensive can fill itself then:
-    `panel.addEventListener("px:tab", fill, { once: true })`. */
+    `panel.addEventListener("ui:tab", fill, { once: true })`. */
 export function mountTabs(root) {
   const list = root.querySelector('[role="tablist"]');
   const tabs = [...list.querySelectorAll('[role="tab"]')];
   const panel = (tab) => document.getElementById(tab.getAttribute("aria-controls"));
   const open = () => tabs.filter((tab) => !tab.disabled);
-  const move = travelling(list, "px-tab-indicator", tabs);
+  const move = travelling(list, "ui-tab-indicator", tabs);
 
   const select = (tab, focus, travel) => {
     for (const other of tabs) {
@@ -72,9 +72,9 @@ export function mountTabs(root) {
     move(tab, travel);
     if (focus) tab.focus();
     const shown = panel(tab);
-    if (shown.dataset.pxMounted === undefined) {
-      shown.dataset.pxMounted = "";
-      shown.dispatchEvent(new CustomEvent("px:tab", { bubbles: true }));
+    if (shown.dataset.uiMounted === undefined) {
+      shown.dataset.uiMounted = "";
+      shown.dispatchEvent(new CustomEvent("ui:tab", { bubbles: true }));
     }
   };
 
@@ -93,13 +93,13 @@ export function mountTabs(root) {
   select(tabs.find((tab) => tab.getAttribute("aria-selected") === "true") ?? open()[0], false, false);
 }
 
-/** Wire one `.px-segmented` radiogroup. Arrow keys move and check in one step, which is what a
+/** Wire one `.ui-segmented` radiogroup. Arrow keys move and check in one step, which is what a
     radio group means; Space checks whatever the tab stop is on. Each change is announced as
-    `px:change` on the group with the checked value. */
+    `ui:change` on the group with the checked value. */
 export function mountSegmented(group) {
   const all = [...group.querySelectorAll('[role="radio"]')];
   const open = () => all.filter((item) => !item.disabled);
-  const move = travelling(group, "px-segmented-indicator", all);
+  const move = travelling(group, "ui-segmented-indicator", all);
 
   const check = (item, travel) => {
     for (const other of all) {
@@ -112,7 +112,7 @@ export function mountSegmented(group) {
   const choose = (item) => {
     check(item);
     item.focus();
-    group.dispatchEvent(new CustomEvent("px:change", { bubbles: true, detail: item.value }));
+    group.dispatchEvent(new CustomEvent("ui:change", { bubbles: true, detail: item.value }));
   };
 
   group.addEventListener("click", (event) => {
@@ -142,7 +142,7 @@ export function mountSegmented(group) {
     Delegated, so server-rendered markup needs no wiring. */
 export function mountBreadcrumb(root = document) {
   root.addEventListener("click", (event) => {
-    const more = event.target.closest?.('.px-breadcrumb [data-breadcrumb="more"]');
+    const more = event.target.closest?.('.ui-breadcrumb [data-breadcrumb="more"]');
     if (!more) return;
     const expanding = more.getAttribute("aria-expanded") !== "true";
     more.setAttribute("aria-expanded", String(expanding));
@@ -152,13 +152,13 @@ export function mountBreadcrumb(root = document) {
 
 /** Wire the app shell: `[data-shell="toggle"]` and Mod+B switch the sidebar between its expanded
     and rail modes and remember the choice, `[data-shell="menu"]` opens the drawer. Below
-    --px-bp-md the sidebar element is moved into `drawer` and back out again, so there is one
+    --ui-bp-md the sidebar element is moved into `drawer` and back out again, so there is one
     sidebar in the document and its scroll position and current item survive the move. */
 export function mountShell(shell, drawer) {
-  const sidebar = shell.querySelector(".px-sidebar");
+  const sidebar = shell.querySelector(".ui-sidebar");
   const toggle = shell.querySelector('[data-shell="toggle"]');
   const menu = shell.querySelector('[data-shell="menu"]');
-  const narrow = matchMedia(`(width < ${token("--px-bp-md")})`);
+  const narrow = matchMedia(`(width < ${token("--ui-bp-md")})`);
 
   const setState = (state) => {
     shell.dataset.state = state;
@@ -166,7 +166,7 @@ export function mountShell(shell, drawer) {
     const expanded = state === "expanded";
     toggle.setAttribute("aria-expanded", String(expanded));
     toggle.setAttribute("aria-label", expanded ? "Collapse the sidebar" : "Expand the sidebar");
-    toggle.querySelector("px-icon").setAttribute("name", expanded ? "chevron-start" : "chevron-end");
+    toggle.querySelector("ui-icon").setAttribute("name", expanded ? "chevron-start" : "chevron-end");
   };
 
   const place = () => (narrow.matches ? drawer : shell).prepend(sidebar);
@@ -189,7 +189,7 @@ export function mountShell(shell, drawer) {
   });
 }
 
-/** Wire one `.px-accordion`. Each `.px-accordion-trigger` names its `.px-accordion-panel`
+/** Wire one `.ui-accordion`. Each `.ui-accordion-trigger` names its `.ui-accordion-panel`
     through aria-controls, and a closed panel carries `hidden="until-found"`: out of the tab
     order and out of the accessibility tree, still reachable by find-in-page, which is what
     fires `beforematch` and opens it here. The panel animates its own grid row from 0fr to 1fr,
@@ -197,7 +197,7 @@ export function mountShell(shell, drawer) {
     open at a time; the default lets a reader open as many as they want. */
 export function mountAccordion(root, options = {}) {
   const single = options.single ?? root.dataset.single !== undefined;
-  const triggers = [...root.querySelectorAll(".px-accordion-trigger")];
+  const triggers = [...root.querySelectorAll(".ui-accordion-trigger")];
   const panelOf = (trigger) => document.getElementById(trigger.getAttribute("aria-controls"));
   const open = () => triggers.filter((trigger) => !trigger.disabled);
   const timers = new WeakMap();
@@ -222,16 +222,16 @@ export function mountAccordion(root, options = {}) {
     if (String(on) === trigger.getAttribute("aria-expanded")) return;
     if (on && single) for (const other of triggers) if (other !== trigger) paint(other, false);
     paint(trigger, on);
-    root.dispatchEvent(new CustomEvent("px:toggle", { bubbles: true, detail: { id: trigger.id, open: on } }));
+    root.dispatchEvent(new CustomEvent("ui:toggle", { bubbles: true, detail: { id: trigger.id, open: on } }));
     options.onToggle?.(trigger, on);
   };
 
   root.addEventListener("click", (event) => {
-    const trigger = event.target.closest(".px-accordion-trigger");
+    const trigger = event.target.closest(".ui-accordion-trigger");
     if (trigger && !trigger.disabled) toggle(trigger, trigger.getAttribute("aria-expanded") !== "true");
   });
   root.addEventListener("keydown", (event) => {
-    if (!document.activeElement.classList?.contains("px-accordion-trigger")) return;
+    if (!document.activeElement.classList?.contains("ui-accordion-trigger")) return;
     const reachable = open();
     const to = nextIndex(event, reachable, reachable.indexOf(document.activeElement));
     if (to === null) return;
@@ -248,7 +248,7 @@ export function mountAccordion(root, options = {}) {
   return { toggle: (id, on) => toggle(triggers.find((trigger) => trigger.id === id), on) };
 }
 
-/** Wire one `.px-toolbar` that folds whatever does not fit into the menu its `[data-overflow]`
+/** Wire one `.ui-toolbar` that folds whatever does not fit into the menu its `[data-overflow]`
     button opens. The fold is measured rather than declared at a breakpoint, so a toolbar in a
     narrow panel and the same toolbar across a full page each keep exactly the actions they have
     room for. Folding runs from the end, so the least important action goes first, and each
@@ -256,18 +256,18 @@ export function mountAccordion(root, options = {}) {
 export function mountToolbar(root) {
   const overflow = root.querySelector(":scope > [data-overflow]");
   const menu = document.getElementById(overflow.getAttribute("popovertarget"));
-  const items = [...root.children].filter((child) => child !== overflow && !child.classList.contains("px-toolbar-spacer"));
+  const items = [...root.children].filter((child) => child !== overflow && !child.classList.contains("ui-toolbar-spacer"));
   let folding = false;
 
   const entry = (item, first) => {
     const line = document.createElement("button");
     line.type = "button";
-    line.className = "px-menu-item";
+    line.className = "ui-menu-item";
     line.setAttribute("role", "menuitem");
     line.tabIndex = first ? 0 : -1;
     if (item.disabled) line.setAttribute("aria-disabled", "true");
     if (item.dataset.variant === "danger") line.dataset.tone = "loss";
-    const icon = item.querySelector("px-icon");
+    const icon = item.querySelector("ui-icon");
     if (icon) line.append(icon.cloneNode(true));
     line.append(item.dataset.label ?? item.textContent.trim());
     line.addEventListener("click", () => item.click());

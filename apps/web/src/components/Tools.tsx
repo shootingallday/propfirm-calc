@@ -7,9 +7,9 @@ import { PageHead, Stat } from '../ui.tsx';
 
 function Field({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
   return (
-    <label className="px-field">
-      <span className="px-label">{label}</span>
-      <input className="px-input" inputMode="decimal" value={value} onChange={(event) => onChange(event.target.value)} />
+    <label className="ui-field">
+      <span className="ui-label">{label}</span>
+      <input className="ui-input" inputMode="decimal" value={value} onChange={(event) => onChange(event.target.value)} />
     </label>
   );
 }
@@ -41,15 +41,15 @@ export function Tools({ store }: { store: Store }) {
         The same engine as the <code>size</code> and <code>project</code> commands in the CLI.
       </PageHead>
       <div className="grid2">
-        <section className="px-card stack" style={{ padding: 'var(--px-space-4) var(--cell-px)' }} aria-labelledby="ps-h">
-          <h2 id="ps-h" style={{ fontSize: 'var(--px-text-md)' }}>
+        <section className="ui-card stack" style={{ padding: 'var(--ui-space-4) var(--cell-px)' }} aria-labelledby="ps-h">
+          <h2 id="ps-h" style={{ fontSize: 'var(--ui-text-md)' }}>
             Position size
           </h2>
           {live.length > 0 && (
-            <label className="px-field">
-              <span className="px-label">Account</span>
+            <label className="ui-field">
+              <span className="ui-label">Account</span>
               <select
-                className="px-input"
+                className="ui-input"
                 value={pick}
                 onChange={(event) => {
                   setPick(event.target.value);
@@ -71,13 +71,13 @@ export function Tools({ store }: { store: Store }) {
           </div>
           <Field label="Risk per trade" value={risk} onChange={setRisk} />
           <Stat label="Contracts" sub={chosen && Number(risk) > chosen.status.cushion.toNumber() ? 'More than the room left on this account' : undefined}>
-            <span className="px-num" data-testid="contracts">
+            <span className="ui-num" data-testid="contracts">
               {contracts === null ? '—' : `${contracts} ${contracts === 1 ? 'contract' : 'contracts'}`}
             </span>
           </Stat>
         </section>
-        <section className="px-card stack" style={{ padding: 'var(--px-space-4) var(--cell-px)' }} aria-labelledby="dt-h">
-          <h2 id="dt-h" style={{ fontSize: 'var(--px-text-md)' }}>
+        <section className="ui-card stack" style={{ padding: 'var(--ui-space-4) var(--cell-px)' }} aria-labelledby="dt-h">
+          <h2 id="dt-h" style={{ fontSize: 'var(--ui-text-md)' }}>
             Days to target
           </h2>
           <div className="fields">
@@ -88,7 +88,7 @@ export function Tools({ store }: { store: Store }) {
             <Field label="Consistency %" value={pct} onChange={setPct} />
           </div>
           <Stat label="Trading days to the target" sub={projection?.bindingConstraint === 'consistency' ? 'Consistency raises the target' : undefined}>
-            <span className="px-num" data-testid="days-to-target">
+            <span className="ui-num" data-testid="days-to-target">
               {projection === null ? '—' : Number.isFinite(projection.tradingDays) ? `${projection.tradingDays} ${projection.tradingDays === 1 ? 'day' : 'days'}` : 'Not at this average'}
             </span>
           </Stat>

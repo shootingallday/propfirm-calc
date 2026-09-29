@@ -1,0 +1,512 @@
+/* Design tokens */
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 107.12%;
+  ascent-override: 90.5%;
+  descent-override: 22.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  size-adjust: 113.43%;
+  ascent-override: 85.5%;
+  descent-override: 21.3%;
+  line-gap-override: 0%;
+  unicode-range: U+0030-0039;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold");
+  font-weight: 700;
+  size-adjust: 101.53%;
+  ascent-override: 95.5%;
+  descent-override: 23.8%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold");
+  font-weight: 700;
+  size-adjust: 118.61%;
+  ascent-override: 81.7%;
+  descent-override: 20.4%;
+  line-gap-override: 0%;
+  unicode-range: U+0030-0039;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New");
+  font-weight: 400;
+  size-adjust: 99.98%;
+  ascent-override: 102.1%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New Bold");
+  font-weight: 700;
+  size-adjust: 99.98%;
+  ascent-override: 102.1%;
+  descent-override: 30.1%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* tier 1 · neutral ramp */
+  --ui-gray-0: #ffffff;
+  --ui-gray-50: #fafafa;
+  --ui-gray-100: #f5f5f5;
+  --ui-gray-200: #e8e8e8;
+  --ui-gray-300: #d2d2d2;
+  --ui-gray-400: #a1a1a1;
+  --ui-gray-450: #868686;
+  --ui-gray-500: #6e6e6e;
+  --ui-gray-600: #515151;
+  --ui-gray-700: #424242;
+  --ui-gray-800: #333333;
+  --ui-gray-900: #1d1d1d;
+  --ui-gray-925: #161616;
+  --ui-gray-950: #000000;
+
+  /* tier 1 · chroma */
+  --ui-blue-200: #b9d2ff;
+  --ui-blue-300: #87b1fd;
+  --ui-blue-400: #5b8def;
+  --ui-blue-500: #2e6be6;
+  --ui-blue-600: #2358c4;
+  --ui-blue-700: #144097;
+  --ui-green-200: #3ccaa7;
+  --ui-green-400: #0fa37f;
+  --ui-green-450: #208b69;
+  --ui-green-500: #0e7a4b;
+  --ui-green-600: #04654b;
+  --ui-red-200: #fe9a9a;
+  --ui-red-300: #e4666e;
+  --ui-red-400: #e14f55;
+  --ui-red-500: #c93e48;
+  --ui-red-600: #c21642;
+  --ui-red-700: #a20321;
+  --ui-amber-300: #d9a21b;
+  --ui-amber-350: #c08a20;
+  --ui-amber-400: #b7791f;
+  --ui-amber-500: #946212;
+  --ui-magenta-400: #b03a9e;
+  --ui-magenta-500: #9c2f8b;
+
+  /* tier 1 · brand */
+  --ui-brand-300: #78fb1d;
+  --ui-brand-600: #4c9e13;
+
+  /* tier 1 · type */
+  --ui-font-sans: "Inter Variable", "Inter", "Inter Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ui-font-mono: "JetBrains Mono Variable", "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --ui-text-xs: 12px;
+  --ui-text-sm: 13px;
+  --ui-text-base: 14px;
+  --ui-text-md: 16px;
+  --ui-text-lg: 20px;
+  --ui-text-xl: 24px;
+  --ui-text-2xl: 32px;
+  --ui-text-3xl: 48px;
+  --ui-text-hero: clamp(44px, 6.5vw, 76px);
+  --ui-stage-text-caption: 24px;
+  --ui-stage-text-body: 32px;
+  --ui-stage-text-lead: 40px;
+  --ui-stage-text-heading: 64px;
+  --ui-stage-text-title: 96px;
+  --ui-stage-text-stat: 192px;
+  --ui-leading-tight: 1.05;
+  --ui-leading-snug: 1.3;
+  --ui-leading-normal: 1.5;
+  --ui-leading-relaxed: 1.6;
+  --ui-tracking-tight: -0.02em;
+  --ui-tracking-tighter: -0.03em;
+
+  /* tier 1 · space (4px base) */
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-5: 20px;
+  --ui-space-6: 24px;
+  --ui-space-8: 32px;
+  --ui-space-10: 40px;
+  --ui-space-12: 48px;
+  --ui-space-16: 64px;
+  --ui-space-24: 96px;
+
+  /* tier 1 · radius */
+  --ui-radius-sm: 6px;
+  --ui-radius-md: 8px;
+  --ui-radius-lg: 12px;
+  --ui-radius-xl: 16px;
+  --ui-radius-full: 9999px;
+
+  /* tier 1 · layering */
+  --ui-layer-raised: 10;
+  --ui-layer-sticky: 20;
+  --ui-layer-overlay: 30;
+
+  /* tier 1 · breakpoints */
+  --ui-bp-sm: 640px;
+  --ui-bp-md: 768px;
+  --ui-bp-lg: 1024px;
+  --ui-bp-xl: 1280px;
+
+  /* tier 1 · motion */
+  --ui-duration-fast: 120ms;
+  --ui-duration-base: 200ms;
+  --ui-duration-slow: 320ms;
+  --ui-duration-reveal: 500ms;
+  --ui-duration-hold: 1500ms;
+
+  /* The one duration reduced motion keeps */
+  --ui-duration-fade: 120ms;
+
+  /* The decay of the tint a changed value carries */
+  --ui-duration-tint: 900ms;
+
+  /* tier 1 · dwell */
+  --ui-dwell-short: 4000ms;
+  --ui-dwell-medium: 6000ms;
+  --ui-dwell-long: 8000ms;
+  --ui-dwell-longest: 10000ms;
+  --ui-ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ui-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ui-ease-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+  --ui-ease-press: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ui-spring-snappy: linear(0, 0.0203, 0.0715, 0.1417, 0.2221, 0.3065, 0.3902, 0.4703, 0.545, 0.613, 0.674, 0.7279, 0.7749, 0.8154, 0.8499, 0.8791, 0.9035, 0.9238, 0.9405, 0.9541, 0.9651, 0.9739, 0.9809, 0.9863, 0.9906, 0.9938, 0.9962, 0.998, 0.9993, 1.0002, 1.0008, 1.0012, 1.0014, 1.0015, 1.0015, 1.0015, 1.0014, 1.0013, 1.0011, 1.001, 1);
+  --ui-spring-snappy-duration: var(--ui-duration-base);
+  --ui-spring-smooth: linear(0, 0.0229, 0.0788, 0.1532, 0.2361, 0.3208, 0.403, 0.4802, 0.5509, 0.6146, 0.6711, 0.7207, 0.7638, 0.801, 0.8329, 0.8601, 0.8832, 0.9027, 0.9191, 0.9329, 0.9445, 0.9541, 0.9621, 0.9688, 0.9743, 0.9789, 0.9827, 0.9858, 0.9884, 0.9905, 0.9922, 0.9936, 0.9948, 0.9958, 0.9965, 0.9972, 0.9977, 0.9981, 0.9985, 0.9988, 1);
+  --ui-spring-smooth-duration: var(--ui-duration-slow);
+  --ui-spring-fluid: linear(0, 0.0263, 0.0929, 0.1841, 0.2878, 0.3951, 0.4995, 0.5967, 0.6842, 0.7605, 0.8253, 0.8789, 0.9221, 0.9559, 0.9815, 1.0002, 1.0132, 1.0215, 1.0262, 1.0282, 1.0281, 1.0267, 1.0244, 1.0216, 1.0186, 1.0156, 1.0127, 1.0101, 1.0078, 1.0058, 1.0041, 1.0027, 1.0017, 1.0008, 1.0002, 0.9998, 0.9995, 0.9993, 0.9992, 0.9992, 1);
+  --ui-spring-fluid-duration: var(--ui-duration-slow);
+  --ui-spring-fluid-stretch: 5%;
+  --ui-spring-fluid-blur: 4px;
+
+  /* tier 1 · scroll-lock compensation */
+  --ui-scrollbar-left: 0px;
+  --ui-scrollbar-right: 0px;
+
+  /* tier 1 · locale */
+  --ui-locale: "en-US";
+  --ui-currency: "USD";
+  --ui-time-zone: "America/New_York";
+  --ui-hour-cycle: "h12";
+  --ui-week-start: 0;
+
+  /* tier 2 · surfaces and text (light) */
+  --background: var(--ui-gray-100);
+  --foreground: var(--ui-gray-900);
+  --card: var(--ui-gray-0);
+  --card-foreground: var(--ui-gray-900);
+  --popover: var(--ui-gray-0);
+  --popover-foreground: var(--ui-gray-900);
+  --primary: var(--ui-blue-500);
+  --primary-foreground: var(--ui-gray-0);
+  --secondary: var(--ui-gray-200);
+  --secondary-foreground: var(--ui-gray-900);
+  --muted: var(--ui-gray-200);
+  --muted-foreground: var(--ui-gray-600);
+  --faint-foreground: var(--ui-gray-500);
+  --accent: var(--ui-gray-200);
+  --accent-foreground: var(--ui-gray-900);
+  --destructive: var(--ui-red-500);
+  --destructive-foreground: var(--ui-gray-0);
+  --link: var(--ui-blue-600);
+  --border: var(--ui-gray-300);
+  --input: var(--ui-gray-300);
+  --ring: var(--ui-blue-500);
+
+  /* tier 2 · money and status. The bare role is text (4.5:1); *-fill is marks and meters (3:1). */
+  --gain: var(--ui-green-500);
+  --gain-fill: var(--ui-green-500);
+  --loss: var(--ui-red-500);
+  --loss-fill: var(--ui-red-400);
+  --warn: var(--ui-amber-500);
+  --warn-fill: var(--ui-amber-400);
+  --gain-soft: color-mix(in oklab, var(--gain) 10%, transparent);
+  --loss-soft: color-mix(in oklab, var(--loss) 10%, transparent);
+  --warn-soft: color-mix(in oklab, var(--warn) 12%, transparent);
+  --primary-soft: color-mix(in oklab, var(--primary) 12%, transparent);
+
+  /* tier 2 · media */
+  --skeleton: var(--muted);
+  --skeleton-sheen: color-mix(in oklab, var(--foreground) 8%, var(--muted));
+  --plate: var(--ui-gray-0);
+  --media-badge: color-mix(in oklab, var(--ui-gray-950) 72%, transparent);
+  --tint-1: var(--ui-blue-500);
+  --tint-2: var(--ui-green-500);
+  --tint-3: var(--ui-amber-500);
+  --tint-4: var(--ui-red-500);
+  --tint-foreground: var(--ui-gray-0);
+
+  /* tier 2 · brand */
+  --brand-ink: var(--ui-gray-900);
+  --brand-accent: var(--ui-brand-600);
+  --brand-plate: var(--ui-gray-900);
+
+  /* tier 2 · elevation */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 2px 4px rgb(0 0 0 / 0.05), 0 12px 32px rgb(0 0 0 / 0.09);
+  --shadow-lg: 0 8px 16px rgb(0 0 0 / 0.07), 0 24px 64px rgb(0 0 0 / 0.14);
+  --shadow-primary: 0 4px 14px rgb(46 107 230 / 0.35);
+  --shadow-control: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-thumb: 0 1px 2px rgb(0 0 0 / 0.2);
+
+  /* tier 2 · focus. One ring for every control, so the value is written once. */
+  --focus-ring: 0 0 0 1px var(--ring), 0 0 0 4px color-mix(in oklab, var(--ring) 18%, transparent);
+
+  /* tier 2 · chart */
+  --chart-grid: rgb(0 0 0 / 0.06);
+  --chart-axis: var(--faint-foreground);
+  --chart-tick: var(--muted-foreground);
+  --chart-line: var(--muted-foreground);
+  --chart-1: var(--ui-blue-500);
+  --chart-2: var(--ui-amber-400);
+  --chart-3: var(--ui-magenta-500);
+
+  /* tier 2 · sequential ramp */
+  --chart-sequential-1: var(--ui-blue-300);
+  --chart-sequential-2: var(--ui-blue-400);
+  --chart-sequential-3: var(--ui-blue-500);
+  --chart-sequential-4: var(--ui-blue-600);
+  --chart-sequential-5: var(--ui-blue-700);
+
+  /* tier 2 · diverging ramp */
+  --chart-loss-3: var(--ui-red-500);
+  --chart-loss-2: var(--ui-red-300);
+  --chart-loss-1: var(--ui-red-200);
+  --chart-zero: var(--ui-gray-200);
+  --chart-gain-1: var(--ui-green-200);
+  --chart-gain-2: var(--ui-green-400);
+  --chart-gain-3: var(--ui-green-500);
+  --print-paper: var(--ui-gray-0);
+  --print-ink: var(--ui-gray-900);
+  --print-muted: var(--ui-gray-700);
+  --print-rule: var(--ui-gray-400);
+  --print-grid: var(--ui-gray-300);
+  --print-link: var(--ui-blue-700);
+  --print-primary: var(--ui-blue-600);
+  --print-gain: var(--ui-green-600);
+  --print-loss: var(--ui-red-700);
+  --print-gain-fill: var(--ui-green-600);
+  --print-loss-fill: var(--ui-red-400);
+
+  /* tier 2 · syntax */
+  --syntax-background: var(--ui-gray-50);
+  --syntax-foreground: var(--foreground);
+  --syntax-token-comment: var(--muted-foreground);
+  --syntax-token-keyword: var(--ui-red-500);
+  --syntax-token-string: var(--ui-green-500);
+  --syntax-token-string-expression: var(--ui-green-500);
+  --syntax-token-function: var(--ui-blue-600);
+  --syntax-token-constant: var(--ui-amber-500);
+  --syntax-token-parameter: var(--foreground);
+  --syntax-token-punctuation: var(--faint-foreground);
+  --syntax-token-link: var(--link);
+
+  /* tier 2 · layering */
+  --z-raised: var(--ui-layer-raised);
+  --z-sticky: var(--ui-layer-sticky);
+  --z-overlay: var(--ui-layer-overlay);
+
+  /* tier 2 · overlay */
+  --scrim: rgb(0 0 0 / 0.32);
+  --overlay-rise: var(--ui-space-2);
+  --overlay-enter: var(--ui-duration-base);
+  --overlay-exit: var(--ui-duration-fast);
+  --overlay-ease-enter: var(--ui-ease-out);
+  --overlay-ease-exit: var(--ui-ease-in-out);
+  --drawer-enter: var(--ui-duration-slow);
+  --drawer-exit: var(--ui-duration-base);
+
+  /* tier 2 · toast dwell */
+  --toast-duration: var(--ui-dwell-short);
+  --toast-duration-warn: var(--ui-dwell-medium);
+  --toast-duration-loss: var(--ui-dwell-longest);
+  --toast-undo: var(--ui-dwell-long);
+
+  /* tier 2 · icons */
+  --icon-size: 16px;
+  --icon-size-sm: 14px;
+  --icon-size-lg: 20px;
+  --icon-size-xl: 24px;
+  --icon-stroke: 1.75;
+
+  /* tier 2 · radius roles */
+  --radius-control: var(--ui-radius-md);
+  --radius-card: var(--ui-radius-lg);
+  --radius-dialog: var(--ui-radius-xl);
+  --radius-pill: var(--ui-radius-full);
+
+  /* tier 2 · density (app surfaces are the default) */
+  --text-body: var(--ui-text-base);
+  --leading-body: var(--ui-leading-normal);
+  --control-h: 36px;
+  --control-h-sm: 30px;
+  --control-h-lg: 44px;
+  --control-h-multiline: 88px;
+  --row-h: 44px;
+  --cell-px: 18px;
+  --card-gap: var(--ui-space-4);
+  --stack-gap: var(--ui-space-6);
+  --gutter: var(--ui-space-8);
+  --measure: 1120px;
+  --read-measure: 62ch;
+  color-scheme: light;
+}
+
+/* Reading surfaces: landing pages, docs, long-form notes. Controls keep their app size. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-duration-fast: 0ms;
+    --ui-duration-base: 0ms;
+    --ui-duration-slow: 0ms;
+    --ui-duration-reveal: 0ms;
+
+    /* Overlays keep their cross-fade */
+    --overlay-enter: var(--ui-duration-fade);
+    --overlay-exit: var(--ui-duration-fade);
+    --drawer-enter: var(--ui-duration-fade);
+    --drawer-exit: var(--ui-duration-fade);
+  }
+}
+
+@media (pointer: coarse) {
+  :root {
+    --control-h: var(--control-h-lg);
+    --control-h-sm: var(--control-h-lg);
+  }
+}
+
+[data-density="reading"] {
+  --text-body: var(--ui-text-md);
+  --leading-body: var(--ui-leading-relaxed);
+  --icon-size: 18px;
+  --icon-size-sm: 16px;
+  --icon-size-lg: 22px;
+  --icon-size-xl: 26px;
+  --card-gap: var(--ui-space-6);
+  --stack-gap: var(--ui-space-8);
+  --gutter: var(--ui-space-6);
+}
+
+.dark {
+  --background: var(--ui-gray-950);
+  --foreground: var(--ui-gray-100);
+  --card: var(--ui-gray-900);
+  --card-foreground: var(--ui-gray-100);
+  --popover: var(--ui-gray-900);
+  --popover-foreground: var(--ui-gray-100);
+  --primary: var(--ui-blue-500);
+  --primary-foreground: var(--ui-gray-0);
+  --secondary: var(--ui-gray-800);
+  --secondary-foreground: var(--ui-gray-100);
+  --muted: var(--ui-gray-800);
+  --muted-foreground: var(--ui-gray-400);
+  --faint-foreground: var(--ui-gray-450);
+  --accent: var(--ui-gray-800);
+  --accent-foreground: var(--ui-gray-100);
+  --destructive: var(--ui-red-300);
+  --destructive-foreground: var(--ui-gray-950);
+  --link: var(--ui-blue-400);
+  --border: var(--ui-gray-700);
+  --input: var(--ui-gray-700);
+  --ring: var(--ui-blue-400);
+  --gain: var(--ui-green-400);
+  --gain-fill: var(--ui-green-400);
+  --loss: var(--ui-red-300);
+  --loss-fill: var(--ui-red-400);
+  --warn: var(--ui-amber-300);
+  --warn-fill: var(--ui-amber-300);
+
+  /* Same expressions as :root, so the skeleton follows the dark surface roles. */
+  --skeleton: var(--muted);
+  --skeleton-sheen: color-mix(in oklab, var(--foreground) 8%, var(--muted));
+
+  /* Repeated rather than swapped: these sit on media, not on the page. */
+  --plate: var(--ui-gray-0);
+  --media-badge: color-mix(in oklab, var(--ui-gray-950) 72%, transparent);
+  --tint-1: var(--ui-blue-500);
+  --tint-2: var(--ui-green-500);
+  --tint-3: var(--ui-amber-500);
+  --tint-4: var(--ui-red-500);
+  --tint-foreground: var(--ui-gray-0);
+  --brand-ink: var(--ui-gray-100);
+  --brand-accent: var(--ui-brand-300);
+  --brand-plate: var(--ui-gray-900);
+  --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.06), 0 4px 12px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 0 0 1px rgb(255 255 255 / 0.08), 0 12px 32px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 0 0 1px rgb(255 255 255 / 0.08), 0 24px 64px rgb(0 0 0 / 0.6);
+  --shadow-primary: 0 4px 14px rgb(46 107 230 / 0.45);
+  --shadow-control: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-thumb: 0 1px 2px rgb(0 0 0 / 0.35);
+  --chart-grid: rgb(255 255 255 / 0.06);
+  --chart-axis: var(--faint-foreground);
+  --chart-tick: var(--muted-foreground);
+  --chart-line: var(--muted-foreground);
+  --chart-1: var(--ui-blue-400);
+  --chart-2: var(--ui-amber-350);
+  --chart-3: var(--ui-magenta-400);
+  --chart-sequential-1: var(--ui-blue-600);
+  --chart-sequential-2: var(--ui-blue-500);
+  --chart-sequential-3: var(--ui-blue-400);
+  --chart-sequential-4: var(--ui-blue-300);
+  --chart-sequential-5: var(--ui-blue-200);
+  --chart-loss-3: var(--ui-red-400);
+  --chart-loss-2: var(--ui-red-600);
+  --chart-loss-1: var(--ui-red-700);
+  --chart-zero: var(--ui-gray-925);
+  --chart-gain-1: var(--ui-green-600);
+  --chart-gain-2: var(--ui-green-450);
+  --chart-gain-3: var(--ui-green-400);
+  --print-paper: var(--ui-gray-0);
+  --print-ink: var(--ui-gray-900);
+  --print-muted: var(--ui-gray-700);
+  --print-rule: var(--ui-gray-400);
+  --print-grid: var(--ui-gray-300);
+  --print-link: var(--ui-blue-700);
+  --print-primary: var(--ui-blue-600);
+  --print-gain: var(--ui-green-600);
+  --print-loss: var(--ui-red-700);
+  --print-gain-fill: var(--ui-green-600);
+  --print-loss-fill: var(--ui-red-400);
+  --scrim: rgb(0 0 0 / 0.6);
+  --syntax-background: var(--ui-gray-925);
+  --syntax-token-keyword: var(--ui-red-300);
+  --syntax-token-string: var(--ui-green-400);
+  --syntax-token-string-expression: var(--ui-green-400);
+  --syntax-token-function: var(--ui-blue-400);
+  --syntax-token-constant: var(--ui-amber-300);
+  color-scheme: dark;
+}
+
+[data-theme-switching], [data-theme-switching] *, [data-theme-switching] ::before, [data-theme-switching] ::after {
+  transition: none !important;
+}
+
+:root:active-view-transition-type(ui-theme)::view-transition-old(root) {
+  animation: none;
+}
+
+:root:active-view-transition-type(ui-theme)::view-transition-new(root) {
+  animation: ui-theme-reveal var(--ui-spring-smooth-duration) var(--ui-spring-smooth);
+  mix-blend-mode: normal;
+}
+
+@keyframes ui-theme-reveal {
+  from { clip-path: circle(0 at var(--ui-theme-x) var(--ui-theme-y)); }
+  to { clip-path: circle(var(--ui-theme-r) at var(--ui-theme-x) var(--ui-theme-y)); }
+}

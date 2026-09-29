@@ -164,7 +164,7 @@ describe('trading days', () => {
     expect(trade('2026-11-04T22:10:00Z', '2026-11-04T22:30:00Z')).toEqual([['2026-11-04', '20.00', 0]]);
   });
 
-  it('labels a Friday evening fill the way PX does, as Saturday', () => {
+  it('labels a Friday evening fill as Saturday, by the 18:00 New York roll', () => {
     expect(trade('2026-09-18T22:10:00Z', '2026-09-18T22:30:00Z')).toEqual([['2026-09-19', '20.00', 0]]);
   });
 

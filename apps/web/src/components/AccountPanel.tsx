@@ -17,8 +17,8 @@ import {
 } from 'propfirm-calc';
 
 import { amount, inDays, shortDate, signed, usd } from '../format.ts';
-import { openOverlay } from '../px/overlay.js';
-import { toast } from '../px/toast.js';
+import { openOverlay } from '../kit/overlay.js';
+import { toast } from '../kit/toast.js';
 import { allowance, changes, consistencyText, dailyLossText, drawdownText, firmOf, nextStep, planName, roomTone, series, stageTag, targetText } from '../status.ts';
 import { newId, type Store } from '../store.ts';
 import { Chart, Empty, Fold, Icon, Menu, Num, Signed, Stat } from '../ui.tsx';
@@ -71,9 +71,9 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
   const tone = roomTone(account, base);
 
   return (
-    <aside className="px-card panel" id="panel" aria-labelledby="panel-title" data-testid="account-panel">
+    <aside className="ui-card panel" id="panel" aria-labelledby="panel-title" data-testid="account-panel">
       <div className="panel-top">
-        <button type="button" className="px-btn" data-variant="ghost" data-size="icon" aria-label={`Close ${account.label}`} onClick={close}>
+        <button type="button" className="ui-btn" data-variant="ghost" data-size="icon" aria-label={`Close ${account.label}`} onClick={close}>
           <Icon name="close" />
         </button>
         {renaming ? (
@@ -106,26 +106,26 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
         )}
         <span style={{ marginInlineStart: 'auto' }} />
         <Menu label={`Actions for ${account.label}`}>
-          <button className="px-menu-item" role="menuitem" type="button" onClick={() => setTimeout(() => setRenaming(true), 0)}>
+          <button className="ui-menu-item" role="menuitem" type="button" onClick={() => setTimeout(() => setRenaming(true), 0)}>
             <Icon name="edit" />
             Rename
           </button>
-          <div className="px-menu-sep" />
-          <button className="px-menu-item" role="menuitem" type="button" data-tone="loss" onClick={() => del.current && openOverlay(del.current)}>
+          <div className="ui-menu-sep" />
+          <button className="ui-menu-item" role="menuitem" type="button" data-tone="loss" onClick={() => del.current && openOverlay(del.current)}>
             <Icon name="delete" />
             Delete account…
           </button>
         </Menu>
       </div>
       <div className="row small muted">
-        <span className="px-tag" data-tone={tag.tone}>
+        <span className="ui-tag" data-tone={tag.tone}>
           {tag.text}
         </span>
         {firm?.name} · {planName(account)}
         {account.externalIds.length > 0 && ` · linked to ${account.externalIds.join(', ')}`}
       </div>
       {base.blown && (
-        <div className="px-alert" data-tone="loss" role="status">
+        <div className="ui-alert" data-tone="loss" role="status">
           <Icon name="error" />
           <div>
             <b>Blown on {shortDate(base.blown.date)}</b>
@@ -138,14 +138,14 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
         </div>
       )}
       {!base.blown && base.evaluation?.passed && nextStage && firm && plan && (
-        <div className="px-alert" data-tone="gain" role="status">
+        <div className="ui-alert" data-tone="gain" role="status">
           <Icon name="success" />
           <div>
             <b>Passed</b>
             <p>Add the {nextStage.name} account with its rules filled in.</p>
           <button
             type="button"
-            className="px-btn"
+            className="ui-btn"
             data-variant="secondary"
             data-size="sm"
             onClick={() => {
@@ -172,7 +172,7 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
               {effects.length > 0 && (
                 <div className="fx">
                   {effects.map((effect) => (
-                    <span key={effect.text} className="px-tag" data-tone={effect.tone}>
+                    <span key={effect.text} className="ui-tag" data-tone={effect.tone}>
                       {effect.text}
                     </span>
                   ))}
@@ -182,15 +182,15 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
           )}
         </div>
       )}
-      <div className="px-guard" data-state={base.blown ? 'breached' : tone === 'warn' ? 'near' : 'armed'} role="status">
-        <div className="px-guard-head">
+      <div className="ui-guard" data-state={base.blown ? 'breached' : tone === 'warn' ? 'near' : 'armed'} role="status">
+        <div className="ui-guard-head">
           <Icon name="guarded" />
           Drawdown floor {usd(base.floor)}
-          <span className="px-guard-used px-num">
+          <span className="ui-guard-used ui-num">
             {usd(money(used), 0)} of {usd(money(allowance(account)), 0)} used
           </span>
         </div>
-        <div className="px-meter" data-tone={tone}>
+        <div className="ui-meter" data-tone={tone}>
           <i style={{ width: `${base.blown ? 100 : (used / allowance(account)) * 100}%` }} />
         </div>
         <small>{base.blown ? 'Breached' : `${usd(base.cushion, 0)} of room left${account.rules.drawdown.lockAt === 'never' ? ', and it never locks' : ''}`}</small>
@@ -216,7 +216,7 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
         </Stat>
       </div>
       <div>
-        <div className="px-tabs" role="tablist" aria-label="Account detail">
+        <div className="ui-tabs" role="tablist" aria-label="Account detail">
           {TABS.map((name, index) => (
             <button
               key={name}
@@ -224,7 +224,7 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
                 tabRefs.current[index] = el;
               }}
               type="button"
-              className="px-tab"
+              className="ui-tab"
               role="tab"
               id={`tab-${name}`}
               aria-controls={`tabpanel-${name}`}
@@ -240,22 +240,22 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
               }}
             >
               {name}
-              {name === 'Days' && <span className="px-badge">{account.days.length}</span>}
-              {name === 'Payouts' && account.payouts.length > 0 && <span className="px-badge">{account.payouts.length}</span>}
+              {name === 'Days' && <span className="ui-badge">{account.days.length}</span>}
+              {name === 'Payouts' && account.payouts.length > 0 && <span className="ui-badge">{account.payouts.length}</span>}
             </button>
           ))}
         </div>
-        <div className="px-tabpanel tabpad" role="tabpanel" id={`tabpanel-${tab}`} aria-labelledby={`tab-${tab}`} tabIndex={0}>
+        <div className="ui-tabpanel tabpad" role="tabpanel" id={`tabpanel-${tab}`} aria-labelledby={`tab-${tab}`} tabIndex={0}>
           {tab === 'Overview' && <Overview row={row} />}
           {tab === 'Days' && <Days account={account} store={store} hits={base.dailyLoss?.hits ?? []} />}
           {tab === 'Payouts' && <Payouts account={account} store={store} />}
           {tab === 'Rules' && <Rules account={account} store={store} />}
         </div>
       </div>
-      <dialog ref={del} className="px-overlay" data-overlay="dialog" role="alertdialog" aria-labelledby="delete-title" aria-describedby="delete-desc">
+      <dialog ref={del} className="ui-overlay" data-overlay="dialog" role="alertdialog" aria-labelledby="delete-title" aria-describedby="delete-desc">
         <form
           method="dialog"
-          className="px-panel"
+          className="ui-panel"
           data-size="sm"
           data-tone="loss"
           onSubmit={(event) => {
@@ -266,21 +266,21 @@ export function AccountPanel({ row, whatIf, store }: { row: Row; whatIf: number;
             location.hash = 'accounts';
           }}
         >
-          <div className="px-panel-head">
-            <h2 className="px-panel-title" id="delete-title">
+          <div className="ui-panel-head">
+            <h2 className="ui-panel-title" id="delete-title">
               Delete {account.label}?
             </h2>
           </div>
-          <div className="px-panel-body">
+          <div className="ui-panel-body">
             <p id="delete-desc">
               Its {account.days.length} days and every payout go with it. This can't be undone, so export a backup first if you might want them.
             </p>
           </div>
-          <div className="px-panel-foot">
-            <button className="px-btn" value="cancel" autoFocus>
+          <div className="ui-panel-foot">
+            <button className="ui-btn" value="cancel" autoFocus>
               Keep account
             </button>
-            <button className="px-btn" data-variant="danger" value="delete">
+            <button className="ui-btn" data-variant="danger" value="delete">
               Delete account
             </button>
           </div>
@@ -297,13 +297,13 @@ function PathCard({ path }: { path: PathStatus }) {
         <b>
           {path.name} <span className="muted small">· {path.split}% split</span>
         </b>
-        <span className="px-tag" data-tone={path.eligible ? 'gain' : undefined}>
+        <span className="ui-tag" data-tone={path.eligible ? 'gain' : undefined}>
           {path.eligible ? 'Ready' : Number.isFinite(path.daysToEligible) ? inDays(path.daysToEligible).replace(/^in /, 'In ') : 'Blocked'}
         </span>
       </div>
       <div className="small muted">
-        Withdraw <b className="px-num" style={{ color: 'var(--foreground)' }}>{usd(path.withdrawable)}</b>, you get{' '}
-        <b className="px-num" style={{ color: 'var(--foreground)' }}>{usd(path.estimatedPayout)}</b> · profit this cycle {usd(path.cycleProfit)}
+        Withdraw <b className="ui-num" style={{ color: 'var(--foreground)' }}>{usd(path.withdrawable)}</b>, you get{' '}
+        <b className="ui-num" style={{ color: 'var(--foreground)' }}>{usd(path.estimatedPayout)}</b> · profit this cycle {usd(path.cycleProfit)}
         {path.cycleStart && ` since ${shortDate(path.cycleStart)}`}
       </div>
       {path.winningDaysNeeded !== null && path.winningDays !== null && (
@@ -311,7 +311,7 @@ function PathCard({ path }: { path: PathStatus }) {
           <div className="small muted">
             Winning days · {Math.min(path.winningDays, path.winningDaysNeeded)} of {path.winningDaysNeeded}
           </div>
-          <div className="px-meter">
+          <div className="ui-meter">
             <i style={{ width: `${Math.min(100, (path.winningDays / path.winningDaysNeeded) * 100)}%` }} />
           </div>
         </>
@@ -353,7 +353,7 @@ function Overview({ row }: { row: Row }) {
           <h3>Best payout path</h3>
           <PathCard path={base.payout.best} />
           {base.payout.paths.length > 1 && (
-            <div className="px-accordion">
+            <div className="ui-accordion">
               <Fold title={`${base.payout.paths.length - 1} more ${base.payout.paths.length === 2 ? 'path' : 'paths'}`}>
                 <div className="stack">
                   {base.payout.paths.slice(1).map((path) => (
@@ -372,14 +372,14 @@ function Overview({ row }: { row: Row }) {
             <span className="muted">
               {usd(base.totalProfit.lt(0) ? money(0) : base.totalProfit)} of the {usd(target, 0)} target
             </span>
-            <span className="px-num">{usd(evaluation.profitRemaining)} to go</span>
+            <span className="ui-num">{usd(evaluation.profitRemaining)} to go</span>
           </div>
-          <div className="px-meter">
+          <div className="ui-meter">
             <i style={{ width: `${Math.max(0, Math.min(100, base.totalProfit.div(target).times(100).toNumber()))}%` }} />
           </div>
-          <dl className="px-dl">
+          <dl className="ui-dl">
             <dt>Trading days</dt>
-            <dd className="px-num">
+            <dd className="ui-num">
               {evaluation.tradingDays}
               {evaluation.minTradingDays ? ` · ${evaluation.minTradingDays} needed` : ''}
             </dd>
@@ -407,26 +407,26 @@ function Overview({ row }: { row: Row }) {
           <Chart spec={spec} />
         </section>
       )}
-      <div className="px-accordion">
+      <div className="ui-accordion">
         <Fold title="More numbers">
-          <dl className="px-dl">
+          <dl className="ui-dl">
             <dt>Peak balance</dt>
-            <dd className="px-num">{usd(base.peak)}</dd>
+            <dd className="ui-num">{usd(base.peak)}</dd>
             <dt>Total paid out</dt>
-            <dd className="px-num">{usd(base.totalPaidOut)}</dd>
+            <dd className="ui-num">{usd(base.totalPaidOut)}</dd>
             <dt>Trading days</dt>
-            <dd className="px-num">{base.tradingDays}</dd>
+            <dd className="ui-num">{base.tradingDays}</dd>
             <dt>Last day entered</dt>
             <dd>{base.lastDate ? shortDate(base.lastDate) : '—'}</dd>
             <dt>Average winning day</dt>
-            <dd className="px-num">{usd(base.avgWinningDay)}</dd>
+            <dd className="ui-num">{usd(base.avgWinningDay)}</dd>
             <dt>Average used for estimates</dt>
-            <dd className="px-num">{usd(base.avgDayUsed)}</dd>
+            <dd className="ui-num">{usd(base.avgDayUsed)}</dd>
             <dt>Days at the daily loss limit</dt>
             <dd>{base.dailyLoss?.hits.length ? base.dailyLoss.hits.map(shortDate).join(', ') : 'None'}</dd>
           </dl>
           {base.notes.map((note) => (
-            <p key={note} className="px-hint">
+            <p key={note} className="ui-hint">
               {note}
             </p>
           ))}
@@ -452,19 +452,19 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
           toast.success(`Saved ${shortDate(date)}`);
         }}
       >
-        <label className="px-field">
-          <span className="px-label">Date</span>
-          <input className="px-input" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+        <label className="ui-field">
+          <span className="ui-label">Date</span>
+          <input className="ui-input" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
         </label>
-        <label className="px-field">
-          <span className="px-label">Net P&amp;L</span>
-          <input className="px-input" inputMode="decimal" placeholder="−250.00" value={pnl} onChange={(event) => setPnl(event.target.value)} />
+        <label className="ui-field">
+          <span className="ui-label">Net P&amp;L</span>
+          <input className="ui-input" inputMode="decimal" placeholder="−250.00" value={pnl} onChange={(event) => setPnl(event.target.value)} />
         </label>
-        <button className="px-btn" data-variant="secondary" type="submit">
+        <button className="ui-btn" data-variant="secondary" type="submit">
           Save day
         </button>
       </form>
-      <p className="px-hint" style={{ margin: 0 }}>
+      <p className="ui-hint" style={{ margin: 0 }}>
         A date you already entered is replaced.
       </p>
       {account.days.length === 0 ? (
@@ -472,7 +472,7 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
           Type them here or import a CSV.
         </Empty>
       ) : (
-        <table className="px-table">
+        <table className="ui-table">
           <thead>
             <tr>
               <th>Day</th>
@@ -494,7 +494,7 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
                   <Signed value={netPnl(day, account.feePerSide)} />
                   {hits.includes(day.date) && (
                     <div>
-                      <span className="px-tag" data-tone="loss">
+                      <span className="ui-tag" data-tone="loss">
                         Daily loss limit
                       </span>
                     </div>
@@ -503,7 +503,7 @@ function Days({ account, store, hits }: { account: Account; store: Store; hits: 
                 <td className="r">
                   <button
                     type="button"
-                    className="px-btn"
+                    className="ui-btn"
                     data-variant="ghost"
                     data-size="icon"
                     aria-label={`Remove ${shortDate(day.date)}`}
@@ -542,15 +542,15 @@ function Payouts({ account, store }: { account: Account; store: Store }) {
           toast.success(`Recorded ${usd(money(value))}`);
         }}
       >
-        <label className="px-field">
-          <span className="px-label">Date</span>
-          <input className="px-input" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+        <label className="ui-field">
+          <span className="ui-label">Date</span>
+          <input className="ui-input" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
         </label>
-        <label className="px-field">
-          <span className="px-label">Amount</span>
-          <input className="px-input" inputMode="decimal" placeholder="1,000.00" value={payoutText} onChange={(event) => setPayoutText(event.target.value)} />
+        <label className="ui-field">
+          <span className="ui-label">Amount</span>
+          <input className="ui-input" inputMode="decimal" placeholder="1,000.00" value={payoutText} onChange={(event) => setPayoutText(event.target.value)} />
         </label>
-        <button className="px-btn" data-variant="secondary" type="submit">
+        <button className="ui-btn" data-variant="secondary" type="submit">
           Record payout
         </button>
       </form>
@@ -559,7 +559,7 @@ function Payouts({ account, store }: { account: Account; store: Store }) {
           Recording one starts a new payout cycle.
         </Empty>
       ) : (
-        <table className="px-table">
+        <table className="ui-table">
           <thead>
             <tr>
               <th>Day</th>
@@ -577,7 +577,7 @@ function Payouts({ account, store }: { account: Account; store: Store }) {
                 <td className="r">
                   <button
                     type="button"
-                    className="px-btn"
+                    className="ui-btn"
                     data-variant="ghost"
                     data-size="icon"
                     aria-label={`Remove the ${shortDate(payout.date)} payout`}
@@ -606,7 +606,7 @@ function Rules({ account, store }: { account: Account; store: Store }) {
   const update = (next: Partial<StageRules>) => store.updateAccount(account.id, (current) => ({ ...current, rules: { ...current.rules, ...next } }));
   return (
     <>
-      <dl className="px-dl">
+      <dl className="ui-dl">
         <dt>Drawdown</dt>
         <dd>{drawdownText(rules)}</dd>
         <dt>Profit target</dt>
@@ -631,12 +631,12 @@ function Rules({ account, store }: { account: Account; store: Store }) {
       </dl>
       <p className="small muted">
         Checked {shortDate(rules.source.checkedAt)} ·{' '}
-        <a className="px-link" href={rules.source.url} target="_blank" rel="noreferrer">
+        <a className="ui-link" href={rules.source.url} target="_blank" rel="noreferrer">
           {firm?.name ?? 'Firm'} rules
         </a>
         . Firms change rules every few months.
       </p>
-      <div className="px-accordion">
+      <div className="ui-accordion">
         {rules.notes && (
           <Fold title="Firm notes">
             <p className="small">{rules.notes}</p>
@@ -646,9 +646,9 @@ function Rules({ account, store }: { account: Account; store: Store }) {
           <div className="stack">
             <div className="fields">
               <RuleField label="Drawdown" value={rules.drawdown.amount} valid={(n) => n > 0} onCommit={(value) => value && update({ drawdown: { ...rules.drawdown, amount: value } })} />
-              <label className="px-field">
-                <span className="px-label">Drawdown type</span>
-                <select className="px-input" value={rules.drawdown.mode} onChange={(event) => update({ drawdown: { ...rules.drawdown, mode: event.target.value as StageRules['drawdown']['mode'] } })}>
+              <label className="ui-field">
+                <span className="ui-label">Drawdown type</span>
+                <select className="ui-input" value={rules.drawdown.mode} onChange={(event) => update({ drawdown: { ...rules.drawdown, mode: event.target.value as StageRules['drawdown']['mode'] } })}>
                   <option value="eod_trailing">End-of-day trailing</option>
                   <option value="intraday_trailing">Intraday trailing</option>
                   <option value="static">Static</option>
@@ -671,7 +671,7 @@ function Rules({ account, store }: { account: Account; store: Store }) {
               />
               <RuleField label="Fee per contract per side" value={account.feePerSide} valid={() => true} onCommit={(value) => value && store.updateAccount(account.id, (current) => ({ ...current, feePerSide: value }))} />
             </div>
-            <p className="px-hint" style={{ margin: 0 }}>
+            <p className="ui-hint" style={{ margin: 0 }}>
               Copied from catalog version {account.catalogVersion}. Changes only this account.
             </p>
           </div>
@@ -687,10 +687,10 @@ function RuleField({ label, value, optional = false, valid, onCommit }: { label:
   const ok = draft.trim() === '' ? optional : parsed !== null && valid(Number(parsed));
   const id = useId();
   return (
-    <label className="px-field">
-      <span className="px-label">{label}</span>
+    <label className="ui-field">
+      <span className="ui-label">{label}</span>
       <input
-        className="px-input"
+        className="ui-input"
         inputMode="decimal"
         value={draft}
         placeholder={optional ? 'None' : undefined}
@@ -705,7 +705,7 @@ function RuleField({ label, value, optional = false, valid, onCommit }: { label:
         }}
       />
       {!ok && (
-        <span className="px-error" id={id}>
+        <span className="ui-error" id={id}>
           {draft.trim() === '' ? 'Needs a number' : 'Not a valid amount, so the old one is kept'}
         </span>
       )}

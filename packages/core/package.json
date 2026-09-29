@@ -53,15 +53,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "catalog:check": "tsx scripts/check-catalog.ts"
+    "test": "vitest run"
   },
   "dependencies": {
     "decimal.js": "^10.4.3"
   },
   "devDependencies": {
     "@types/node": "^26.6.3",
-    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.0.2"
   }

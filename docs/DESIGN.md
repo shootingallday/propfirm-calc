@@ -1,13 +1,11 @@
 # Design
 
-The web app uses the PX Brand design system, Aero style, taken from PX Brand at commit
-`97d0e145`. The kit lives in `apps/web/src/px/` as plain CSS and ES modules: tokens, components,
-chart, icons, menus, overlays and toasts. The React code uses its `.px-*` classes and calls its
-modules for menus, dialogs, toasts, the chart and the theme switch.
+The web app is styled with a small design kit in `apps/web/src/kit/`: plain CSS and ES modules
+for tokens, components, the chart, icons, menus, overlays and toasts. The React code uses its
+`.ui-*` classes and `<ui-icon>` element, and calls its modules for menus, dialogs, toasts, the
+chart and the theme switch.
 
-To update the kit, copy the new files from PX Brand over `apps/web/src/px/` and run `pnpm e2e`.
-
-Rules the app follows from PX Brand:
+Rules the app follows:
 
 - Green and red only for money and rule state. Links use `--link`.
 - Negative numbers use the minus sign (−), and figures are tabular.

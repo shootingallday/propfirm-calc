@@ -67,7 +67,7 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
     <div className="narrow">
       <PageHead title="Import">Tradovate Fills, Performance, Account Balance History and Cash History, and TopstepX Orders and Trades. Files never leave this browser.</PageHead>
       <label
-        className="px-drop"
+        className="ui-drop"
         data-state={over ? 'over' : undefined}
         onDragOver={(event) => {
           event.preventDefault();
@@ -93,11 +93,11 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
             event.target.value = '';
           }}
         />
-        <span className="px-drop-note">Several at once. From TopstepX, export Orders: Trades can drop round trips.</span>
+        <span className="ui-drop-note">Several at once. From TopstepX, export Orders: Trades can drop round trips.</span>
       </label>
       <div className="stack" style={{ marginBlockStart: 'var(--card-gap)' }}>
         {log.length > 0 && (
-          <div className="px-alert" data-tone="gain" role="status" data-testid="import-log">
+          <div className="ui-alert" data-tone="gain" role="status" data-testid="import-log">
             <Icon name="success" />
             <div>
               <b>Imported</b>
@@ -105,20 +105,20 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
                 <p key={line}>{line}</p>
               ))}
             </div>
-            <a className="px-btn" data-variant="secondary" data-size="sm" href="#accounts">
+            <a className="ui-btn" data-variant="secondary" data-size="sm" href="#accounts">
               See accounts
             </a>
           </div>
         )}
         {loaded.map((file, fileIndex) => (
-          <div className="px-card" key={file.name}>
-            <div className="px-card-title row" style={{ padding: 'var(--px-space-3) var(--cell-px) 0' }}>
+          <div className="ui-card" key={file.name}>
+            <div className="ui-card-title row" style={{ padding: 'var(--ui-space-3) var(--cell-px) 0' }}>
               <Icon name="trades" />
               {file.name}
-              <span className="px-tag">{file.result.label}</span>
+              <span className="ui-tag">{file.result.label}</span>
             </div>
-            <div style={{ overflowX: 'auto', padding: 'var(--px-space-2) var(--cell-px) var(--px-space-3)' }}>
-              <table className="px-table">
+            <div style={{ overflowX: 'auto', padding: 'var(--ui-space-2) var(--cell-px) var(--ui-space-3)' }}>
+              <table className="ui-table">
                 <thead>
                   <tr>
                     <th>In the file</th>
@@ -141,12 +141,12 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
                             {imported.payouts.length ? ` · ${imported.payouts.length} ${imported.payouts.length === 1 ? 'payout' : 'payouts'}` : ''}
                           </div>
                         </td>
-                        <td className="r px-num">{imported.days.length}</td>
+                        <td className="r ui-num">{imported.days.length}</td>
                         <td className="r col-profit">
                           <Signed value={sum(imported.days.map((day) => money(day.pnl)))} />
                         </td>
                         <td>
-                          <select className="px-input" aria-label={`Goes into, for ${name}`} value={choice[key] ?? ''} onChange={(event) => setChoice({ ...choice, [key]: event.target.value })}>
+                          <select className="ui-input" aria-label={`Goes into, for ${name}`} value={choice[key] ?? ''} onChange={(event) => setChoice({ ...choice, [key]: event.target.value })}>
                             <option value="">Skip</option>
                             {accounts.map((account) => (
                               <option key={account.id} value={account.id}>
@@ -163,7 +163,7 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
               </table>
             </div>
             {file.result.warnings.length > 0 && (
-              <div className="px-accordion">
+              <div className="ui-accordion">
                 <Fold title={`${file.result.warnings.length} ${file.result.warnings.length === 1 ? 'warning' : 'warnings'}`}>
                   {file.result.warnings.map((warning) => (
                     <p key={warning} className="small">
@@ -176,7 +176,7 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
           </div>
         ))}
         {errors.map((error) => (
-          <div key={error.name} className="px-alert" data-tone="loss" role="alert">
+          <div key={error.name} className="ui-alert" data-tone="loss" role="alert">
             <Icon name="error" />
             <div>
               <b>{error.name} wasn't read</b>
@@ -186,11 +186,11 @@ export function Import({ store, onAdd }: { store: Store; onAdd: () => void }) {
         ))}
         {loaded.length > 0 && (
           <div className="row">
-            <button type="button" className="px-btn" data-variant="primary" disabled={!picked.length} onClick={apply}>
+            <button type="button" className="ui-btn" data-variant="primary" disabled={!picked.length} onClick={apply}>
               {picked.length ? `Import ${dayCount} ${dayCount === 1 ? 'day' : 'days'} into ${new Set(picked).size} ${new Set(picked).size === 1 ? 'account' : 'accounts'}` : 'Pick an account to import into'}
             </button>
             {accounts.length === 0 && (
-              <button type="button" className="px-btn" data-variant="secondary" onClick={onAdd}>
+              <button type="button" className="ui-btn" data-variant="secondary" onClick={onAdd}>
                 Add an account to import into
               </button>
             )}

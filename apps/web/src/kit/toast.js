@@ -33,7 +33,7 @@ function announce(id, parts, assertive) {
   const key = assertive ? "alert" : "status";
   if (!live[key]) {
     const node = document.createElement("span");
-    node.className = "px-sr-only";
+    node.className = "ui-sr-only";
     node.setAttribute("role", key);
     document.body.append(node);
     live[key] = { node, pending: new Map(), timer: 0, linger: 0 };
@@ -61,12 +61,12 @@ let nextId = 0;
 function mount() {
   if (region) return;
   region = document.createElement("section");
-  region.className = "px-toaster";
+  region.className = "ui-toaster";
   region.popover = "manual";
   region.setAttribute("role", "region");
   region.setAttribute("aria-label", "Notifications alt+T");
   list = document.createElement("ol");
-  list.className = "px-toaster-list";
+  list.className = "ui-toaster-list";
   list.tabIndex = -1;
   region.append(list);
   document.body.append(region);
@@ -113,14 +113,14 @@ function localize(node, lang) {
 function build(entry, { message, description, action, lang }) {
   const { icon: name, tone } = TONES[entry.kind];
   const node = document.createElement("li");
-  node.className = "px-toast";
+  node.className = "ui-toast";
   if (tone) node.dataset.tone = tone;
   node.innerHTML = `${icon(name)}<div><b>${escape(message)}</b>${description ? `<p>${escape(description)}</p>` : ""}</div>`;
   localize(node.querySelector("div"), lang);
 
   if (action) {
     const button = document.createElement("button");
-    button.className = "px-btn";
+    button.className = "ui-btn";
     button.dataset.variant = "secondary";
     button.dataset.size = "sm";
     button.textContent = action.label;
@@ -130,7 +130,7 @@ function build(entry, { message, description, action, lang }) {
   }
 
   const close = document.createElement("button");
-  close.className = "px-toast-close";
+  close.className = "ui-toast-close";
   close.setAttribute("aria-label", "Dismiss");
   close.innerHTML = icon("close");
   close.addEventListener("click", () => dismiss(entry.id));
@@ -176,7 +176,7 @@ function swipeable(node, entry) {
 
 function show(kind, message, options = {}) {
   mount();
-  const id = options.id ?? `px-toast-${++nextId}`;
+  const id = options.id ?? `ui-toast-${++nextId}`;
   const existing = open.get(id);
   const entry = existing ?? { id, kind, timer: null, remaining: 0, startedAt: 0 };
   if (existing) hold(existing);

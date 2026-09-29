@@ -23,12 +23,12 @@ function schedule(tip) {
   timer = setTimeout(() => reveal(tip), shown || Date.now() < warmUntil ? 0 : SHOW_DELAY);
 }
 
-/** Wire every trigger under `root` that describes itself with a `.px-tooltip`. The trigger and
-    the tooltip name the same anchor in --px-anchor; placement is CSS. */
+/** Wire every trigger under `root` that describes itself with a `.ui-tooltip`. The trigger and
+    the tooltip name the same anchor in --ui-anchor; placement is CSS. */
 export function mountTooltips(root = document) {
   for (const trigger of root.querySelectorAll("[aria-describedby]")) {
     const tip = document.getElementById(trigger.getAttribute("aria-describedby"));
-    if (!tip?.classList.contains("px-tooltip")) continue;
+    if (!tip?.classList.contains("ui-tooltip")) continue;
     tip.setAttribute("role", "tooltip");
     trigger.addEventListener("pointerenter", (event) => event.pointerType !== "touch" && schedule(tip));
     trigger.addEventListener("pointerleave", () => hide(tip));

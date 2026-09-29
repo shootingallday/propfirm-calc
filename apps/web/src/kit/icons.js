@@ -2,9 +2,9 @@
    subset in icons.build.mjs and run `pnpm icons:build`.
 
    icon(meaning) returns one <svg> string for server-rendered TypeScript and template literals;
-   <px-icon name="gain"> does the same for static HTML and Electron with no build step. Both
+   <ui-icon name="gain"> does the same for static HTML and Electron with no build step. Both
    draw at 24 and are scaled by --icon-size, stroked with currentColor, and hidden from
-   assistive technology unless given a label. A <px-icon data-morph> asked for another meaning
+   assistive technology unless given a label. A <ui-icon data-morph> asked for another meaning
    keeps the paths it already drew and changes their shape into the new glyph's. */
 
 import { drawGlyph, morphGlyph } from "./glyph-morph.js";
@@ -74,19 +74,19 @@ const escape = (value) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").rep
 
 const source = (name) => {
   const found = ICON_SOURCE[name];
-  if (!found) throw new Error(`Unknown PX icon "${name}"`);
+  if (!found) throw new Error(`Unknown icon "${name}"`);
   return found;
 };
 
-const fillOf = (name) => `<g class="px-icon-fill" aria-hidden="true">${source(name)[1]}</g>`;
+const fillOf = (name) => `<g class="ui-icon-fill" aria-hidden="true">${source(name)[1]}</g>`;
 
 export function icon(name, { size, label, filled } = {}) {
   const naming = label ? `role="img" aria-label="${escape(label)}"` : 'aria-hidden="true"';
-  return `<svg class="px-icon" data-icon="${name}"${size ? ` data-size="${escape(size)}"` : ""}${filled ? " data-filled" : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" ${naming}>${source(name)[1]}${filled ? fillOf(name) : ""}</svg>`;
+  return `<svg class="ui-icon" data-icon="${name}"${size ? ` data-size="${escape(size)}"` : ""}${filled ? " data-filled" : ""} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" ${naming}>${source(name)[1]}${filled ? fillOf(name) : ""}</svg>`;
 }
 
 const fill = (svg, name, on) => {
-  if (on && !svg.querySelector(".px-icon-fill")) {
+  if (on && !svg.querySelector(".ui-icon-fill")) {
     svg.insertAdjacentHTML("beforeend", fillOf(name));
     void getComputedStyle(svg.lastElementChild).clipPath;
   }
@@ -106,7 +106,7 @@ const named = (svg, label) => {
 };
 
 customElements.define(
-  "px-icon",
+  "ui-icon",
   class extends HTMLElement {
     static observedAttributes = ["name", "label", "data-size", "data-morph", "data-filled"];
     connectedCallback() { this.render(); }
@@ -118,7 +118,7 @@ customElements.define(
       if (attribute === "label") return named(svg, after);
       if (attribute !== "name") return this.render();
       svg.dataset.icon = after;
-      svg.querySelector(".px-icon-fill")?.remove();
+      svg.querySelector(".ui-icon-fill")?.remove();
       morphGlyph(svg, source(after)[1]);
       if (this.hasAttribute("data-filled")) svg.insertAdjacentHTML("beforeend", fillOf(after));
     }

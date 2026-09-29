@@ -23,4 +23,4 @@ Written before `src/evaluate.ts`. Each one is covered in `evaluate.test.ts`.
 19. `afterFirstPayout` isn't applied, or it's applied before any payout.
 20. An account with no days crashes, or reports a best day.
 21. A payout is offered that takes the balance to or under the floor (found in review; the withdrawable amount is now capped at the floor, including a floor that jumps after the first payout).
-22. A payout lowers the trailing peak. It deliberately doesn't: when a firm is silent, a withdrawal leaves the floor where it was and uses up cushion, which is the strict reading PX Journals uses too.
+22. A payout lowers the trailing peak. It deliberately doesn't: when a firm is silent, a withdrawal leaves the floor where it was and uses up cushion (the strict reading).

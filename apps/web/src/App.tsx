@@ -7,7 +7,7 @@ import { Calendar } from './components/Calendar.tsx';
 import { Import } from './components/Import.tsx';
 import { Tools } from './components/Tools.tsx';
 import { shortDate } from './format.ts';
-import { switchTheme } from './px/theme-switch.js';
+import { switchTheme } from './kit/theme-switch.js';
 import { useSaved } from './store.ts';
 import { Icon } from './ui.tsx';
 
@@ -54,7 +54,7 @@ export function App() {
   return (
     <>
       <a
-        className="px-skip-link"
+        className="ui-skip-link"
         href="#main"
         onClick={(event) => {
           event.preventDefault();
@@ -68,13 +68,13 @@ export function App() {
           <img src="/icon.png" alt="" />
           propfirm-calc
         </a>
-        <nav className="px-nav" aria-label="Primary">
+        <nav className="ui-nav" aria-label="Primary">
           {nav}
         </nav>
         <div className="bar-end">
           <button
             type="button"
-            className="px-btn"
+            className="ui-btn"
             data-variant="ghost"
             data-size="icon"
             aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -85,7 +85,7 @@ export function App() {
           >
             <Icon name={dark ? 'light' : 'dark'} />
           </button>
-          <button type="button" className="px-btn add-top" data-variant="primary" onClick={add}>
+          <button type="button" className="ui-btn add-top" data-variant="primary" onClick={add}>
             <Icon name="add" />
             Add account
           </button>
@@ -105,7 +105,7 @@ export function App() {
       <nav className="tabbar" aria-label="Primary">
         {nav}
       </nav>
-      <button type="button" className="px-btn fab" data-variant="primary" data-size="lg" onClick={add}>
+      <button type="button" className="ui-btn fab" data-variant="primary" data-size="lg" onClick={add}>
         <Icon name="add" />
         Add account
       </button>
